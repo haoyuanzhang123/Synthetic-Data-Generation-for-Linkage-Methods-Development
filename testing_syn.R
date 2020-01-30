@@ -1,3 +1,7 @@
+rm(list = ls())
+
+
+
 data = split.data(adult,70)
 
 
@@ -127,3 +131,16 @@ linkage_file_1 = damage.gold.standard(gold_standard, syn_error_occurrence_1)
 
 syn_error_occurrence_2 = bn.inference.flags(dataset_smaller_version, bn_learn$fit.model)
 linkage_file_2 = damage.gold.standard(gold_standard, syn_error_occurrence_2)
+
+
+
+
+
+
+
+
+
+
+
+
+

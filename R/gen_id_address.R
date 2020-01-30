@@ -18,18 +18,11 @@ gen.NHSID <- function(){
 }
 
 
-gen.address <- function(postcode = NA){
-  if (is.na(postcode)){
-    tmp = PostcodesioR::random_postcode()
-  }
-  else {
-    tmp = PostcodesioR::random_postcode(postcode)
-  }
-  stringlist = append(tmp['postcode'], tmp['country'])
-  stringlist = append(stringlist, tmp['primary_care_trust'])
 
-  return(stringlist)
-}
+
+
+
+
 
 
 gen.DoB <- function(start = '1900-01-01', end= '2020-01-01'){
