@@ -1,8 +1,6 @@
 append.variable <- function(dataset, append.type,
-                               start = '1900-01-01', end= '2020-01-01',
-                               age = FALSE,
-                               postcode = NA,
-                               gender =TRUE){
+                            country='uk', start = '1900-01-01', end= '2020-01-01',
+                            age = TRUE, postcode = NA, gender =TRUE, race =FALSE){
   if (append.type == 'NHSID'){
     dataset[append.type]<-1
     for (i in 1:nrow(dataset)){
@@ -37,7 +35,7 @@ append.variable <- function(dataset, append.type,
   else if (append.type == 'address'
            || append.type == 'Address'
            || append.type == 'ADDRESS'){
-    ukaddress <- read.csv(file = "data/uk_address.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+    ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
     cols = colnames(ukaddress)
     dataset[cols] <- NA
 
@@ -53,66 +51,217 @@ append.variable <- function(dataset, append.type,
     dataset[,'longitude'] = as.numeric(dataset[,'longitude'])
     dataset[,'latitude'] = as.numeric(dataset[,'latitude'])
   }
-  else if (append.type == 'forename'
-           || append.type == 'Forename'
-           || append.type == 'firstname'
-           || append.type == 'Firstname'){
+  else if (tolower(append.type) == 'forename'|| tolower(append.type) == 'firstname'){
     dataset[append.type]<-''
-    forename <- read.csv(file = "data/forename.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
-    forename_m <- forename[forename$sex=='male',]
-    forename_f <- forename[forename$sex=='female',]
 
     if (gender){
-      if(any(colnames(dataset) =='sex')){
-        for (i in 1:nrow(dataset)){
-          if(dataset[i, 'sex'] == 'Male' ||dataset[i, 'sex'] == 'M' ||
-             dataset[i, 'sex'] == 'male' ||dataset[i, 'sex'] == 'm' ){
-            dataset[i, append.type] = as.character(sample(forename_m[,1],1))
+      if(any(tolower(colnames(dataset)) =='sex')){
+        sex_var_name = colnames(dataset)[tolower(colnames(dataset))=='sex']
+      }
+      else if(any(tolower(colnames(dataset)) =='gender')){
+        sex_var_name = colnames(dataset)[tolower(colnames(dataset))=='gender']
+      }
+      else {
+        print('either sex or gender will be accepted')
+      }
+      if (tolower(country)=='us'){
+        firstname <- read.csv(file = "data/firstname_us.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+        if (race){
+          if(any(tolower(colnames(dataset)) =='race')){
+            race_var_name = colnames(dataset)[tolower(colnames(dataset))=='race']
+          } else if(any(tolower(colnames(dataset)) =='ethnicty')){
+            race_var_name = colnames(dataset)[tolower(colnames(dataset))=='ethnicty']
+          } else {
+            print('either race or ethnicty will be accepted')
           }
-          else if(dataset[i, 'sex'] == 'Female' ||dataset[i, 'sex'] == 'F' ||
-                  dataset[i, 'sex'] == 'female' ||dataset[i, 'sex'] == 'F' ){
-            dataset[i, append.type] = as.character(sample(forename_f[,1],1))
-          }
-          else {
-            dataset[i, append.type] = as.character(sample(forename[,1],1))
+          for (i in 1:nrow(dataset)){
+            if (grepl(substr(dataset[i,race_var_name],1,3), 'White (not Hispanic)')){
+              race_value = 'White (not Hispanic)'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'American Indian or Native Alaskan')){
+              race_value = 'American Indian or Native Alaskan'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Black (not Hispanic)')){
+              race_value = 'Black (not Hispanic)'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Asian or Pacific Islander')){
+              race_value = 'Asian or Pacific Islander'
+            } else {
+              race_value = 'Hispanic'
+            }
+            dataset[i, append.type] = as.character(sample(firstname[firstname$sex ==tolower(dataset[i,sex_var_name]) &
+                                                                    firstname$race ==race_value,1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[firstname$sex ==tolower(dataset[i,sex_var_name])&
+                                                                            firstname$race ==race_value,2]))
           }
         }
-      }
-      else if(any(colnames(dataset) =='gender')){
-        for (i in 1:nrow(dataset)){
-          if(dataset[i, 'gender'] == 'Male' ||dataset[i, 'gender'] == 'M' ||
-             dataset[i, 'gender'] == 'male' ||dataset[i, 'gender'] == 'm' ){
-            dataset[i, append.type] = as.character(sample(forename_m[,1],1))
-          }
-          else if(dataset[i, 'gender'] == 'Female' ||dataset[i, 'gender'] == 'F' ||
-                  dataset[i, 'gender'] == 'female' ||dataset[i, 'gender'] == 'F' ){
-            dataset[i, append.type] = as.character(sample(forename_f[,1],1))
-          }
-          else {
-            dataset[i, append.type] = as.character(sample(forename[,1],1))
+        else{
+          for (i in 1:nrow(dataset)){
+            dataset[i, append.type] = as.character(sample(firstname[firstname$sex ==tolower(dataset[i,sex_var_name]),1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[firstname$sex ==tolower(dataset[i,sex_var_name]),2]))
           }
         }
       }
       else {
-        print('there is not any varaible called sex or gender')
+        firstname <- read.csv(file = "data/firstname_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+        if (age){
+          if(any(tolower(colnames(dataset)) =='age')){
+            age_var_name = colnames(dataset)[tolower(colnames(dataset))=='age']
+            for (i in 1:nrow(dataset)){
+              birthyear = as.numeric(substr(as.Date(end) - as.numeric(dataset[i, age_var_name])*365,1,4))
+              if (birthyear<1996){birthyear = 1996}
+              else if (birthyear>2018){birthyear = 2018}
+
+              dataset[i, append.type] = as.character(sample(firstname[firstname$sex ==tolower(dataset[i,sex_var_name]) &
+                                                                        firstname$birthyear == birthyear, 1],
+                                                            size=1, replace=TRUE,
+                                                            prob =firstname[firstname$sex == tolower(dataset[i,sex_var_name])&
+                                                                              firstname$birthyear == birthyear,2]))
+            }
+          }
+          else if(any(tolower(colnames(dataset)) =='dob')){
+            age_var_name = colnames(dataset)[tolower(colnames(dataset))=='dob']
+            for (i in 1:nrow(dataset)){
+              birthyear = as.numeric(substr(dataset[i, age_var_name],1,4))
+              if (birthyear<1996){birthyear = 1996}
+              else if (birthyear>2018){birthyear = 2018}
+
+              dataset[i, append.type] = as.character(sample(firstname[firstname$sex ==tolower(dataset[i,sex_var_name]) &
+                                                                        firstname$birthyear == birthyear, 1],
+                                                            size=1, replace=TRUE,
+                                                            prob =firstname[firstname$sex == tolower(dataset[i,sex_var_name])&
+                                                                              firstname$birthyear == birthyear,2]))
+            }
+          }
+          else {
+            print('either age or dob will be accepted')
+          }
+        }
+        else {
+          for (i in 1:nrow(dataset)){
+            dataset[i, append.type] = as.character(sample(firstname[firstname$sex ==tolower(dataset[i,sex_var_name]),1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[firstname$sex ==tolower(dataset[i,sex_var_name]),2]))
+          }
+        }
       }
+    }
+    else {
+      if (tolower(country)=='us'){
+        firstname <- read.csv(file = "data/firstname_us.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+        if (race){
+          if(any(tolower(colnames(dataset)) =='race')){
+            race_var_name = colnames(dataset)[tolower(colnames(dataset))=='race']
+          }
+          else if(any(tolower(colnames(dataset)) =='ethnicty')){
+            race_var_name = colnames(dataset)[tolower(colnames(dataset))=='ethnicty']
+          }
+          else {
+            print('either race or ethnicty will be accepted')
+          }
+          for (i in 1:nrow(dataset)){
+            if (grepl(substr(dataset[i,race_var_name],1,3), 'White (not Hispanic)')){
+              race_value = 'White (not Hispanic)'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'American Indian or Native Alaskan')){
+              race_value = 'American Indian or Native Alaskan'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Black (not Hispanic)')){
+              race_value = 'Black (not Hispanic)'
+            } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Asian or Pacific Islander')){
+              race_value = 'Asian or Pacific Islander'
+            } else {
+              race_value = 'Hispanic'
+            }
+            dataset[i, append.type] = as.character(sample(firstname[firstname$race ==race_value,1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[firstname$race ==race_value,2]))
+          }
+        }
+        else{
+          for (i in 1:nrow(dataset)){
+            dataset[i, append.type] = as.character(sample(firstname[,1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[,2]))
+          }
+        }
+      }
+      else {
+        firstname <- read.csv(file = "data/firstname_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+        if (age){
+          if(any(tolower(colnames(dataset)) =='age')){
+            age_var_name = colnames(dataset)[tolower(colnames(dataset))=='age']
+            for (i in 1:nrow(dataset)){
+              birthyear = as.numeric(substr(as.Date(end) - as.numeric(dataset[i, age_var_name])*365,1,4))
+              if (birthyear<1996){birthyear = 1996}
+              else if (birthyear>2018){birthyear = 2018}
+
+              dataset[i, append.type] = as.character(sample(firstname[firstname$birthyear == birthyear, 1],
+                                                            size=1, replace=TRUE,
+                                                            prob =firstname[firstname$birthyear == birthyear,2]))
+            }
+          }
+          else if(any(tolower(colnames(dataset)) =='dob')){
+            age_var_name = colnames(dataset)[tolower(colnames(dataset))=='dob']
+            for (i in 1:nrow(dataset)){
+              birthyear = as.numeric(substr(dataset[i, age_var_name],1,4))
+              if (birthyear<1996){birthyear = 1996}
+              else if (birthyear>2018){birthyear = 2018}
+
+              dataset[i, append.type] = as.character(sample(firstname[firstname$birthyear == birthyear, 1],
+                                                            size=1, replace=TRUE,
+                                                            prob =firstname[firstname$birthyear == birthyear,2]))
+            }
+          }
+          else {
+            print('either age or dob will be accepted')
+          }
+        }
+        else {
+          for (i in 1:nrow(dataset)){
+            dataset[i, append.type] = as.character(sample(firstname[,1],
+                                                          size=1, replace=TRUE,
+                                                          prob =firstname[,2]))
+          }
+        }
+      }
+    }
+
       dataset[,append.type] = as.factor(dataset[,append.type])
+  }
+  else if (tolower(append.type) == 'surname' || tolower(append.type) == 'lastname'){
+    if (tolower(country)=='us'){
+      lastname <- read.csv(file = "data/lastname_us.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+      if(race){
+        dataset[append.type]<-''
+
+        for (i in 1:nrow(dataset)){
+          if (grepl(substr(dataset[i,race_var_name],1,3), 'White (not Hispanic)')){
+            race_value = 'White (not Hispanic)'
+          } else if (grepl(substr(dataset[i,race_var_name],1,3), 'American Indian or Native Alaskan')){
+            race_value = 'American Indian or Native Alaskan'
+          } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Black (not Hispanic)')){
+            race_value = 'Black (not Hispanic)'
+          } else if (grepl(substr(dataset[i,race_var_name],1,3), 'Asian or Pacific Islander')){
+            race_value = 'Asian or Pacific Islander'
+          } else {
+            race_value = 'Hispanic'
+          }
+          dataset[i, append.type] = as.character(sample(lastname[lastname$race ==race_value,1],
+                                                        size=1, replace=TRUE,
+                                                        prob =lastname[lastname$race ==race_value,2]))
+        }
+        dataset[,append.type] = as.factor(dataset[,append.type])
+      }
+      else{
+        tmp = sample(lastname[,1], nrow(dataset), replace=TRUE, prob = lastname[,2])
+        dataset = cbind(dataset,tmp)
+        colnames(dataset)[length(dataset)] <- append.type
+      }
     }
     else{
-      tmp = sample(forename[,1],nrow(dataset), replace=TRUE)
+      lastname <- read.csv(file = "data/lastname_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+      tmp = sample(lastname[,1],nrow(dataset), replace=TRUE, prob = lastname[,2])
       dataset = cbind(dataset,tmp)
       colnames(dataset)[length(dataset)] <- append.type
-      }
-  }
-  else if (append.type == 'surname'
-           || append.type == 'Surname'
-           || append.type == 'lastname'
-           || append.type == 'Lastname'){
-
-    surname <- read.csv(file = "data/surname.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
-    tmp = sample(surname[,1],nrow(dataset), replace=TRUE)
-    dataset = cbind(dataset,tmp)
-    colnames(dataset)[length(dataset)] <- append.type
+    }
   }
   return (dataset)
 }

@@ -114,16 +114,19 @@ bn_learn = gen.BN.learn(data$training_set, 'hc')
 
 
 
-dataset_smaller_version = bn_learn$gen.data
+dataset_smaller_version = bn_learn$gen.data[1:500,]
 syn_dependent = dataset_smaller_version[, !grepl('flag',colnames(dataset_smaller_version))]
 gold_standard = append.variable(syn_dependent, 'NHSID')
 gold_standard = append.variable(gold_standard, 'DoB', end = '2015-03-02', age= TRUE)
 # gold_standard = append.variable(gold_standard, 'DoB', start = '2001-01-01', end = '2014-03-02')
 gold_standard = append.variable(gold_standard, 'address')
 # gold_standard = append.variable(gold_standard, 'address', postcode = 'W5')
-gold_standard = append.variable(gold_standard, 'forename')
-# gold_standard = append.variable(gold_standard, 'forename', gender = FALSE)
-gold_standard = append.variable(gold_standard, 'surname')
+gold_standard = append.variable(gold_standard, 'firstname', country = 'uk',
+                                gender=TRUE,  age=TRUE)
+gold_standard = append.variable(gold_standard, 'firstname', country = 'us',
+                                gender=TRUE, race=TRUE)
+gold_standard = append.variable(gold_standard, 'surname', country='us', race = TRUE)
+gold_standard = append.variable(gold_standard, 'surname', country='uk')
 
 
 
