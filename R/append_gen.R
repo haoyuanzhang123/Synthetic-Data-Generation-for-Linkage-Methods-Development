@@ -37,52 +37,32 @@ append.variable <- function(dataset, append.type,
   else if (append.type == 'address'
            || append.type == 'Address'
            || append.type == 'ADDRESS'){
-    dataset['postcode']<-NA
-    dataset['country']<-NA
-    dataset['primary_care_trust']<-NA
-    if (is.na(postcode)){
-      for (i in 1:nrow(dataset)){
+    ukaddress <- read.csv(file = "data/uk_address.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+    cols = colnames(ukaddress)
+    dataset[cols] <- NA
 
-        tmp = gen.address()
-        dataset[i, 'postcode'] = tmp$postcode
-        dataset[i, 'country'] = tmp$country
-        if (is.null(tmp$primary_care_trust)){
-          dataset[i, 'primary_care_trust'] = 'No record'
-        }
-        else {
-          dataset[i, 'primary_care_trust'] = tmp$primary_care_trust
-        }
-      }
-    }
-    else{
-      for (i in 1:nrow(dataset)){
-        tmp = gen.address(postcode)
-        dataset[i, 'postcode'] = tmp$postcode
-        dataset[i, 'country'] = tmp$country
-        if (is.null(tmp$primary_care_trust)){
-          dataset[i, 'primary_care_trust'] = 'No record'
-        }
-        else {
-          dataset[i, 'primary_care_trust'] = tmp$primary_care_trust
-        }
-      }
+    randomindex = sample(1:nrow(ukaddress), nrow(dataset))
+    for (i in 1:length(randomindex)){
+      dataset[i, cols] = ukaddress[randomindex[i],]
     }
 
+    # dataset[cols] <- lapply(dataset[cols], factor)
     dataset[,'postcode'] = as.factor(dataset[,'postcode'])
     dataset[,'country'] = as.factor(dataset[,'country'])
     dataset[,'primary_care_trust'] = as.factor(dataset[,'primary_care_trust'])
+    dataset[,'longitude'] = as.numeric(dataset[,'longitude'])
+    dataset[,'latitude'] = as.numeric(dataset[,'latitude'])
   }
   else if (append.type == 'forename'
            || append.type == 'Forename'
            || append.type == 'firstname'
            || append.type == 'Firstname'){
     dataset[append.type]<-''
-    forename_m <- sas7bdat:: read.sas7bdat(file = "data/forename_variants_m_febrl.sas7bdat", debug = FALSE)
-    forename_f <- sas7bdat:: read.sas7bdat(file = "data/forename_variants_f_febrl.sas7bdat", debug = FALSE)
-    forename <- rbind(sas7bdat:: read.sas7bdat(file = "data/forename_variants_m_febrl.sas7bdat", debug = FALSE),
-                      sas7bdat:: read.sas7bdat(file = "data/forename_variants_f_febrl.sas7bdat", debug = FALSE))
-    if (gender){
+    forename <- read.csv(file = "data/forename.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+    forename_m <- forename[forename$sex=='male',]
+    forename_f <- forename[forename$sex=='female',]
 
+    if (gender){
       if(any(colnames(dataset) =='sex')){
         for (i in 1:nrow(dataset)){
           if(dataset[i, 'sex'] == 'Male' ||dataset[i, 'sex'] == 'M' ||
@@ -129,7 +109,7 @@ append.variable <- function(dataset, append.type,
            || append.type == 'lastname'
            || append.type == 'Lastname'){
 
-    surname <- sas7bdat:: read.sas7bdat(file = "data/surname_variants.sas7bdat", debug = FALSE)
+    surname <- read.csv(file = "data/surname.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
     tmp = sample(surname[,1],nrow(dataset), replace=TRUE)
     dataset = cbind(dataset,tmp)
     colnames(dataset)[length(dataset)] <- append.type

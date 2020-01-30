@@ -71,7 +71,6 @@ syndataset = append.variable(syndataset, 'surname')
 
 
 gen.NHSID()
-gen.address('w5')
 gen.address()
 gen.DoB()
 gen.DoB('1999-01-01', '2011-01-01')
@@ -99,12 +98,14 @@ get_transformation_insert('how are you')
 
 
 
+rm(list = ls())
 
 adult_with_flag = add.random.error(adult, prob = c(0.97, 0.03), 'age_missing')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'forename_variant')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'surname_variant')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.72, 0.28), 'forename_typo')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'forename_pho')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'forename_ocr')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'surname_variant')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.95, 0.05), 'DoB_transDate')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.95, 0.05), 'NHSID_insert')
 
@@ -131,14 +132,6 @@ linkage_file_1 = damage.gold.standard(gold_standard, syn_error_occurrence_1)
 
 syn_error_occurrence_2 = bn.inference.flags(dataset_smaller_version, bn_learn$fit.model)
 linkage_file_2 = damage.gold.standard(gold_standard, syn_error_occurrence_2)
-
-
-
-
-
-
-
-
 
 
 

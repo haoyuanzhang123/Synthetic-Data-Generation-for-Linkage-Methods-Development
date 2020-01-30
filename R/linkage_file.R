@@ -94,9 +94,8 @@ damage.gold.standard <- function(gold_standard, syn_error_occurrence){
       tmp2 = as.vector(s[syn_error_occurrence[,i]==1, tmp[1]])
       s[,tmp[1]] <- as.character(s[,tmp[1]] )
 
-      tmp_name1 <- rbind(sas7bdat:: read.sas7bdat(file = "data/forename_variants_m_febrl.sas7bdat", debug = FALSE)
-                      ,sas7bdat:: read.sas7bdat(file = "data/forename_variants_f_febrl.sas7bdat", debug = FALSE))
-      tmp_name2 = sas7bdat:: read.sas7bdat(file = "data/surname_variants.sas7bdat", debug = FALSE)
+      tmp_name1 <- read.csv(file = "data/forename_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+      tmp_name2 <- read.csv(file = "data/surname_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
       colnames(tmp_name2)<- colnames(tmp_name1)
       name_variants = rbind(tmp_name1, tmp_name2)
 
