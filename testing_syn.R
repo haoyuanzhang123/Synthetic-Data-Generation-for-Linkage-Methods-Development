@@ -1,4 +1,4 @@
-data = split.data(adult_with_flag,70)
+data = split.data(adult,70)
 
 
 bn_learn = gen.BN.learn(data$training_set, 'hc')
