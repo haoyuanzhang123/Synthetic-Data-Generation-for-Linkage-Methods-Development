@@ -41,7 +41,7 @@ append.variable <- function(dataset, append.type,
     cols = colnames(ukaddress)
     dataset[cols] <- NA
 
-    randomindex = sample(1:nrow(ukaddress), nrow(dataset))
+    randomindex = sample(1:nrow(ukaddress), nrow(dataset), replace = TRUE)
     for (i in 1:length(randomindex)){
       dataset[i, cols] = ukaddress[randomindex[i],]
     }

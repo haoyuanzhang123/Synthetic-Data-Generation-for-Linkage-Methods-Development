@@ -114,7 +114,7 @@ bn_learn = gen.BN.learn(data$training_set, 'hc')
 
 
 
-dataset_smaller_version = bn_learn$gen.data[1:500,]
+dataset_smaller_version = bn_learn$gen.data
 syn_dependent = dataset_smaller_version[, !grepl('flag',colnames(dataset_smaller_version))]
 gold_standard = append.variable(syn_dependent, 'NHSID')
 gold_standard = append.variable(gold_standard, 'DoB', end = '2015-03-02', age= TRUE)
@@ -132,8 +132,6 @@ linkage_file_1 = damage.gold.standard(gold_standard, syn_error_occurrence_1)
 
 syn_error_occurrence_2 = bn.inference.flags(dataset_smaller_version, bn_learn$fit.model)
 linkage_file_2 = damage.gold.standard(gold_standard, syn_error_occurrence_2)
-
-
 
 
 
