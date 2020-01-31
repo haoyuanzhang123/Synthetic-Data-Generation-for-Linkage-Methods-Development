@@ -131,15 +131,14 @@ get_transformation_name_variant<- function (string){
     colnames(lastname_variant)<- colnames(firstname_variant)
     name_variants = rbind(firstname_variant, lastname_variant)
     tmp = name_variants[name_variants$forename ==s,]
-    tmp$cumprop = tmp$cumprop/(sum(tmp$cumprop))
 
     if (nrow(tmp)!=0){
-        outputname = tmp[sample(nrow(tmp),size = 1, replace = TRUE, prob = tmp$cumprop),2]
+        outputname = tmp[sample(nrow(tmp),size = 1, replace = TRUE, prob = tmp$freq),2]
     }
     return(as.character(outputname))
   }
 
-  newstr = do_name_replacement(string)
+  newstr = do_name_replacement(tolower(string))
   if (newstr == string){
     changesstr = paste0(newstr, ', no recorded variants')
   } else {

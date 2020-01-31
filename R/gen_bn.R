@@ -1,5 +1,5 @@
 
-gen.BN.learn <- function(training_set, structural_learning_algorithm){
+gen.BN.learn <- function(training_set, structural_learning_algorithm, evidences = NA){
   bn_df <- data.frame(training_set)
 
   res = switch(
@@ -22,7 +22,20 @@ gen.BN.learn <- function(training_set, structural_learning_algorithm){
   )
 
   bn.fit_learn <- bnlearn::bn.fit(res, data = bn_df)
-  gen_synth_bn_learn = bnlearn::rbn(bn.fit_learn, nrow(training_set))[1:nrow(training_set),]
+  if (is.na(evidences)){
+    gen_synth_bn_learn = bnlearn::rbn(bn.fit_learn, nrow(training_set))[1:nrow(training_set),]
+  }
+  else {
+    # gen_synth_bn_learn = bnlearn::cpdist(bn.fit_learn,
+    #                                      nodes = colnames(bn_df),
+    #                                      evidence = (age >18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100),
+    #                                      n = 5*nrow(bn_df))[1:nrow(bn_df),]
+
+    evidence_str = paste0('(', evidences, ')')
+    gen_synth_bn_learn = eval(parse(text=paste("bnlearn::cpdist(fitted=bn.fit_learn,nodes= names(bn_df), ",evidence_str,",n=5*nrow(bn_df))")))[1:nrow(bn_df),]
+  }
+
+
   return(list("structure"= res,
               "fit.model" = bn.fit_learn,
               "gen.data" = gen_synth_bn_learn))

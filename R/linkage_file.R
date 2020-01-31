@@ -45,11 +45,12 @@ damage.gold.standard <- function(gold_standard, syn_error_occurrence){
       s[,tmp[1]] <- as.factor(s[,tmp[1]] )
     }
     else if (tmp[2]=='transDate'){
-      tmp2 = as.vector(s[syn_error_occurrence[,i]==1, tmp[1]])
+      tmp2 = s[syn_error_occurrence[,i]==1, tmp[1]]
       s[,tmp[1]] <- as.character(s[,tmp[1]] )
 
       for (j in 1:length(tmp2)){
-        tmp3= strsplit(get_transformation_trans_date(tmp2[j]), split=',')[[1]]
+        changeddate = get_transformation_trans_date(tmp2[j])
+        tmp3= strsplit(changeddate, split=',')[[1]]
         s[syn_error_occurrence[,i]==1, tmp[1]][j] = as.character(tmp3[1])
         error_log[syn_error_occurrence[,i]==1,i][j] = as.character(tmp3[2])
       }
@@ -94,18 +95,17 @@ damage.gold.standard <- function(gold_standard, syn_error_occurrence){
       tmp2 = as.vector(s[syn_error_occurrence[,i]==1, tmp[1]])
       s[,tmp[1]] <- as.character(s[,tmp[1]] )
 
-      tmp_name1 <- read.csv(file = "data/forename_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
-      tmp_name2 <- read.csv(file = "data/surname_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+      tmp_name1 <- read.csv(file = "data/firstname_uk_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+      tmp_name2 <- read.csv(file = "data/lastname_uk_variant.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
       colnames(tmp_name2)<- colnames(tmp_name1)
       name_variants = rbind(tmp_name1, tmp_name2)
 
       for (j in 1:length(tmp2)){
         outputname = tmp2[j]
         tmp_name = name_variants[name_variants$forename ==outputname,]
-        tmp_name$cumprop = tmp_name$cumprop/(sum(tmp_name$cumprop))
 
         if (nrow(tmp_name)!=0){
-          outputname = tmp_name[sample(nrow(tmp_name),size = 1, replace = TRUE, prob = tmp_name$cumprop),2]
+          outputname = tmp_name[sample(nrow(tmp_name),size = 1, replace = TRUE, prob = tmp_name$freq),2]
         }
 
         if (outputname == tmp2[j]){

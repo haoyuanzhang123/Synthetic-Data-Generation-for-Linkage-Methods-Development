@@ -1,6 +1,6 @@
 
 gen.address <- function(){
-  ukaddress <- read.csv(file = "data/uk_address.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
+  ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
   tmp = sample(1:nrow(ukaddress), 1)
   return(ukaddress[tmp,])
 }

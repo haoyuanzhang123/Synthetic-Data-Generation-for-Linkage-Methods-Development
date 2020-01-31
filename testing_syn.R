@@ -1,11 +1,11 @@
 rm(list = ls())
-
-
+lapply(paste('package:',names(sessionInfo()$otherPkgs),sep=""),detach,character.only=TRUE,unload=TRUE)
+library(sdglinkage)
 
 data = split.data(adult,70)
-
-
-bn_learn = gen.BN.learn(data$training_set, 'hc')
+evidence = 'age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100'
+bn_learn = gen.BN.learn(data$training_set, 'hc', evidence)
+# bn_learn = gen.BN.learn(data$training_set, 'hc')
 plot.bn(bn_learn$structure)
 head(bn_learn$gen.data)
 
@@ -24,8 +24,9 @@ compare.CART(data$training_set, CART2$fit.model, c('age', 'workclass', 'sex'))
 
 
 
-
-lrns = mlr::makeLearners(c("rpart","logreg", "randomForest", "ada"), type = "classif", predict.type = "prob")
+library(mlr)
+lrns = makeLearners(c("rpart","logreg", "randomForest", "ada"),
+                    type = "classif", predict.type = "prob")
 meas = list(acc,ber,f1,auc)
 bmr = validate.synth(lrns, measurement = meas, target.var= 'income',
                      testing.set = data$testing_set,
@@ -33,7 +34,8 @@ bmr = validate.synth(lrns, measurement = meas, target.var= 'income',
                      generated.data2 = CART2$gen.data,
                      generated.data3 = bn_learn$gen.data,
                      generated.data4 = bn_elicit$gen.data)
-
+names(bmr$results) <- c('CART1', 'CART2', 'bn_learn', 'bn_elicit')
+bmr
 
 
 plot.synth.compare (target.var = 'age', training.set = data$training_set,
@@ -55,16 +57,6 @@ plot.synth.compare (target.var = 'race', training.set = data$training_set,
 
 
 
-syndataset = bn_learn$gen.data[1:500,]
-syndataset = append.variable(syndataset, 'NHSID')
-syndataset = append.variable(syndataset, 'DoB', start = '2001-01-01', end = '2014-03-02')
-syndataset = append.variable(syndataset, 'address')
-# syndataset = append.variable(syndataset, 'address', postcode = 'W5')
-syndataset = append.variable(syndataset, 'forename')
-# syndataset = append.variable(syndataset, 'forename', gender = FALSE)
-syndataset = append.variable(syndataset, 'surname')
-
-
 
 
 
@@ -74,8 +66,10 @@ gen.NHSID()
 gen.address()
 gen.DoB()
 gen.DoB('1999-01-01', '2011-01-01')
-gen.name('female')
-gen.name()
+gen.firstname(country = 'uk', gender = 'male', birthyear = 2013)
+gen.firstname(country = 'us', gender = 'male', race = 2)
+gen.lastname(country = 'uk')
+gen.lastname(country = 'us', race = 2)
 
 
 get_transformation_pho('how are you')
@@ -101,32 +95,32 @@ get_transformation_insert('how are you')
 rm(list = ls())
 
 adult_with_flag = add.random.error(adult, prob = c(0.97, 0.03), 'age_missing')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'forename_variant')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'surname_variant')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.72, 0.28), 'forename_typo')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'forename_pho')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'forename_ocr')
-adult_with_flag = add.random.error(adult_with_flag, prob = c(0.95, 0.05), 'DoB_transDate')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'firstname_variant')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.65, 0.35), 'lastname_variant')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.72, 0.28), 'firstname_typo')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'firstname_pho')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.85, 0.15), 'firstname_ocr')
+adult_with_flag = add.random.error(adult_with_flag, prob = c(0.95, 0.05), 'dob_transDate')
 adult_with_flag = add.random.error(adult_with_flag, prob = c(0.95, 0.05), 'NHSID_insert')
 
 data = split.data(adult_with_flag,70)
-bn_learn = gen.BN.learn(data$training_set, 'hc')
+evidence = 'age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100'
+
+bn_learn = gen.BN.learn(data$training_set, 'hc',evidence)
 
 
 
 dataset_smaller_version = bn_learn$gen.data[1:500,]
 syn_dependent = dataset_smaller_version[, !grepl('flag',colnames(dataset_smaller_version))]
-gold_standard = append.variable(syn_dependent, 'NHSID')
-gold_standard = append.variable(gold_standard, 'DoB', end = '2015-03-02', age= TRUE)
-# gold_standard = append.variable(gold_standard, 'DoB', start = '2001-01-01', end = '2014-03-02')
-gold_standard = append.variable(gold_standard, 'address')
-# gold_standard = append.variable(gold_standard, 'address', postcode = 'W5')
-gold_standard = append.variable(gold_standard, 'firstname', country = 'uk',
-                                gender=TRUE,  age=TRUE)
-gold_standard = append.variable(gold_standard, 'firstname', country = 'us',
-                                gender=TRUE, race=TRUE)
-gold_standard = append.variable(gold_standard, 'surname', country='us', race = TRUE)
-gold_standard = append.variable(gold_standard, 'surname', country='uk')
+gold_standard = add.variable(syn_dependent, 'NHSID')
+gold_standard = add.variable(gold_standard, 'dob', end = '2015-03-02', age= TRUE)
+# gold_standard = add.variable(gold_standard, 'DoB', start = '2001-01-01', end = '2014-03-02')
+gold_standard = add.variable(gold_standard, 'address')
+# gold_standard = add.variable(gold_standard, 'address', postcode = 'W5')
+gold_standard = add.variable(gold_standard, 'firstname',country = 'uk',gender=TRUE,  age=TRUE)
+gold_standard = add.variable(gold_standard, 'lastname', country='uk')
+# gold_standard = add.variable(gold_standard, 'firstname', country = 'us',gender=TRUE, race=TRUE)
+# gold_standard = add.variable(gold_standard, 'lastname', country='us', race = TRUE)
 
 
 
@@ -135,6 +129,7 @@ linkage_file_1 = damage.gold.standard(gold_standard, syn_error_occurrence_1)
 
 syn_error_occurrence_2 = bn.inference.flags(dataset_smaller_version, bn_learn$fit.model)
 linkage_file_2 = damage.gold.standard(gold_standard, syn_error_occurrence_2)
+
 
 
 

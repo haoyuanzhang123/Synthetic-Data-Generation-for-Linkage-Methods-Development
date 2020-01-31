@@ -72,9 +72,14 @@ validate.synth <- function(learner, measurement, target.var,
   rin = mlr::makeFixedHoldoutInstance(train.inds = 1:nrow(generated.data1),
                                  test.inds = nrow(generated.data1):nrow(new.df1),
                                  size = nrow(new.df1))
+  # bmr = mlr::benchmark(learner, tasks, rin, measures = parse(text=measurement))
   bmr = mlr::benchmark(learner, tasks, rin, measures = measurement)
   return(bmr)
 }
+
+
+
+
 
 
 plot.synth.compare <- function(target.var, training.set, synth.data.names,
