@@ -1,20 +1,24 @@
 
-gen.address <- function(){
-  ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE, sep=",", stringsAsFactors = FALSE)
-  tmp = sample(1:nrow(ukaddress), 1)
-  return(ukaddress[tmp,])
+gen_address <- function()
+{
+  ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE,
+                        sep = ",", stringsAsFactors = FALSE)
+  tmp <- sample(1:nrow(ukaddress), 1)
+  return(ukaddress[tmp, ])
 }
 
 
-get.address <- function(postcode = NA){
-  if (is.na(postcode)){
-    tmp = PostcodesioR::random_postcode()
+get_address <- function(postcode = NA)
+{
+  if (is.na(postcode))
+  {
+    tmp <- PostcodesioR::random_postcode()
+  } else
+  {
+    tmp <- PostcodesioR::random_postcode(postcode)
   }
-  else {
-    tmp = PostcodesioR::random_postcode(postcode)
-  }
-  stringlist = c(tmp['postcode'], tmp['country'],tmp['primary_care_trust'],
-                 tmp['longitude'], tmp['latitude'])
+  stringlist <- c(tmp["postcode"], tmp["country"], tmp["primary_care_trust"],
+                  tmp["longitude"], tmp["latitude"])
 
   return(stringlist)
 }
@@ -22,24 +26,25 @@ get.address <- function(postcode = NA){
 
 # extract real UK address from:
 # https://api.postcodes.io/random/postcodes
-extract.address<- function(number = 100, postcode = NA){
-  df_address = data.frame(postcode=NA,
-                          country=NA,
-                          primary_care_trust=NA,
-                          longitude=NA,
-                          latitude=NA)
+extract_address <- function(number = 100, postcode = NA)
+{
+  df_address <- data.frame(postcode = NA, country = NA, primary_care_trust = NA,
+                           longitude = NA, latitude = NA)
 
-  for (i in 1: number){
-    tmp = get.address(postcode)
-    if (i!=1){
-      while (any(df_address[,1] == tmp$postcode) ||
-             is.null(tmp$longitude) || is.null(tmp$latitude)){
-        tmp = get.address(postcode)
+  for (i in 1:number)
+  {
+    tmp <- get_address(postcode)
+    if (i != 1)
+    {
+      while (any(df_address[, 1] == tmp$postcode) || is.null(tmp$longitude) ||
+             is.null(tmp$latitude))
+      {
+        tmp <- get_address(postcode)
       }
     }
 
-    df_address[i,] = c(tmp$postcode, tmp$country, tmp$primary_care_trust,
-                       tmp$longitude, tmp$latitude)
+    df_address[i, ] <- c(tmp$postcode, tmp$country, tmp$primary_care_trust,
+                         tmp$longitude, tmp$latitude)
   }
   return(df_address)
 }
