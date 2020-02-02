@@ -1,3 +1,5 @@
+
+
 rm(list = ls())
 lapply(paste("package:", names(sessionInfo()$otherPkgs), sep = ""), detach,
        character.only = TRUE, unload = TRUE)
@@ -26,18 +28,21 @@ compare_cart(adult_data$training_set, cart_elicit$fit_model, c("age", "workclass
 
 
 
+
 require(mlr)
 lrns <- makeLearners(c("rpart", "logreg", "randomForest", "ada"), type = "classif",
                      predict.type = "prob")
 measurements <- list(acc, ber, f1, auc)
 bmr <- compare_sdg(lrns, measurement = measurements, target_var = "income",
-                      testing_set = adult_data$testing_set,
+                      real_dataset = adult_data,
                       generated_data1 = cart$gen_data,
                       generated_data2 = cart_elicit$gen_data,
                       generated_data3 = bn_learn$gen_data,
                       generated_data4 = bn_elicit$gen_data)
-names(bmr$results) <- c("cart", "cart_elicit", "bn_learn", "bn_elicit")
+names(bmr$results) <- c("real_dataset", "cart", "cart_elicit", "bn_learn", "bn_elicit")
 bmr
+
+
 
 
 plot_compared_sdg(target_var = "age", training_set = adult_data$training_set,
@@ -143,6 +148,7 @@ linkage_file_1 <- damage_gold_standard(gold_standard, syn_error_occurrence_1)
 
 syn_error_occurrence_2 <- bn_flag_inference(dataset_smaller_version, bn_learn$fit_model)
 linkage_file_2 <- damage_gold_standard(gold_standard, syn_error_occurrence_2)
+
 
 
 
