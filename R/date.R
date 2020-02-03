@@ -1,4 +1,19 @@
-
+#' Generate a record of date of birth.
+#'
+#' \code{gen_dob} randomly return a record of date of birth.
+#'
+#' @param start A Date variable.
+#' @param end A Date variable.
+#' @return The output is a record of date of birth in Date format between
+#'   1900-01-01 and 2020-01-01. If \code{start} is given, the return date
+#'   will be between the updated start date and 2020-01-01. If \code{end}
+#'   is also given, the return date will be between the updated start date
+#'   and updated end date.
+#' @examples
+#' gen_dob()
+#' gen_dob(start = "1995-01-01")
+#' gen_dob(end = "2000-01-01")
+#' gen_dob(start = "1909-01-01", end = "2000-01-01")
 gen_dob <- function(start = "1900-01-01", end = "2020-01-01")
 {
   start <- as.Date(start)
@@ -8,8 +23,19 @@ gen_dob <- function(start = "1900-01-01", end = "2020-01-01")
 
 
 
-
-# transposition of day and month
+#' Transpose the position of day and month.
+#'
+#' \code{get_transformation_trans_date} transpose the position of day and month of a
+#'     Date format variable.
+#'
+#' @param date A Date variable.
+#' @return The output is the transposition of day and month of \code{date}
+#'    and the change log of the transposition. If the day of \code{date}
+#'    is greater than 12, the transposition will fail and return the same
+#'    \code{date} with a log saying "cannot transposte due to day >12".
+#' @examples
+#' get_transformation_trans_date("1995-01-11")
+#' get_transformation_trans_date("1995-01-13")
 get_transformation_trans_date <- function(date)
 {
   date <- as.character(date)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare_sdg.R
 \name{plot_compared_sdg}
 \alias{plot_compared_sdg}
-\title{Plot of the distribution of the synthetic data vs real data.}
+\title{Plot the distribution of a varaible from the synthetic data comparing with the real data.}
 \usage{
 plot_compared_sdg(
   target_var,

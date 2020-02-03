@@ -9,7 +9,7 @@ extract_address(n = 30000, postcode = NA)
 \arguments{
 \item{n}{A number.}
 
-\item{postcode}{A character.}
+\item{postcode}{A string.}
 }
 \value{
 The output is \code{n} addresses in the form of a data framework

@@ -7,7 +7,7 @@
 get_address(postcode = NA)
 }
 \arguments{
-\item{postcode}{A character.}
+\item{postcode}{A string}
 }
 \value{
 The output is a list of 5 variables:

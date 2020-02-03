@@ -21,7 +21,7 @@ gen_address <- function()
 #' \code{get_address} get an address using an API from \code{\link[PostcodesioR]{random_postcode}}.
 #' The API sample a real UK address from \url{https://api.postcodes.io/random/postcodes}.
 #'
-#' @param postcode A character.
+#' @param postcode A string
 #' @return The output is a list of 5 variables:
 #'   1) postcode of the UK address, 2) country, 3) primary_care_trust
 #'   4) longitude of the address and 5) latitude of the address.
@@ -50,7 +50,7 @@ get_address <- function(postcode = NA)
 #' \code{extract_address} extract addresses using \code{\link{get_address}}.
 #'
 #' @param n A number.
-#' @param postcode A character.
+#' @param postcode A string.
 #' @return The output is \code{n} addresses in the form of a data framework
 #'   with \code{n} observations with 5 variables:
 #'   1) postcode of the UK address, 2) country, 3) primary_care_trust
