@@ -7,9 +7,9 @@
 gen_dob(start = "1900-01-01", end = "2020-01-01")
 }
 \arguments{
-\item{start}{A Date formatted start date.}
+\item{start}{A Date variable with a default of '1900-01-01'.}
 
-\item{end}{A Date formatted end date.}
+\item{end}{A Date variable with a default of '2020-01-01'.}
 }
 \value{
 The output is a record of date of birth in Date format between

@@ -2,8 +2,8 @@
 #'
 #' \code{gen_dob} randomly return a record of date of birth.
 #'
-#' @param start A Date variable.
-#' @param end A Date variable.
+#' @param start A Date variable with a default of '1900-01-01'.
+#' @param end A Date variable with a default of '2020-01-01'.
 #' @return The output is a record of date of birth in Date format between
 #'   1900-01-01 and 2020-01-01. If \code{start} is given, the return date
 #'   will be between the updated start date and 2020-01-01. If \code{end}

@@ -17,7 +17,7 @@ The output is a list of 5 variables:
  the defined outward postcode
 }
 \description{
-\code{get_address} get an address using an API from \code{\link[PostcodesioR]{random_postcode}}.
+\code{get_address} get an address using an API from \code{\link[PostcodesioR:random_postcode]{random_postcode}}.
 The API sample a real UK address from \url{https://api.postcodes.io/random/postcodes}.
 }
 \examples{

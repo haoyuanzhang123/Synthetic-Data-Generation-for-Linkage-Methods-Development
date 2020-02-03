@@ -3,15 +3,15 @@
 #' \code{compare_sdg} compares the preditive performance of models
 #' trained by synthetic data with model trained by real data.
 #'
-#'This function returns the measured performance of predictive models
-#'trained by the synthetic data. We assume good quality synthetic data
-#'would allow us to draw the same analytic conclusions as we can draw
-#'from real data. Hence, we compare the predictive performance of several
-#'machine learning algorithms that are trained with the synthetic data
-#'and tested by real data with those trained and tested both by real data.
+#' This function returns the measured performance of predictive models
+#' trained by the synthetic data. We assume good quality synthetic data
+#' would allow us to draw the same analytic conclusions as we can draw
+#' from real data. Hence, we compare the predictive performance of several
+#' machine learning algorithms that are trained with the synthetic data
+#' and tested by real data with those trained and tested both by real data.
 #'
-#' @param learner A learner object from \code{\link[mlr]{makeLearners}}.
-#' @param measurement A list of performance measurements for \code{\link[mlr]{benchmark}}.
+#' @param learner A learner object from \code{\link[mlr:RLearner]{makeLearners}}.
+#' @param measurement A list of performance measurements for \code{\link[mlr:benchmark]{benchmark}}.
 #' @param target_var A string of the response variable name.
 #' @param real_dataset A list of data frames with a training_set data frame and a
 #'     testing_set data frame. You can get this list from \code{\link{split_data}}.
@@ -21,7 +21,7 @@
 #' @param generated_data4 A data frame of synthetic data 4.
 #' @param generated_data5 A data frame of synthetic data 5.
 #' @param generated_data6 A data frame of synthetic data 6.
-#' @return The output is a \code{\link[mlr]{benchmark}} object. It compares the
+#' @return The output is a \code{\link[mlr:benchmark]{benchmark}} object. It compares the
 #'     the preditive performance of selected models trained by the real data and
 #'     validated by the testing data with models trained by the generated data and
 #'     validated by the testing data.

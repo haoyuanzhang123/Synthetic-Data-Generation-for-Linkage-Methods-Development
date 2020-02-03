@@ -1,6 +1,5 @@
 damage_gold_standard <- function(gold_standard, syn_error_occurrence)
 {
-
   s <- gold_standard
   error_log <- syn_error_occurrence
   for (i in 1:ncol(syn_error_occurrence))
@@ -113,8 +112,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
       for (j in 1:length(tmp2))
       {
         outputname <- tmp2[j]
-        tmp_name <- name_variants[name_variants$forename == outputname,
-                                  ]
+        tmp_name <- name_variants[name_variants$forename == outputname,]
 
         if (nrow(tmp_name) != 0)
         {

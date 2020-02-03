@@ -13,7 +13,8 @@ plot_bn(bn_learn$structure)
 head(bn_learn$gen_data)
 
 bn_structure <- "[native_country][income][age|marital_status:education][sex][race|native_country][marital_status|race:sex][relationship|marital_status][education|sex:race][occupation|education][workclass|occupation][hours_per_week|occupation:workclass][capital_gain|occupation:workclass:income][capital_loss|occupation:workclass:income]"
-bn_elicit <- gen_bn_elicit(adult_data$training_set, bn_structure)
+bn_elicit <- gen_bn_elicit(adult_data$training_set, bn_structure, bn_evidence)
+# bn_elicit <- gen_bn_elicit(adult_data$training_set, bn_structure)
 plot_bn(bn_elicit$structure)
 head(bn_elicit$gen_data)
 
@@ -129,17 +130,17 @@ bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc", bn_evidence)
 dataset_smaller_version <- bn_learn$gen_data[1:500, ]
 syn_dependent <- dataset_smaller_version[, !grepl("flag", colnames(dataset_smaller_version))]
 gold_standard <- add_variable(syn_dependent, "nhsid")
-gold_standard <- add_variable(gold_standard, "dob", end = "2015-03-02",
-                              age = TRUE)
-# gold_standard = add_variable(gold_standard, 'DoB', start = '2001-01-01', end = '2014-03-02')
+gold_standard <- add_variable(gold_standard, "dob", end_date = "2015-03-02",
+                              age_dependency = TRUE)
+# gold_standard = add_variable(gold_standard, 'DoB', start_date = '2001-01-01', end_date = '2014-03-02')
 gold_standard <- add_variable(gold_standard, "address")
 
 gold_standard <- add_variable(gold_standard, "firstname", country = "uk",
-                              gender = TRUE, age = TRUE)
+                              gender_dependency = TRUE, age_dependency = TRUE)
 gold_standard <- add_variable(gold_standard, "lastname", country = "uk")
 # gold_standard = add_variable(gold_standard, 'firstname', country = 'us',
-#                              gender=TRUE, race=TRUE)
-# gold_standard = add_variable(gold_standard, 'lastname', country='us', race = TRUE)
+#                              gender_dependency=TRUE, race_dependency=TRUE)
+# gold_standard = add_variable(gold_standard, 'lastname', country='us', race_dependency = TRUE)
 
 
 

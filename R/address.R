@@ -4,8 +4,13 @@
 #' The UK addresses were extracted from \code{\link{extract_address}}.
 #'
 #' @return The output is a data frame with 1 observation of 5 variables:
-#'   1) postcode of the UK address, 2) country, 3) primary_care_trust
-#'   4) longitude of the address and 5) latitude of the address.
+#'   \enumerate{
+#'   \item postcode of the UK address,
+#'   \item country,
+#'   \item primary_care_trust,
+#'   \item longitude of the address,
+#'   \item latitude of the address.
+#'   }
 #' @examples
 #' gen_address()
 gen_address <- function()
@@ -18,7 +23,7 @@ gen_address <- function()
 
 #' Get an address.
 #'
-#' \code{get_address} get an address using an API from \code{\link[PostcodesioR]{random_postcode}}.
+#' \code{get_address} get an address using an API from \code{\link[PostcodesioR:random_postcode]{random_postcode}}.
 #' The API sample a real UK address from \url{https://api.postcodes.io/random/postcodes}.
 #'
 #' @param postcode A string
@@ -53,8 +58,13 @@ get_address <- function(postcode = NA)
 #' @param postcode A string.
 #' @return The output is \code{n} addresses in the form of a data framework
 #'   with \code{n} observations with 5 variables:
-#'   1) postcode of the UK address, 2) country, 3) primary_care_trust
-#'   4) longitude of the address and 5) latitude of the address.
+#'   \enumerate{
+#'   \item postcode of the UK address,
+#'   \item country,
+#'   \item primary_care_trust,
+#'   \item longitude of the address,
+#'   \item latitude of the address.
+#'   }
 #'   If \code{postcode} is given, the return addresses are addresses
 #'   having the same outward postcode
 #' @examples

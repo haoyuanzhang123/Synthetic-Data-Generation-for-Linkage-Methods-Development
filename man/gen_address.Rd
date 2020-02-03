@@ -8,8 +8,13 @@ gen_address()
 }
 \value{
 The output is a data frame with 1 observation of 5 variables:
-  1) postcode of the UK address, 2) country, 3) primary_care_trust
-  4) longitude of the address and 5) latitude of the address.
+  \enumerate{
+  \item postcode of the UK address,
+  \item country,
+  \item primary_care_trust,
+  \item longitude of the address,
+  \item latitude of the address.
+  }
 }
 \description{
 \code{gen_address} randomly return a UK address out of 30,000 UK addresses.

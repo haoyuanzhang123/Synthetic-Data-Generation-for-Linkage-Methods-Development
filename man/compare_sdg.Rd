@@ -18,9 +18,9 @@ compare_sdg(
 )
 }
 \arguments{
-\item{learner}{A learner object from \code{\link[mlr]{makeLearners}}.}
+\item{learner}{A learner object from \code{\link[mlr:RLearner]{makeLearners}}.}
 
-\item{measurement}{A list of performance measurements for \code{\link[mlr]{benchmark}}.}
+\item{measurement}{A list of performance measurements for \code{\link[mlr:benchmark]{benchmark}}.}
 
 \item{target_var}{A string of the response variable name.}
 
@@ -40,7 +40,7 @@ testing_set data frame. You can get this list from \code{\link{split_data}}.}
 \item{generated_data6}{A data frame of synthetic data 6.}
 }
 \value{
-The output is a \code{\link[mlr]{benchmark}} object. It compares the
+The output is a \code{\link[mlr:benchmark]{benchmark}} object. It compares the
     the preditive performance of selected models trained by the real data and
     validated by the testing data with models trained by the generated data and
     validated by the testing data.
