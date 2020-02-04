@@ -1,15 +1,29 @@
-
-
-# birth year from 1996 to 2018
-
-# 1. American Indian or Native Alaskan
-# 2. Asian or Pacific Islander
-# 3. Black (not Hispanic)
-# 4. Hispanic
-# 5. White (not Hispanic)
-# 6. Middle-Eastern, Arabic
-
-
+#' Randomly generate a firstname.
+#'
+#' \code{gen_firstname} randomly sample a firstname from the selected database:
+#'     \enumerate{
+#'     \item \code{country} If is 'uk', the function will automatically sample a
+#'     firstname that based on the \code{gender} and \code{birthyear}. The uk
+#'     firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
+#'     containing firstnames and their frequencies in England and Wales from 1996 to 2018.
+#'     \item If \code{country} is 'us', the function will automatically sample a
+#'     firstname that based on the \code{gender} and \code{race}. The us
+#'     firstname database was extracted from \code{\link[randomNames:randomNamesData]{randomNamesData}}.
+#'     }
+#' @param country A string variable with a default of 'uk'. It is either
+#'     'uk' or 'us'.
+#' @param gender A string variable either 'male' or 'female'.
+#' @param birthyear A number from 1996 to 2018. For number smaller than 1996 will assumes
+#'     as 1996 and greater than 2018 will assumes aas 2018.
+#' @param race A number or a string of the ethnicity code:
+#'     1 American Indian or Native Alaskan, 2 Asian or Pacific Islander,
+#'     3 Black (not Hispanic), 4 Hispanic, 5 White (not Hispanic) and
+#'     6 Middle-Eastern, Arabic.
+#' @return A name string.
+#' @examples
+#' gen_firstname(country = "uk", gender = "male", birthyear = 2013)
+#' gen_firstname(country = "us", gender = "male", race = 2)
+#' gen_firstname(country = "us", gender = "male", race = 'Hispanic')
 gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
                           race = NA)
 {
@@ -120,6 +134,28 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
 
 
 
+#' Randomly generate a lastname.
+#'
+#' \code{gen_lastname} randomly sample a lastname from the selected database:
+#'     \enumerate{
+#'     \item \code{country} If is 'uk', the function will automatically sample a
+#'     lastname. from a extracted lastname database. The lastname database was extracted
+#'     from ONS.
+#'     \item If \code{country} is 'us', the function will automatically sample a
+#'     lastname. that based on the \code{race}. The us lastname database was extracted
+#'     from \code{\link[randomNames:randomNamesData]{randomNamesData}}.
+#'     }
+#' @param country A string variable with a default of 'uk'. It is either
+#'     'uk' or 'us'.
+#' @param race A number or a string of the ethnicity code:
+#'     1 American Indian or Native Alaskan, 2 Asian or Pacific Islander,
+#'     3 Black (not Hispanic), 4 Hispanic, 5 White (not Hispanic) and
+#'     6 Middle-Eastern, Arabic.
+#' @return A name string.
+#' @examples
+#' gen_lastname(country = "uk")
+#' gen_lastname(country = "us", race = 2)
+#' gen_lastname(country = "us", race = 'Hispanic')
 gen_lastname <- function(country = "uk", race = NA)
 {
   if (tolower(country) == "uk")
@@ -166,35 +202,3 @@ gen_lastname <- function(country = "uk", race = NA)
 }
 
 
-
-get_transformation_name_variant <- function(string)
-{
-  do_name_replacement <- function(s)
-  {
-    outputname <- s
-    firstname_variant <- read.csv(file = "data/firstname_uk_variant.csv",
-                                  header = TRUE, sep = ",", stringsAsFactors = FALSE)
-    lastname_variant <- read.csv(file = "data/lastname_uk_variant.csv",
-                                 header = TRUE, sep = ",", stringsAsFactors = FALSE)
-    colnames(lastname_variant) <- colnames(firstname_variant)
-    name_variants <- rbind(firstname_variant, lastname_variant)
-    tmp <- name_variants[name_variants$forename == s, ]
-
-    if (nrow(tmp) != 0)
-    {
-      outputname <- tmp[sample(nrow(tmp), size = 1, replace = TRUE,
-                               prob = tmp$freq), 2]
-    }
-    return(as.character(outputname))
-  }
-
-  newstr <- do_name_replacement(tolower(string))
-  if (newstr == string)
-  {
-    changesstr <- paste0(newstr, ", no recorded variants")
-  } else
-  {
-    changesstr <- paste0(newstr, ",", string, ">", newstr)
-  }
-  return(changesstr)
-}

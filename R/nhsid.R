@@ -1,3 +1,11 @@
+#' Generate a random nhsid.
+#'
+#' \code{gen_nhsid} randomly return a 10-digit nhsid that is generated
+#'     following the Modulus 11 Algorithm;
+#'
+#' @return The output is string with 10 numbers.
+#' @examples
+#' gen_nhsid()
 gen_nhsid <- function()
 {
   numbers <- sample(0:9, 9)

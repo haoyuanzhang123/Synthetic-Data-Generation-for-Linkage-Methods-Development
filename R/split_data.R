@@ -1,3 +1,15 @@
+#' Split the data into a training_set and a testing_set.
+#'
+#' \code{split_data} split the data into a training_set
+#'     and a testing_set based on the \code{training_percentage}.
+#'
+#' @param dataset A data frame of the dataset.
+#' @param training_percentage A number between 0 and 100 indicating the
+#'     percertage of the training dataset.
+#'
+#' @return A list with two data frame: training_set and testing_set.
+#' @examples
+#' adult_data <- split_data(adult, 70)
 split_data <- function(data, training_percentage)
 {
   training_set <- data[1:(nrow(data) * training_percentage * 0.01), ]

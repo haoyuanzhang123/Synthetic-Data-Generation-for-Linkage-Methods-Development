@@ -1,5 +1,15 @@
-# Functions for phonetic and OCR transformation Agus Pudjijono, 2008
-
+#' Encode phonetic error to a string.
+#'
+#' \code{get_transformation_pho} randomly assign a Phonetic error to a string.
+#'     This function was converted from the Python code in Febrl (developed by
+#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
+#'
+#' @param string A string.
+#' @return It returns the \code{string} with a randomly assgined phonetic error following
+#'    rules extracted in the pho_rules.csv. It also comes with the change log of the
+#'    transformation.
+#' @examples
+#' get_transformation_pho('how are you?')
 get_transformation_pho <- function(string)
 {
   if (string == "")

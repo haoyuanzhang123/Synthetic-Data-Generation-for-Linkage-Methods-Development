@@ -44,7 +44,8 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 #'     \item \code{country} If is 'uk' and \code{gender_dependency} and \code{age_dependency}
 #'     are both TRUE, the generated firstnames will automatically sample a firstname that based
 #'     on the gender and age of the indviduals within the \code{dataset}. The uk
-#'     firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}.
+#'     firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
+#'     containing firstnames and their frequencies in England and Wales from 1996 to 2018.
 #'     \item If \code{country} is 'us' and \code{gender_dependency} and \code{race_dependency}
 #'     are both TRUE, the generated firstnames will automatically sample a firstname that based
 #'     on the gender and ethnicity of the indviduals within the \code{dataset}. The us

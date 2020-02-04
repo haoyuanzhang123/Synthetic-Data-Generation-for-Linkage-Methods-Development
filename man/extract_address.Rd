@@ -14,8 +14,13 @@ extract_address(n = 30000, postcode = NA)
 \value{
 The output is \code{n} addresses in the form of a data framework
   with \code{n} observations with 5 variables:
-  1) postcode of the UK address, 2) country, 3) primary_care_trust
-  4) longitude of the address and 5) latitude of the address.
+  \enumerate{
+  \item postcode of the UK address,
+  \item country,
+  \item primary_care_trust,
+  \item longitude of the address,
+  \item latitude of the address.
+  }
   If \code{postcode} is given, the return addresses are addresses
   having the same outward postcode
 }
