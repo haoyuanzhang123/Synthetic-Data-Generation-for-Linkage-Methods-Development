@@ -19,4 +19,5 @@ It returns the \code{string} with an additional character/digit/space/symbol.
 }
 \examples{
 get_transformation_insert('how are you?')
+
 }

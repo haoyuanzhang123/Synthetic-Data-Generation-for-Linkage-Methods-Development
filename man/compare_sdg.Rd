@@ -70,4 +70,5 @@ bmr <- compare_sdg(lrns,
     generated_data1 = bn_learn$gen_data)
 names(bmr$results) <- c("real_dataset","bn_learn")
 bmr
+
 }

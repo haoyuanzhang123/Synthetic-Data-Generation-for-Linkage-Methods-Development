@@ -33,4 +33,5 @@ A name string.
 gen_lastname(country = "uk")
 gen_lastname(country = "us", race = 2)
 gen_lastname(country = "us", race = 'Hispanic')
+
 }

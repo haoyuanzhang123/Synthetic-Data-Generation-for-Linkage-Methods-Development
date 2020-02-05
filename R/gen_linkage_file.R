@@ -1,3 +1,50 @@
+#' Generate a linkage file by damaging the gold standard file.
+#'
+#' \code{damage_gold_standard} damage the \code{gold_standard} file into a linkage files. The
+#'     damage actions are instructued by the error flags in \code{syn_error_occurrence}. These
+#'     actions are:
+#'     \enumerate{
+#'     \item {missing}: assign 'NA' to the flagged data point;
+#'     \item {del}: randomly delete one charater on the flagged data point;
+#'     \item {trans_char}: randomly transpose two neighbouring characters on the flagged data point;
+#'     \item {trans_date}: randomly transpose the day and the month of a date on the flagged data point;
+#'     \item {insert}: randomly insert one charater to the flagged data point;
+#'     \item {typo}: randomly assign a typo error to the flagged data point;
+#'     \item {ocr}: randomly assign a ocr error to the flagged data point;
+#'     \item {pho}: randomly assign a phonetic error to the flagged data point;
+#'     \item {variant}: randomly assign a name variant to the flagged data point.
+#'     }
+#'
+#' @param gold_standard A data frame of the gold standard dataset, see \code{\link{add_variable}}.
+#' @param syn_error_occurrence A data frame of one-hot encoded error flags, see \code{\link{bn_flag_inference}}.
+#' @return A list of two data frame: i) the linkage_file having the same dimension
+#'     as the \code{gold_standard} but some of the variables are damaged; ii) the
+#'     error_log records the damages have made on the linkage file.
+#' @examples
+#' adult_with_flag <- add_random_error(adult, prob = c(0.97, 0.03), "age_missing")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_variant")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "lastname_variant")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.72, 0.28), "firstname_typo")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.85, 0.15), "firstname_pho")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.85, 0.15), "firstname_ocr")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "dob_trans_date")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "nhsid_insert")
+#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "firstname_trans_char")
+#' adult_with_flag <- split_data(adult_with_flag, 70)
+#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100"
+#' bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc", bn_evidence)
+#' dataset_smaller_version <- bn_learn$gen_data[1:100, ]
+#' syn_dependent <- dataset_smaller_version[, !grepl("flag", colnames(dataset_smaller_version))]
+#' gold_standard <- add_variable(syn_dependent, "nhsid")
+#' gold_standard <- add_variable(gold_standard, "dob", end_date = "2015-03-02", age_dependency = TRUE)
+#' gold_standard <- add_variable(gold_standard, "address")
+#' gold_standard <- add_variable(gold_standard, "firstname", country = "uk",
+#'                               gender_dependency = TRUE, age_dependency = TRUE)
+#' gold_standard <- add_variable(gold_standard, "lastname", country = "uk")
+#' syn_error_occurrence <- bn_flag_inference(dataset_smaller_version, bn_learn$fit_model)
+#' linkage_file <- damage_gold_standard(gold_standard, syn_error_occurrence)
+#'
+#' @export
 damage_gold_standard <- function(gold_standard, syn_error_occurrence)
 {
   s <- gold_standard
@@ -102,10 +149,8 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
       s[, tmp[1]] <- as.character(s[, tmp[1]])
-      tmp_name1 <- read.csv(file = "data/firstname_uk_variant.csv",
-                            header = TRUE, sep = ",", stringsAsFactors = FALSE)
-      tmp_name2 <- read.csv(file = "data/lastname_uk_variant.csv",
-                            header = TRUE, sep = ",", stringsAsFactors = FALSE)
+      tmp_name1 <- firstname_uk_variant
+      tmp_name2 <- lastname_uk_variant
       colnames(tmp_name2) <- colnames(tmp_name1)
       name_variants <- rbind(tmp_name1, tmp_name2)
 

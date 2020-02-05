@@ -12,7 +12,8 @@
 #' bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc")
 #' syn_error_occurrence <- bn_flag_inference(bn_learn$gen_data, bn_learn$fit_model)
 #' syn_error_occurrence
-
+#'
+#' @export
 bn_flag_inference <- function(dataset, fit_model)
 {
   node_names <- colnames(dataset[grepl("flag", colnames(dataset))])

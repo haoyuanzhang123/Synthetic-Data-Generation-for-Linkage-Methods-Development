@@ -22,4 +22,5 @@ The output is the transposition of day and month of \code{date}
 \examples{
 get_transformation_trans_date("1995-01-11")
 get_transformation_trans_date("1995-01-13")
+
 }

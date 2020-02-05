@@ -6,10 +6,12 @@
 #'
 #' @param string A string.
 #' @return It returns the \code{string} with a randomly assgined OCR error following
-#'    rules extracted in the ocr_rules.csv. It also comes with the change log of the
+#'    rules extracted in the ocr_rules dataset. It also comes with the change log of the
 #'    transformation.
 #' @examples
 #' get_transformation_ocr('how are you?')
+#'
+#' @export
 get_transformation_ocr <- function(string)
 {
   if (string == "")
@@ -71,8 +73,6 @@ get_transformation_ocr <- function(string)
     return(tmpstr)
   }
 
-  ocr_rules <- read.csv(file = "data/ocr_rules.csv", header = TRUE, sep = ",",
-                        stringsAsFactors = FALSE)
   workstr <- string
 
   for (i in 1:nrow(ocr_rules))

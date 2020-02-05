@@ -20,5 +20,8 @@ Imports:
     visNetwork (>= 2.0.6)
 Suggests:
     mlr (>= 2.16.0),
-    PostcodesioR (>= 0.1.1)
+    PostcodesioR (>= 0.1.1),
+    knitr,
+    rmarkdown
 RoxygenNote: 7.0.2
+VignetteBuilder: knitr

@@ -6,10 +6,12 @@
 #'
 #' @param string A string.
 #' @return It returns the \code{string} with a randomly assgined typographic error following
-#'    rules extracted in the typo_rules.csv. It also comes with the change log of the
+#'    rules extracted in the typo_rules. It also comes with the change log of the
 #'    transformation.
 #' @examples
 #' get_transformation_typo('how are you?')
+#'
+#' @export
 get_transformation_typo <- function(string)
 {
   if (string == "")

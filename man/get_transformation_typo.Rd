@@ -11,7 +11,7 @@ get_transformation_typo(string)
 }
 \value{
 It returns the \code{string} with a randomly assgined typographic error following
-   rules extracted in the typo_rules.csv. It also comes with the change log of the
+   rules extracted in the typo_rules. It also comes with the change log of the
    transformation.
 }
 \description{
@@ -21,4 +21,5 @@ It returns the \code{string} with a randomly assgined typographic error followin
 }
 \examples{
 get_transformation_typo('how are you?')
+
 }

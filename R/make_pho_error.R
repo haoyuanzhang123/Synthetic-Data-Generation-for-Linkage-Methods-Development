@@ -6,10 +6,12 @@
 #'
 #' @param string A string.
 #' @return It returns the \code{string} with a randomly assgined phonetic error following
-#'    rules extracted in the pho_rules.csv. It also comes with the change log of the
+#'    rules extracted in the pho_rules dataset. It also comes with the change log of the
 #'    transformation.
 #' @examples
 #' get_transformation_pho('how are you?')
+#'
+#' @export
 get_transformation_pho <- function(string)
 {
   if (string == "")
@@ -502,10 +504,6 @@ get_transformation_pho <- function(string)
     return(tmpstr)
   }
 
-
-
-  pho_rules <- read.csv(file = "data/pho_rules.csv", header = TRUE, sep = ",",
-                        stringsAsFactors = FALSE)
   workstr <- string
 
   for (i in 1:nrow(pho_rules))

@@ -28,4 +28,5 @@ A data frame of the \code{dataset} with an additional column of binary encoded
 \examples{
 adult_with_flag <- add_random_error(adult, prob = c(0.97, 0.03), "age_missing")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "education_typo")
+
 }

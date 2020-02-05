@@ -38,6 +38,8 @@
 #'     generated_data1 = bn_learn$gen_data)
 #' names(bmr$results) <- c("real_dataset","bn_learn")
 #' bmr
+#'
+#' @export
 compare_sdg <- function(learner, measurement, target_var, real_dataset,
                            generated_data1, generated_data2 = NA, generated_data3 = NA,
                            generated_data4 = NA, generated_data5 = NA, generated_data6 = NA)
@@ -160,6 +162,8 @@ compare_sdg <- function(learner, measurement, target_var, real_dataset,
 #'     training_set = adult_data$training_set,
 #'     syn_data_names = c("bn_learn"),
 #'     generated_data1 = bn_learn$gen_data)
+#'
+#' @export
 plot_compared_sdg <- function(target_var, training_set, syn_data_names,
                                generated_data1, generated_data2 = NA, generated_data3 = NA, generated_data4 = NA,
                                generated_data5 = NA, generated_data6 = NA)

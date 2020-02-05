@@ -22,4 +22,5 @@ The UK addresses were extracted from \code{\link{extract_address}}.
 }
 \examples{
 gen_address()
+
 }

@@ -18,4 +18,5 @@ It returns the \code{string} with one of the characters was randomly
 }
 \examples{
 get_transformation_del('how are you?')
+
 }

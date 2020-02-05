@@ -22,4 +22,5 @@ It returns the name variant of \code{string} together with the change log
 get_transformation_name_variant("ed")
 get_transformation_name_variant("shelly")
 get_transformation_name_variant("MORRIS")
+
 }

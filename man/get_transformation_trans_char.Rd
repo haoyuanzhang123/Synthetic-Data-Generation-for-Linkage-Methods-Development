@@ -20,4 +20,5 @@ It returns the \code{string} with two of the neighbouring characters
 }
 \examples{
 get_transformation_del('how are you?')
+
 }

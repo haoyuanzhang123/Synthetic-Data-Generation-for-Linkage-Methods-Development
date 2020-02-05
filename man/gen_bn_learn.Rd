@@ -45,4 +45,5 @@ adult_data <- split_data(adult, 70)
 bn_learn1 <- gen_bn_learn(adult_data$training_set, "hc")
 bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100"
 bn_learn2 <- gen_bn_learn(adult_data$training_set, "hc", bn_evidence)
+
 }

@@ -28,7 +28,8 @@ A name string.
     \enumerate{
     \item \code{country} If is 'uk', the function will automatically sample a
     firstname that based on the \code{gender} and \code{birthyear}. The uk
-    firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
+    firstname database was extracted from
+    \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
     containing firstnames and their frequencies in England and Wales from 1996 to 2018.
     \item If \code{country} is 'us', the function will automatically sample a
     firstname that based on the \code{gender} and \code{race}. The us
@@ -39,4 +40,5 @@ A name string.
 gen_firstname(country = "uk", gender = "male", birthyear = 2013)
 gen_firstname(country = "us", gender = "male", race = 2)
 gen_firstname(country = "us", gender = "male", race = 'Hispanic')
+
 }

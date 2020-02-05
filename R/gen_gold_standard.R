@@ -15,6 +15,8 @@
 #' @examples
 #' adult_with_flag <- add_random_error(adult, prob = c(0.97, 0.03), "age_missing")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "education_typo")
+#'
+#' @export
 add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 {
   tmp <- sample(c(0, 1), prob = prob, replace = TRUE, size = nrow(dataset))
@@ -44,8 +46,8 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 #'     \item \code{country} If is 'uk' and \code{gender_dependency} and \code{age_dependency}
 #'     are both TRUE, the generated firstnames will automatically sample a firstname that based
 #'     on the gender and age of the indviduals within the \code{dataset}. The uk
-#'     firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
-#'     containing firstnames and their frequencies in England and Wales from 1996 to 2018.
+#'     firstname database was extracted from ONS containing firstnames and their frequencies
+#'     in England and Wales from 1996 to 2018.
 #'     \item If \code{country} is 'us' and \code{gender_dependency} and \code{race_dependency}
 #'     are both TRUE, the generated firstnames will automatically sample a firstname that based
 #'     on the gender and ethnicity of the indviduals within the \code{dataset}. The us
@@ -83,6 +85,8 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 #' tmp5 <- add_variable(adult, "lastname", country = "uk")
 #' tmp6 <- add_variable(adult, 'firstname', country = 'us', gender_dependency=TRUE, race_dependency=TRUE)
 #' tmp7 <- add_variable(adult, 'lastname', country='us', race_dependency = TRUE)
+#'
+#' @export
 add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01",
                          end_date = "2020-01-01", age_dependency = TRUE,
                          gender_dependency = TRUE, race_dependency = FALSE)
@@ -122,15 +126,14 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
     }
   } else if (tolower(type) == "address")
   {
-    ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE,
-                          sep = ",", stringsAsFactors = FALSE)
-    cols <- colnames(ukaddress)
+
+    cols <- colnames(address_uk)
     dataset[cols] <- NA
 
-    randomindex <- sample(1:nrow(ukaddress), nrow(dataset), replace = TRUE)
+    randomindex <- sample(1:nrow(address_uk), nrow(dataset), replace = TRUE)
     for (i in 1:length(randomindex))
     {
-      dataset[i, cols] <- ukaddress[randomindex[i], ]
+      dataset[i, cols] <- address_uk[randomindex[i], ]
     }
 
     # dataset[cols] <- lapply(dataset[cols], factor)
@@ -159,8 +162,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       }
       if (tolower(country) == "us")
       {
-        firstname <- read.csv(file = "data/firstname_us.csv", header = TRUE,
-                              sep = ",", stringsAsFactors = FALSE)
+        firstname <- firstname_us
         if (race_dependency)
         {
           if (any(tolower(colnames(dataset)) == "race"))
@@ -215,8 +217,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
         }
       } else
       {
-        firstname <- read.csv(file = "data/firstname_uk.csv", header = TRUE,
-                              sep = ",", stringsAsFactors = FALSE)
+        firstname <- firstname_uk
         if (age_dependency)
         {
           if (any(tolower(colnames(dataset)) == "age"))
@@ -282,8 +283,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
     {
       if (tolower(country) == "us")
       {
-        firstname <- read.csv(file = "data/firstname_us.csv", header = TRUE,
-                              sep = ",", stringsAsFactors = FALSE)
+        firstname <- firstname_us
         if (race_dependency)
         {
           if (any(tolower(colnames(dataset)) == "race"))
@@ -335,8 +335,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
         }
       } else
       {
-        firstname <- read.csv(file = "data/firstname_uk.csv", header = TRUE,
-                              sep = ",", stringsAsFactors = FALSE)
+        firstname <- firstname_uk
         if (age_dependency)
         {
           if (any(tolower(colnames(dataset)) == "age"))
@@ -400,8 +399,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
   {
     if (tolower(country) == "us")
     {
-      lastname <- read.csv(file = "data/lastname_us.csv", header = TRUE,
-                           sep = ",", stringsAsFactors = FALSE)
+      lastname <- lastname_us
       if (race_dependency)
       {
         dataset[type] <- ""
@@ -454,8 +452,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       }
     } else
     {
-      lastname <- read.csv(file = "data/lastname_uk.csv", header = TRUE,
-                           sep = ",", stringsAsFactors = FALSE)
+      lastname <- lastname_uk
       tmp <- sample(lastname[, 1], nrow(dataset), replace = TRUE,
                     prob = lastname[, 2])
       dataset <- cbind(dataset, tmp)

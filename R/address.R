@@ -13,13 +13,16 @@
 #'   }
 #' @examples
 #' gen_address()
+#'
+#' @export
 gen_address <- function()
 {
-  ukaddress <- read.csv(file = "data/address_uk.csv", header = TRUE,
-                        sep = ",", stringsAsFactors = FALSE)
-  tmp <- sample(1:nrow(ukaddress), 1)
-  return(ukaddress[tmp, ])
+  tmp <- sample(1:nrow(address_uk), 1)
+  return(address_uk[tmp, ])
 }
+
+
+
 
 #' Get an address.
 #'

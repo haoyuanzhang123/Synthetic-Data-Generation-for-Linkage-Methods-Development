@@ -150,6 +150,74 @@ linkage_file_1 <- damage_gold_standard(gold_standard, syn_error_occurrence_1)
 syn_error_occurrence_2 <- bn_flag_inference(dataset_smaller_version, bn_learn$fit_model)
 linkage_file_2 <- damage_gold_standard(gold_standard, syn_error_occurrence_2)
 
+library(reclin)
+library(dplyr)
+linked_data_set <- pair_blocking(linkage_file_1$linkage_file, linkage_file_2$linkage_file, "firstname") %>%
+  compare_pairs(by = c("lastname", "firstname", "dob", "sex"),
+                default_comparator = jaro_winkler(0.8)) %>%
+  score_problink(var = "weight") %>%
+  select_n_to_m("weight", var = "ntom", threshold = 0) %>%
+  link()
 
 
+
+devtools::build_manual()
+devtools::build_vignettes()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rm(list = ls())
+adult_dataset = adult[c('age', 'race', 'sex')]
+adult_with_flag <- add_random_error(adult_dataset, prob = c(0.70, 0.30), "age_missing")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.50, 0.50), "race_missing")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "sex_missing")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_variant")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "lastname_variant")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_typo")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35),"firstname_pho")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_ocr")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35),"firstname_trans_char")
+
+bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc")
+syn_dependent <- bn_learn$gen_data[, !grepl("flag", colnames(bn_learn$gen_data))]
+gold_standard <- add_variable(syn_dependent, "nhsid")
+gold_standard <- add_variable(gold_standard, "address")
+gold_standard <- add_variable(gold_standard, "firstname", country = "uk",
+                              gender_dependency = TRUE, age_dependency = TRUE)
+gold_standard <- add_variable(gold_standard, "lastname", country = "uk")
+gold_standard$country <-NULL
+gold_standard$primary_care_trust <-NULL
+gold_standard$longitude <-NULL
+gold_standard$latitude <-NULL
+
+syn_error_occurrence_1 <- bn_flag_inference(bn_learn$gen_data, bn_learn$fit_model)
+linkage_file_1 <- damage_gold_standard(gold_standard, syn_error_occurrence_1)
+
+syn_error_occurrence_2 <- bn_flag_inference(bn_learn$gen_data, bn_learn$fit_model)
+linkage_file_2 <- damage_gold_standard(gold_standard, syn_error_occurrence_2)
+
+library(reclin)
+library(dplyr)
+linked_data_set <- pair_blocking(linkage_file_1$linkage_file, linkage_file_2$linkage_file, "postcode") %>%
+  compare_pairs(by = c("lastname", "firstname", "sex", "race"),
+                default_comparator = jaro_winkler(0.8)) %>%
+  score_problink(var = "weight") %>%
+  select_n_to_m("weight", var = "ntom", threshold = 0) %>%
+  link()
+
+table(linked_data_set$nhsid.x == linked_data_set$nhsid.y)
+head(linked_data_set[linked_data_set$nhsid.x != linked_data_set$nhsid.y,],4)
 

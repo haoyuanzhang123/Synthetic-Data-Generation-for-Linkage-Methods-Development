@@ -25,4 +25,5 @@ A plot of the comparision of the distribution of
 adult_data <- split_data(adult, 70)
 cart <- gen_cart(adult_data$training_set)
 compare_cart(adult_data$training_set, cart$fit_model, c("age", "workclass", "sex"))
+
 }

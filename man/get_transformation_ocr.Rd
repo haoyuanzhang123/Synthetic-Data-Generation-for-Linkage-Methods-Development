@@ -11,7 +11,7 @@ get_transformation_ocr(string)
 }
 \value{
 It returns the \code{string} with a randomly assgined OCR error following
-   rules extracted in the ocr_rules.csv. It also comes with the change log of the
+   rules extracted in the ocr_rules dataset. It also comes with the change log of the
    transformation.
 }
 \description{
@@ -21,4 +21,5 @@ It returns the \code{string} with a randomly assgined OCR error following
 }
 \examples{
 get_transformation_ocr('how are you?')
+
 }

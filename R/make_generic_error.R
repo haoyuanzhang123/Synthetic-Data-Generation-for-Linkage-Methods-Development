@@ -7,12 +7,15 @@
 #'    deleted. It also comes with the change log of the transformation.
 #' @examples
 #' get_transformation_del('how are you?')
-# Future improvement: if we have statatiscs that letter 3 has a higher prob of being
-# deleted than letter 2 than letter 5 than....  prob = c(0.1, 0.3, 0.5,
-# 0.1, 0.2) del_position = sample(nchar(string),size = 1, replace =
-# TRUE, prob = prob), otherwise, treat them as equal prob
+#'
+#' @export
 get_transformation_del <- function(string)
 {
+  # Future improvement: if we have statatiscs that letter 3 has a higher prob of being
+  # deleted than letter 2 than letter 5 than....  prob = c(0.1, 0.3, 0.5,
+  # 0.1, 0.2) del_position = sample(nchar(string),size = 1, replace =
+  # TRUE, prob = prob), otherwise, treat them as equal prob
+  #'
   if (string != "" && nchar(string) > 1)
   {
     del_position <- sample(nchar(string), size = 1, replace = TRUE)
@@ -41,6 +44,8 @@ get_transformation_del <- function(string)
 #'     transformation.
 #' @examples
 #' get_transformation_del('how are you?')
+#'
+#' @export
 get_transformation_trans_char <- function(string)
 {
   if (string != "" && nchar(string) > 1)
@@ -78,6 +83,8 @@ get_transformation_trans_char <- function(string)
 #' @examples
 #' get_transformation_trans_date("1995-01-11")
 #' get_transformation_trans_date("1995-01-13")
+#'
+#' @export
 get_transformation_trans_date <- function(date)
 {
   date <- as.character(date)
@@ -106,6 +113,8 @@ get_transformation_trans_date <- function(date)
 #'     It also comes with the change log of the transformation.
 #' @examples
 #' get_transformation_insert('how are you?')
+#'
+#' @export
 get_transformation_insert <- function(string)
 {
   if (string != "")
@@ -141,15 +150,15 @@ get_transformation_insert <- function(string)
 #' get_transformation_name_variant("ed")
 #' get_transformation_name_variant("shelly")
 #' get_transformation_name_variant("MORRIS")
+#'
+#' @export
 get_transformation_name_variant <- function(string)
 {
   do_name_replacement <- function(s)
   {
     outputname <- s
-    firstname_variant <- read.csv(file = "data/firstname_uk_variant.csv",
-                                  header = TRUE, sep = ",", stringsAsFactors = FALSE)
-    lastname_variant <- read.csv(file = "data/lastname_uk_variant.csv",
-                                 header = TRUE, sep = ",", stringsAsFactors = FALSE)
+    firstname_variant <- firstname_uk_variant
+    lastname_variant <- lastname_uk_variant
     colnames(lastname_variant) <- colnames(firstname_variant)
     name_variants <- rbind(firstname_variant, lastname_variant)
     tmp <- name_variants[name_variants$forename == s, ]

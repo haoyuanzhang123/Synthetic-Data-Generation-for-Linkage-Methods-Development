@@ -4,7 +4,8 @@
 #'     \enumerate{
 #'     \item \code{country} If is 'uk', the function will automatically sample a
 #'     firstname that based on the \code{gender} and \code{birthyear}. The uk
-#'     firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
+#'     firstname database was extracted from
+#'     \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
 #'     containing firstnames and their frequencies in England and Wales from 1996 to 2018.
 #'     \item If \code{country} is 'us', the function will automatically sample a
 #'     firstname that based on the \code{gender} and \code{race}. The us
@@ -24,14 +25,14 @@
 #' gen_firstname(country = "uk", gender = "male", birthyear = 2013)
 #' gen_firstname(country = "us", gender = "male", race = 2)
 #' gen_firstname(country = "us", gender = "male", race = 'Hispanic')
+#'
+#' @export
 gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
                           race = NA)
 {
 
   if (tolower(country) == "uk")
   {
-    firstname <- read.csv(file = "data/firstname_uk.csv", header = TRUE,
-                          sep = ",", stringsAsFactors = FALSE)
     if (!is.na(gender))
     {
       if (!is.na(birthyear))
@@ -44,14 +45,14 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
         {
           birthyear <- 2018
         }
-        outputname <- sample(firstname[firstname$sex == tolower(gender) &
-                                         firstname$birthyear == birthyear, 1], size = 1, replace = TRUE,
-                             prob = firstname[firstname$sex == tolower(gender) & firstname$birthyear ==
+        outputname <- sample(firstname_uk[firstname_uk$sex == tolower(gender) &
+                                            firstname_uk$birthyear == birthyear, 1], size = 1, replace = TRUE,
+                             prob = firstname_uk[firstname_uk$sex == tolower(gender) & firstname_uk$birthyear ==
                                                 birthyear, 2])
       } else
       {
-        outputname <- sample(firstname[firstname$sex == tolower(gender),
-                                       1], size = 1, replace = TRUE, prob = firstname[firstname$sex ==
+        outputname <- sample(firstname_uk[firstname_uk$sex == tolower(gender),
+                                       1], size = 1, replace = TRUE, prob = firstname_uk[firstname_uk$sex ==
                                                                                         tolower(gender), 2])
       }
     } else
@@ -65,19 +66,17 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
         {
           birthyear <- 2018
         }
-        outputname <- sample(firstname[firstname$birthyear == birthyear,
-                                       1], size = 1, replace = TRUE, prob = firstname[firstname$birthyear ==
+        outputname <- sample(firstname_uk[firstname_uk$birthyear == birthyear,
+                                       1], size = 1, replace = TRUE, prob = firstname_uk[firstname_uk$birthyear ==
                                                                                         birthyear, 2])
       } else
       {
-        outputname <- sample(firstname[, 1], size = 1, replace = TRUE,
-                             prob = firstname[, 2])
+        outputname <- sample(firstname_uk[, 1], size = 1, replace = TRUE,
+                             prob = firstname_uk[, 2])
       }
     }
   } else
   {
-    firstname <- read.csv(file = "data/firstname_us.csv", header = TRUE,
-                          sep = ",", stringsAsFactors = FALSE)
     if (!is.na(race))
     {
       if (race == "1")
@@ -102,27 +101,27 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
 
       if (!is.na(gender))
       {
-        outputname <- sample(firstname[firstname$sex == tolower(gender) &
-                                         firstname$race == race, 1], size = 1, replace = TRUE,
-                             prob = firstname[firstname$sex == tolower(gender) & firstname$race ==
+        outputname <- sample(firstname_us[firstname_us$sex == tolower(gender) &
+                                            firstname_us$race == race, 1], size = 1, replace = TRUE,
+                             prob = firstname_us[firstname_us$sex == tolower(gender) & firstname_us$race ==
                                                 race, 2])
       } else
       {
-        outputname <- sample(firstname[firstname$race == race,
-                                       1], size = 1, replace = TRUE, prob = firstname[firstname$race ==
+        outputname <- sample(firstname_us[firstname_us$race == race,
+                                       1], size = 1, replace = TRUE, prob = firstname_us[firstname_us$race ==
                                                                                         race, 2])
       }
     } else
     {
       if (!is.na(gender))
       {
-        outputname <- sample(firstname[firstname$sex == tolower(gender),
-                                       1], size = 1, replace = TRUE, prob = firstname[firstname$sex ==
+        outputname <- sample(firstname_us[firstname_us$sex == tolower(gender),
+                                       1], size = 1, replace = TRUE, prob = firstname_us[firstname_us$sex ==
                                                                                         tolower(gender), 2])
       } else
       {
-        outputname <- sample(firstname[, 1], size = 1, replace = TRUE,
-                             prob = firstname[, 2])
+        outputname <- sample(firstname_us[, 1], size = 1, replace = TRUE,
+                             prob = firstname_us[, 2])
       }
     }
   }
@@ -156,18 +155,16 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
 #' gen_lastname(country = "uk")
 #' gen_lastname(country = "us", race = 2)
 #' gen_lastname(country = "us", race = 'Hispanic')
+#'
+#' @export
 gen_lastname <- function(country = "uk", race = NA)
 {
   if (tolower(country) == "uk")
   {
-    lastname <- read.csv(file = "data/lastname_uk.csv", header = TRUE,
-                         sep = ",", stringsAsFactors = FALSE)
-    outputname <- sample(lastname[, 1], size = 1, replace = TRUE, prob = lastname[,
+    outputname <- sample(lastname_uk[, 1], size = 1, replace = TRUE, prob = lastname_uk[,
                                                                                   2])
   } else
   {
-    lastname <- read.csv(file = "data/lastname_us.csv", header = TRUE,
-                         sep = ",", stringsAsFactors = FALSE)
     if (!is.na(race))
     {
       if (race == "1")
@@ -189,13 +186,13 @@ gen_lastname <- function(country = "uk", race = NA)
       {
         race <- "Middle-Eastern, Arabic"
       }
-      outputname <- sample(lastname[lastname$race == race, 1], size = 1,
-                           replace = TRUE, prob = lastname[lastname$race == race,
+      outputname <- sample(lastname_us[lastname_us$race == race, 1], size = 1,
+                           replace = TRUE, prob = lastname_us[lastname_us$race == race,
                                                            2])
     } else
     {
-      outputname <- sample(lastname[, 1], size = 1, replace = TRUE,
-                           prob = lastname[, 2])
+      outputname <- sample(lastname_us[, 1], size = 1, replace = TRUE,
+                           prob = lastname_us[, 2])
     }
   }
   return(outputname)

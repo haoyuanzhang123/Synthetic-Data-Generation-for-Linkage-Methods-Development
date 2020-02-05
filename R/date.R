@@ -14,6 +14,8 @@
 #' gen_dob(start = "1995-01-01")
 #' gen_dob(end = "2000-01-01")
 #' gen_dob(start = "1909-01-01", end = "2000-01-01")
+#'
+#' @export
 gen_dob <- function(start = "1900-01-01", end = "2020-01-01")
 {
   start <- as.Date(start)

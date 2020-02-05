@@ -21,4 +21,5 @@ A list with two data frame: training_set and testing_set.
 }
 \examples{
 adult_data <- split_data(adult, 70)
+
 }

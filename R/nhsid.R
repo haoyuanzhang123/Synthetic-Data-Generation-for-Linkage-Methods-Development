@@ -6,6 +6,8 @@
 #' @return The output is string with 10 numbers.
 #' @examples
 #' gen_nhsid()
+#'
+#' @export
 gen_nhsid <- function()
 {
   numbers <- sample(0:9, 9)

@@ -10,6 +10,8 @@
 #' @return A list with two data frame: training_set and testing_set.
 #' @examples
 #' adult_data <- split_data(adult, 70)
+#'
+#' @export
 split_data <- function(data, training_percentage)
 {
   training_set <- data[1:(nrow(data) * training_percentage * 0.01), ]

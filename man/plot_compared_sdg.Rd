@@ -57,4 +57,5 @@ plot_compared_sdg(target_var = "race",
     training_set = adult_data$training_set,
     syn_data_names = c("bn_learn"),
     generated_data1 = bn_learn$gen_data)
+
 }

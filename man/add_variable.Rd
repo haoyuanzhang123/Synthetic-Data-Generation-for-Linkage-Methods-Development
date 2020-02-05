@@ -54,8 +54,8 @@ A data frame of the \code{dataset} with a new generated variable.
     \item \code{country} If is 'uk' and \code{gender_dependency} and \code{age_dependency}
     are both TRUE, the generated firstnames will automatically sample a firstname that based
     on the gender and age of the indviduals within the \code{dataset}. The uk
-    firstname database was extracted from \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/babynamesenglandandwales/2018/relateddata}
-    containing firstnames and their frequencies in England and Wales from 1996 to 2018.
+    firstname database was extracted from ONS containing firstnames and their frequencies
+    in England and Wales from 1996 to 2018.
     \item If \code{country} is 'us' and \code{gender_dependency} and \code{race_dependency}
     are both TRUE, the generated firstnames will automatically sample a firstname that based
     on the gender and ethnicity of the indviduals within the \code{dataset}. The us
@@ -82,4 +82,5 @@ tmp4 <- add_variable(adult, "firstname", country = "uk", age_dependency = TRUE, 
 tmp5 <- add_variable(adult, "lastname", country = "uk")
 tmp6 <- add_variable(adult, 'firstname', country = 'us', gender_dependency=TRUE, race_dependency=TRUE)
 tmp7 <- add_variable(adult, 'lastname', country='us', race_dependency = TRUE)
+
 }

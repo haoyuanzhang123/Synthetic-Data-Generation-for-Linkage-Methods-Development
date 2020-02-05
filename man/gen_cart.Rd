@@ -30,6 +30,13 @@ be found in \code{\link[synthpop::syn]{syn}}.
 \examples{
 adult_data <- split_data(adult, 70)
 cart <- gen_cart(adult_data$training_set)
-bn_structure <- "[native_country][income][age|marital_status:education][sex][race|native_country][marital_status|race:sex][relationship|marital_status][education|sex:race][occupation|education][workclass|occupation][hours_per_week|occupation:workclass][capital_gain|occupation:workclass:income][capital_loss|occupation:workclass:income]"
+bn_structure <- "[native_country][income][age|marital_status:education]"
+bn_structure = paste0(bn_structure, "[sex][race|native_country][marital_status|race:sex]")
+bn_structure = paste0(bn_structure,"[relationship|marital_status][education|sex:race]")
+bn_structure = paste0(bn_structure,"[occupation|education][workclass|occupation]")
+bn_structure = paste0(bn_structure,"[hours_per_week|occupation:workclass]")
+bn_structure = paste0(bn_structure,"[capital_gain|occupation:workclass:income]")
+bn_structure = paste0(bn_structure,"[capital_loss|occupation:workclass:income]")
 cart_elicit <- gen_cart(adult_data$training_set, bn_structure)
+
 }

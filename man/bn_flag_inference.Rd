@@ -24,4 +24,5 @@ adult_with_flag <- split_data(adult_with_flag, 70)
 bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc")
 syn_error_occurrence <- bn_flag_inference(bn_learn$gen_data, bn_learn$fit_model)
 syn_error_occurrence
+
 }
