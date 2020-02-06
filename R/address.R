@@ -17,8 +17,8 @@
 #' @export
 gen_address <- function()
 {
-  tmp <- sample(1:nrow(address_uk), 1)
-  return(address_uk[tmp, ])
+  tmp <- sample(1:nrow(sdglinkage::address_uk), 1)
+  return(sdglinkage::address_uk[tmp, ])
 }
 
 
@@ -38,6 +38,8 @@ gen_address <- function()
 #' @examples
 #' get_address()
 #' get_address('w3')
+#'
+#' @export
 get_address <- function(postcode = NA)
 {
   if (is.na(postcode))
@@ -52,6 +54,8 @@ get_address <- function(postcode = NA)
 
   return(stringlist)
 }
+
+
 
 #' Extract addresses.
 #'
@@ -70,12 +74,7 @@ get_address <- function(postcode = NA)
 #'   }
 #'   If \code{postcode} is given, the return addresses are addresses
 #'   having the same outward postcode
-#' @examples
-#' extract_address()
-#' extract_address(100)
-#' extract_address(100, postcode = 'w3')
-
-extract_address <- function(n = 30000, postcode = NA)
+extract_address <- function(n = 100, postcode = NA)
 {
   df_address <- data.frame(postcode = NA, country = NA, primary_care_trust = NA,
                            longitude = NA, latitude = NA)

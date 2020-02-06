@@ -31,7 +31,9 @@ Estimation, MLE) to learn the values of the parameters based on the given
 dependencies of the variables and the input data.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
+bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
+               hours_per_week>=0 & hours_per_week<=100"
 bn_structure <- "[native_country][income][age|marital_status:education]"
 bn_structure = paste0(bn_structure, "[sex][race|native_country][marital_status|race:sex]")
 bn_structure = paste0(bn_structure,"[relationship|marital_status][education|sex:race]")

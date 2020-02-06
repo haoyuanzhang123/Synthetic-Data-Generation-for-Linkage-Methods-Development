@@ -9,13 +9,13 @@
 #'
 #' @return A list with two data frame: training_set and testing_set.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #'
 #' @export
-split_data <- function(data, training_percentage)
+split_data <- function(dataset, training_percentage)
 {
-  training_set <- data[1:(nrow(data) * training_percentage * 0.01), ]
-  testing_set <- data[-(1:(nrow(data) * training_percentage * 0.01)),
+  training_set <- dataset[1:(nrow(dataset) * training_percentage * 0.01), ]
+  testing_set <- dataset[-(1:(nrow(dataset) * training_percentage * 0.01)),
                       ]
   return(list(training_set = training_set, testing_set = testing_set))
 }

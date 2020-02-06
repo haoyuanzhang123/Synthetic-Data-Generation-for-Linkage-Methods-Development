@@ -152,7 +152,7 @@ compare_sdg <- function(learner, measurement, target_var, real_dataset,
 #'     If the \code{target_var} is continous, the plot is
 #'     a density plot,
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #' bn_learn <- gen_bn_learn(adult_data$training_set, "hc")
 #' plot_compared_sdg(target_var = "age",
 #'     training_set = adult_data$training_set,

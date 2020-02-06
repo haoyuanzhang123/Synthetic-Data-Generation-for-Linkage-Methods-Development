@@ -33,6 +33,8 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
 
   if (tolower(country) == "uk")
   {
+    firstname_uk = sdglinkage::firstname_uk
+
     if (!is.na(gender))
     {
       if (!is.na(birthyear))
@@ -77,6 +79,8 @@ gen_firstname <- function(country = "uk", gender = NA, birthyear = NA,
     }
   } else
   {
+    firstname_us = sdglinkage::firstname_us
+
     if (!is.na(race))
     {
       if (race == "1")
@@ -161,10 +165,14 @@ gen_lastname <- function(country = "uk", race = NA)
 {
   if (tolower(country) == "uk")
   {
+    lastname_uk = sdglinkage::lastname_uk
+
     outputname <- sample(lastname_uk[, 1], size = 1, replace = TRUE, prob = lastname_uk[,
                                                                                   2])
   } else
   {
+    lastname_us = sdglinkage::lastname_us
+
     if (!is.na(race))
     {
       if (race == "1")

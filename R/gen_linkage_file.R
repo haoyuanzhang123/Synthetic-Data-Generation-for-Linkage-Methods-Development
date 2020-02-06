@@ -21,7 +21,7 @@
 #'     as the \code{gold_standard} but some of the variables are damaged; ii) the
 #'     error_log records the damages have made on the linkage file.
 #' @examples
-#' adult_with_flag <- add_random_error(adult, prob = c(0.97, 0.03), "age_missing")
+#' adult_with_flag <- add_random_error(adult[1:500,], prob = c(0.97, 0.03), "age_missing")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_variant")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "lastname_variant")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.72, 0.28), "firstname_typo")
@@ -31,9 +31,10 @@
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "nhsid_insert")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "firstname_trans_char")
 #' adult_with_flag <- split_data(adult_with_flag, 70)
-#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100"
+#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
+#'                 hours_per_week>=0 & hours_per_week<=100"
 #' bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc", bn_evidence)
-#' dataset_smaller_version <- bn_learn$gen_data[1:100, ]
+#' dataset_smaller_version <- bn_learn$gen_data
 #' syn_dependent <- dataset_smaller_version[, !grepl("flag", colnames(dataset_smaller_version))]
 #' gold_standard <- add_variable(syn_dependent, "nhsid")
 #' gold_standard <- add_variable(gold_standard, "dob", end_date = "2015-03-02", age_dependency = TRUE)
@@ -149,8 +150,8 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
       s[, tmp[1]] <- as.character(s[, tmp[1]])
-      tmp_name1 <- firstname_uk_variant
-      tmp_name2 <- lastname_uk_variant
+      tmp_name1 <- sdglinkage::firstname_uk_variant
+      tmp_name2 <- sdglinkage::lastname_uk_variant
       colnames(tmp_name2) <- colnames(tmp_name1)
       name_variants <- rbind(tmp_name1, tmp_name2)
 

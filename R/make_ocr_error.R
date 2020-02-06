@@ -74,7 +74,7 @@ get_transformation_ocr <- function(string)
   }
 
   workstr <- string
-
+  ocr_rules <- sdglinkage::ocr_rules
   for (i in 1:nrow(ocr_rules))
   {
     if (ocr_rules[i, 2] == "|")

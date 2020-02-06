@@ -75,12 +75,14 @@ A data frame of the \code{dataset} with a new generated variable.
     }
 }
 \examples{
-tmp1 <- add_variable(adult, "nhsid")
-tmp2 <- add_variable(adult, "dob", end_date = "2015-03-02", age_dependency = TRUE)
-tmp3 <- add_variable(adult, "address")
-tmp4 <- add_variable(adult, "firstname", country = "uk", age_dependency = TRUE, gender_dependency = TRUE)
-tmp5 <- add_variable(adult, "lastname", country = "uk")
-tmp6 <- add_variable(adult, 'firstname', country = 'us', gender_dependency=TRUE, race_dependency=TRUE)
-tmp7 <- add_variable(adult, 'lastname', country='us', race_dependency = TRUE)
+tmp1 <- add_variable(adult[1:100,], "nhsid")
+tmp2 <- add_variable(adult[1:100,], "dob", end_date = "2015-03-02", age_dependency = TRUE)
+tmp3 <- add_variable(adult[1:100,], "address")
+tmp4 <- add_variable(adult[1:100,], "firstname", country = "uk", age_dependency = TRUE,
+                     gender_dependency = TRUE)
+tmp5 <- add_variable(adult[1:100,], "lastname", country = "uk")
+tmp6 <- add_variable(adult[1:100,], 'firstname', country = 'us', gender_dependency=TRUE,
+                     race_dependency=TRUE)
+tmp7 <- add_variable(adult[1:100,], 'lastname', country='us', race_dependency = TRUE)
 
 }

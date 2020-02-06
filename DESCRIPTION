@@ -5,11 +5,12 @@ Version: 0.1.0
 Author: Haoyuan Zhang <haoyuan.zhang@ucl.ac.uk>, 
     Katie Harron <k.harron@ucl.ac.uk>, 
     Harvey Goldstein <h.goldstein.uk@gmail.com>
+    Ruth Gilbert <r.gilbert@ucl.ac.uk>
 Maintainer: Haoyuan Zhang <haoyuan.zhang@ucl.ac.uk>
 Description: This package is developed based on our paper 
     "Synthetic-Data-Generation-for-Linkage-Methods-Development".
 URL: https://github.com/haoyuanzhang1990/Synthetic-Data-Generation-for-Linkage-Methods-Development/
-License: GPL (>= 2)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
@@ -22,6 +23,7 @@ Suggests:
     mlr (>= 2.16.0),
     PostcodesioR (>= 0.1.1),
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr

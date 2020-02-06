@@ -109,8 +109,10 @@ plot_compared_sdg(target_var = "age", training_set = adult_data$training_set,
 
 # We assume good quality synthetic data would allow us to draw the same analytic conclusions as we can draw from real data. Hence, we compare the predictive performance of several machine learning algorithms that are trained with the synthetic data and tested by real data with those trained and tested both by real data. We use the variable 'income' as our prediction task to determine whether a person makes over $50,000 a year given personal information
 library(mlr)
-lrns <- makeLearners(c("rpart", "logreg", "randomForest"), type = "classif",
+lrns <- makeLearners(c("rpart", "logreg"), type = "classif",
                      predict.type = "prob")
+# lrns <- makeLearners(c("rpart", "logreg", "randomForest"), type = "classif",
+#                      predict.type = "prob")
 measurements <- list(acc, ber, f1, auc)
 bmr <- compare_sdg(lrns, measurement = measurements, target_var = "income",
                       real_dataset = adult_data,

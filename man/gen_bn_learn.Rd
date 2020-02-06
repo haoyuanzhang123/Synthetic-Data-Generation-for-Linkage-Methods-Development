@@ -34,16 +34,17 @@ the input data.
 The structure learning algorithms including: 'tabu' for Tabu search, 'hc' for
 hill-climbing, 'pc.stable' for PC, 'gs' for Grow-Shrink, 'iamb' for Incremental
 Association, 'fast.iamb' for Fast Incremental Association, 'inter.iamb' for
-Interleaved Incremental Association, 'iamb.fdr' for Incremental Association with FDR,
-'mmhc' for Max-Min Hill-Climbing, 'rsmax2' for Restricted Maximization, 'mmpc' for
-Max-Min Parents and Children, 'si.hiton.pc' for Semi-Interleaved HITON-PC, 'hpc' for
-Hybrid Parents and Children, 'chow.liu' for Chow-Liu and 'aracne' for An Algorithm
-for the Reconstruction of Gene Regulatory Networks in a Mammalian Cellular Context.
+Interleaved Incremental Association, mmhc' for Max-Min Hill-Climbing,
+'rsmax2' for Restricted Maximization, 'mmpc' for Max-Min Parents and Children,
+'si.hiton.pc' for Semi-Interleaved HITON-PC, chow.liu' for Chow-Liu and 'aracne'
+for An Algorithm for the Reconstruction of Gene Regulatory Networks in a Mammalian
+Cellular Context.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
 bn_learn1 <- gen_bn_learn(adult_data$training_set, "hc")
-bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100"
+bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
+               hours_per_week>=0 & hours_per_week<=100"
 bn_learn2 <- gen_bn_learn(adult_data$training_set, "hc", bn_evidence)
 
 }

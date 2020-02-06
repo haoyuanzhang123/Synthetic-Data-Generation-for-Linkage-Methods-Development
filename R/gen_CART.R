@@ -1,9 +1,9 @@
 #' Generate synthetic data using CART.
 #'
-#' \code{gen_bn_learn} uses Classification and Regression Trees (CART)
+#' \code{gen_cart} uses Classification and Regression Trees (CART)
 #' to generate synthetic data by sequentially predicting the value of
 #' each variable depending on the value of other variables. Details can
-#' be found in \code{\link[synthpop::syn]{syn}}.
+#' be found in \code{\link[synthpop:syn]{syn}}.
 #'
 #' @param training_set A data frame of the training data. The generated data will
 #'     have the same size as the \code{training_set}.
@@ -16,7 +16,7 @@
 #' the fitted CART model ((a \code{\link[synthpop:syn]{syn}}) object and iii) gen_data:
 #' the generated synthetic data.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #' cart <- gen_cart(adult_data$training_set)
 #' bn_structure <- "[native_country][income][age|marital_status:education]"
 #' bn_structure = paste0(bn_structure, "[sex][race|native_country][marital_status|race:sex]")
@@ -67,7 +67,7 @@ gen_cart <- function(training_set, structure = NA)
 #' @return A plot of the comparision of the distribution of
 #'     synthetic data vs real data.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #' cart <- gen_cart(adult_data$training_set)
 #' compare_cart(adult_data$training_set, cart$fit_model, c("age", "workclass", "sex"))
 #'

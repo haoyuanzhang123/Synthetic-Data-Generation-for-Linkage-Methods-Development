@@ -47,7 +47,7 @@ The output is a plot of the comparision of the
 the distribution of synthetic data vs real data.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
 bn_learn <- gen_bn_learn(adult_data$training_set, "hc")
 plot_compared_sdg(target_var = "age",
     training_set = adult_data$training_set,

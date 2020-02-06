@@ -23,4 +23,5 @@ The API sample a real UK address from \url{https://api.postcodes.io/random/postc
 \examples{
 get_address()
 get_address('w3')
+
 }

@@ -19,7 +19,7 @@ The output is a plot of the Bayesian Network structure.
 \code{plot_bn} generates a plot of the Bayesian Network structure.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
 bn_learn = gen_bn_learn(data$training_set, 'hc')
 plot_bn(bn_learn$structure)
 

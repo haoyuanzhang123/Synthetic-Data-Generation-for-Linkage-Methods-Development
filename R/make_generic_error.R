@@ -119,7 +119,7 @@ get_transformation_insert <- function(string)
 {
   if (string != "")
   {
-    dict <- "abcdefghijklmnopqrstuvwxyz0123456789 `~!@£$%^&*()_+=-[];,./{}|:\"<>?"
+    dict <- "abcdefghijklmnopqrstuvwxyz0123456789"
     insertchar <- sample(strsplit(dict, "")[[1]], 1)
     insert_position <- sample(nchar(string), size = 1, replace = TRUE)
     changestr <- paste0(substr(string, 1, insert_position), insertchar,
@@ -131,7 +131,6 @@ get_transformation_insert <- function(string)
   }
   return(newstr)
 }
-
 
 
 
@@ -157,8 +156,8 @@ get_transformation_name_variant <- function(string)
   do_name_replacement <- function(s)
   {
     outputname <- s
-    firstname_variant <- firstname_uk_variant
-    lastname_variant <- lastname_uk_variant
+    firstname_variant <- sdglinkage::firstname_uk_variant
+    lastname_variant <- sdglinkage::lastname_uk_variant
     colnames(lastname_variant) <- colnames(firstname_variant)
     name_variants <- rbind(firstname_variant, lastname_variant)
     tmp <- name_variants[name_variants$forename == s, ]

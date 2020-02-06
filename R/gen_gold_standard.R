@@ -13,7 +13,7 @@
 #' @return A data frame of the \code{dataset} with an additional column of binary encoded
 #'     error.
 #' @examples
-#' adult_with_flag <- add_random_error(adult, prob = c(0.97, 0.03), "age_missing")
+#' adult_with_flag <- add_random_error(adult[1:100,], prob = c(0.97, 0.03), "age_missing")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "education_typo")
 #'
 #' @export
@@ -78,13 +78,15 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 #' @param race_dependency A logical variable with a default of FALSE
 #' @return A data frame of the \code{dataset} with a new generated variable.
 #' @examples
-#' tmp1 <- add_variable(adult, "nhsid")
-#' tmp2 <- add_variable(adult, "dob", end_date = "2015-03-02", age_dependency = TRUE)
-#' tmp3 <- add_variable(adult, "address")
-#' tmp4 <- add_variable(adult, "firstname", country = "uk", age_dependency = TRUE, gender_dependency = TRUE)
-#' tmp5 <- add_variable(adult, "lastname", country = "uk")
-#' tmp6 <- add_variable(adult, 'firstname', country = 'us', gender_dependency=TRUE, race_dependency=TRUE)
-#' tmp7 <- add_variable(adult, 'lastname', country='us', race_dependency = TRUE)
+#' tmp1 <- add_variable(adult[1:100,], "nhsid")
+#' tmp2 <- add_variable(adult[1:100,], "dob", end_date = "2015-03-02", age_dependency = TRUE)
+#' tmp3 <- add_variable(adult[1:100,], "address")
+#' tmp4 <- add_variable(adult[1:100,], "firstname", country = "uk", age_dependency = TRUE,
+#'                      gender_dependency = TRUE)
+#' tmp5 <- add_variable(adult[1:100,], "lastname", country = "uk")
+#' tmp6 <- add_variable(adult[1:100,], 'firstname', country = 'us', gender_dependency=TRUE,
+#'                      race_dependency=TRUE)
+#' tmp7 <- add_variable(adult[1:100,], 'lastname', country='us', race_dependency = TRUE)
 #'
 #' @export
 add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01",
@@ -126,7 +128,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
     }
   } else if (tolower(type) == "address")
   {
-
+    address_uk <- sdglinkage::address_uk
     cols <- colnames(address_uk)
     dataset[cols] <- NA
 
@@ -162,7 +164,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       }
       if (tolower(country) == "us")
       {
-        firstname <- firstname_us
+        firstname <- sdglinkage::firstname_us
         if (race_dependency)
         {
           if (any(tolower(colnames(dataset)) == "race"))
@@ -217,7 +219,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
         }
       } else
       {
-        firstname <- firstname_uk
+        firstname <- sdglinkage::firstname_uk
         if (age_dependency)
         {
           if (any(tolower(colnames(dataset)) == "age"))
@@ -283,7 +285,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
     {
       if (tolower(country) == "us")
       {
-        firstname <- firstname_us
+        firstname <- sdglinkage::firstname_us
         if (race_dependency)
         {
           if (any(tolower(colnames(dataset)) == "race"))
@@ -335,7 +337,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
         }
       } else
       {
-        firstname <- firstname_uk
+        firstname <- sdglinkage::firstname_uk
         if (age_dependency)
         {
           if (any(tolower(colnames(dataset)) == "age"))
@@ -399,7 +401,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
   {
     if (tolower(country) == "us")
     {
-      lastname <- lastname_us
+      lastname <- sdglinkage::lastname_us
       if (race_dependency)
       {
         dataset[type] <- ""
@@ -452,7 +454,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       }
     } else
     {
-      lastname <- lastname_uk
+      lastname <- sdglinkage::lastname_uk
       tmp <- sample(lastname[, 1], nrow(dataset), replace = TRUE,
                     prob = lastname[, 2])
       dataset <- cbind(dataset, tmp)

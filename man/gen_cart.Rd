@@ -22,13 +22,13 @@ the fitted CART model ((a \code{\link[synthpop:syn]{syn}}) object and iii) gen_d
 the generated synthetic data.
 }
 \description{
-\code{gen_bn_learn} uses Classification and Regression Trees (CART)
+\code{gen_cart} uses Classification and Regression Trees (CART)
 to generate synthetic data by sequentially predicting the value of
 each variable depending on the value of other variables. Details can
-be found in \code{\link[synthpop::syn]{syn}}.
+be found in \code{\link[synthpop:syn]{syn}}.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
 cart <- gen_cart(adult_data$training_set)
 bn_structure <- "[native_country][income][age|marital_status:education]"
 bn_structure = paste0(bn_structure, "[sex][race|native_country][marital_status|race:sex]")

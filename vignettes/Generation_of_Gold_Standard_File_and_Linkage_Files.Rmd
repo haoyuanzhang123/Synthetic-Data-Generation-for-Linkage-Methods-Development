@@ -56,11 +56,11 @@ In this subsection we show how to encode these error flags in case we do know ha
 # We use the 'age', 'race' and 'sex' variables from the 'Adult' dataset as an example of real dependent variables. Meanwhile, we know the statistics and errors consist in our target dataset. 
 
 # adult_dataset = adult[c('age', 'race', 'sex')][1:1000,]
-adult_dataset = adult[c('age', 'race', 'sex')]
+adult_dataset = adult[c('age', 'race', 'sex')][1:3000,]
 adult_with_flag <- add_random_error(adult_dataset, prob = c(0.70, 0.30), "age_missing")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.50, 0.50), "race_missing")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "sex_missing")
-adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "postcode_missing")
+adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.90, 0.10), "postcode_trans_char")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_variant")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "lastname_variant")
 adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_typo")

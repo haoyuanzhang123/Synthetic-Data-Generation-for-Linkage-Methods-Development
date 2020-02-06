@@ -505,7 +505,7 @@ get_transformation_pho <- function(string)
   }
 
   workstr <- string
-
+  pho_rules <- sdglinkage::pho_rules
   for (i in 1:nrow(pho_rules))
   {
     tmp <- do_pho_replacement(string, pho_rules[i, 1], pho_rules[i,

@@ -4,7 +4,7 @@
 \alias{extract_address}
 \title{Extract addresses.}
 \usage{
-extract_address(n = 30000, postcode = NA)
+extract_address(n = 100, postcode = NA)
 }
 \arguments{
 \item{n}{A number.}
@@ -26,9 +26,4 @@ The output is \code{n} addresses in the form of a data framework
 }
 \description{
 \code{extract_address} extract addresses using \code{\link{get_address}}.
-}
-\examples{
-extract_address()
-extract_address(100)
-extract_address(100, postcode = 'w3')
 }

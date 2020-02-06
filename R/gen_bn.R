@@ -7,11 +7,11 @@
 #' The structure learning algorithms including: 'tabu' for Tabu search, 'hc' for
 #' hill-climbing, 'pc.stable' for PC, 'gs' for Grow-Shrink, 'iamb' for Incremental
 #' Association, 'fast.iamb' for Fast Incremental Association, 'inter.iamb' for
-#' Interleaved Incremental Association, 'iamb.fdr' for Incremental Association with FDR,
-#' 'mmhc' for Max-Min Hill-Climbing, 'rsmax2' for Restricted Maximization, 'mmpc' for
-#' Max-Min Parents and Children, 'si.hiton.pc' for Semi-Interleaved HITON-PC, 'hpc' for
-#' Hybrid Parents and Children, 'chow.liu' for Chow-Liu and 'aracne' for An Algorithm
-#' for the Reconstruction of Gene Regulatory Networks in a Mammalian Cellular Context.
+#' Interleaved Incremental Association, mmhc' for Max-Min Hill-Climbing,
+#' 'rsmax2' for Restricted Maximization, 'mmpc' for Max-Min Parents and Children,
+#' 'si.hiton.pc' for Semi-Interleaved HITON-PC, chow.liu' for Chow-Liu and 'aracne'
+#' for An Algorithm for the Reconstruction of Gene Regulatory Networks in a Mammalian
+#' Cellular Context.
 #'
 #' @param training_set A data frame of the training data. The generated data will
 #'     have the same size as the \code{training_set}.
@@ -27,9 +27,10 @@
 #' for some of the variables, the generated synthetic data will be sampled accroding
 #' to the criteria.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #' bn_learn1 <- gen_bn_learn(adult_data$training_set, "hc")
-#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 & hours_per_week>=0 & hours_per_week<=100"
+#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
+#'                hours_per_week>=0 & hours_per_week<=100"
 #' bn_learn2 <- gen_bn_learn(adult_data$training_set, "hc", bn_evidence)
 #'
 #' @export
@@ -40,9 +41,9 @@ gen_bn_learn <- function(training_set, structure_learning_algorithm, evidences =
   res <- switch(structure_learning_algorithm,
                 tabu = bnlearn::tabu(bn_df), hc = bnlearn::hc(bn_df), pc.stable = bnlearn::pc.stable(bn_df),
                 gs = bnlearn::gs(bn_df), iamb = bnlearn::iamb(bn_df), fast.iamb = bnlearn::fast.iamb(bn_df),
-                inter.iamb = bnlearn::inter.iamb(bn_df), iamb.fdr = bnlearn::iamb.fdr(bn_df),
+                inter.iamb = bnlearn::inter.iamb(bn_df),
                 mmhc = bnlearn::mmhc(bn_df), rsmax2 = bnlearn::rsmax2(bn_df), mmpc = bnlearn::mmpc(bn_df),
-                si.hiton.pc = bnlearn::si.hiton.pc(bn_df), hpc = bnlearn::hpc(bn_df),
+                si.hiton.pc = bnlearn::si.hiton.pc(bn_df),
                 chow.liu = bnlearn::chow.liu(bn_df), aracne = bnlearn::aracne(bn_df))
 
   bn_fit_learn <- bnlearn::bn.fit(res, data = bn_df)
@@ -86,7 +87,9 @@ gen_bn_learn <- function(training_set, structure_learning_algorithm, evidences =
 #' for some of the variables, the generated synthetic data will be sampled accroding
 #' to the criteria.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
+#' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
+#'                hours_per_week>=0 & hours_per_week<=100"
 #' bn_structure <- "[native_country][income][age|marital_status:education]"
 #' bn_structure = paste0(bn_structure, "[sex][race|native_country][marital_status|race:sex]")
 #' bn_structure = paste0(bn_structure,"[relationship|marital_status][education|sex:race]")
@@ -127,7 +130,7 @@ gen_bn_elicit <- function(training_set, bn_structure, evidences = NA)
 #' @param ht The height of the plot.
 #' @return The output is a plot of the Bayesian Network structure.
 #' @examples
-#' adult_data <- split_data(adult, 70)
+#' adult_data <- split_data(adult[1:100,], 70)
 #' bn_learn = gen_bn_learn(data$training_set, 'hc')
 #' plot_bn(bn_learn$structure)
 #'
@@ -157,7 +160,7 @@ plot_bn <- function(structure, ht = "400px")
 #' #' @return A plot of the comparision of the distribution of
 #' #'     synthetic data vs real data.
 #' #' @examples
-#' #' adult_data <- split_data(adult, 70)
+#' #' adult_data <- split_data(adult[1:100,], 70)
 #' #' cart <- gen_cart(adult_data$training_set)
 #' #' compare_bn(adult_data$training_set, c("age", "race", "sex"))
 #' compare_bn <- function(training_set, var_list)

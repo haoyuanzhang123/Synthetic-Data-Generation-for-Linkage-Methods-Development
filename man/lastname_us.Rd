@@ -4,11 +4,10 @@
 \name{lastname_us}
 \alias{lastname_us}
 \title{Last names in the US census.}
-\format{A data frame with 4 variables:
+\format{A data frame with 3 variables:
 \describe{
 \item{\code{lastname}}{last name}
 \item{\code{freq}}{probability of being named as \code{lastname} as a \code{sex} and is \code{race}}
-\item{\code{sex}}{gender}
 \item{\code{race}}{1) American Indian or Native Alaskan, 2) Asian or Pacific Islander,
     3) Black (not Hispanic), 4) Hispanic, 5) White (not Hispanic) and
     6) Middle-Eastern, Arabic.}.

@@ -4,13 +4,13 @@
 \alias{split_data}
 \title{Split the data into a training_set and a testing_set.}
 \usage{
-split_data(data, training_percentage)
+split_data(dataset, training_percentage)
 }
 \arguments{
+\item{dataset}{A data frame of the dataset.}
+
 \item{training_percentage}{A number between 0 and 100 indicating the
 percertage of the training dataset.}
-
-\item{dataset}{A data frame of the dataset.}
 }
 \value{
 A list with two data frame: training_set and testing_set.
@@ -20,6 +20,6 @@ A list with two data frame: training_set and testing_set.
     and a testing_set based on the \code{training_percentage}.
 }
 \examples{
-adult_data <- split_data(adult, 70)
+adult_data <- split_data(adult[1:100,], 70)
 
 }
