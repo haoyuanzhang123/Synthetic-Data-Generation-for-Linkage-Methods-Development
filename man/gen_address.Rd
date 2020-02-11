@@ -4,7 +4,10 @@
 \alias{gen_address}
 \title{Generate an address.}
 \usage{
-gen_address()
+gen_address(address_file = sdglinkage::address_uk)
+}
+\arguments{
+\item{address_file}{A data frame of addresses. The default is UK addresses.}
 }
 \value{
 The output is a data frame with 1 observation of 5 variables:

@@ -12,7 +12,7 @@ add_random_error(dataset, error_name, prob = c(0.95, 0.05))
 \item{error_name}{A string of the name and type of the error in the form of
 'error name_error type'. The error name should be one of the variable name
 in the \code{dataset}, and the error type can be either: 'missing', 'insert',
-'variant', 'typo', 'pho', 'ocr', 'trans_date' or 'trans_char.'}
+'variant', 'typo', 'pho', 'ocr', 'trans_date' or 'trans_char'.}
 
 \item{prob}{A vector of two numerical probablities, where the first one is
 the probablity of being 0 and the second one is the probablity of being 1.}
@@ -23,7 +23,7 @@ A data frame of the \code{dataset} with an additional column of binary encoded
 }
 \description{
 \code{add_random_error} adds a column of error flags (between 0 and 1)
-    to a data frame based on the \code{prob} .
+    to a data frame based on the \code{prob}.
 }
 \examples{
 adult_with_flag <- add_random_error(adult[1:100,], prob = c(0.97, 0.03), "age_missing")

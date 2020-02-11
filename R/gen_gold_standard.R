@@ -1,13 +1,13 @@
 #' Add random error flags to a data frame.
 #'
 #' \code{add_random_error} adds a column of error flags (between 0 and 1)
-#'     to a data frame based on the \code{prob} .
+#'     to a data frame based on the \code{prob}.
 #'
 #' @param dataset A data frame of the dataset.
 #' @param error_name A string of the name and type of the error in the form of
 #'     'error name_error type'. The error name should be one of the variable name
 #'     in the \code{dataset}, and the error type can be either: 'missing', 'insert',
-#'     'variant', 'typo', 'pho', 'ocr', 'trans_date' or 'trans_char.'
+#'     'variant', 'typo', 'pho', 'ocr', 'trans_date' or 'trans_char'.
 #' @param prob A vector of two numerical probablities, where the first one is
 #'     the probablity of being 0 and the second one is the probablity of being 1.
 #' @return A data frame of the \code{dataset} with an additional column of binary encoded
@@ -25,6 +25,82 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
   colnames(dataset)[length(dataset)] <- paste0(error_name, "_flag")
   return(dataset)
 }
+
+
+
+
+
+
+
+#' Add two dependent error flags to a data frame.
+#'
+#' \code{add_dependent_error} adds two column of dependent error flags (between 0 and 1)
+#'     to a data frame.
+#'
+#' @param dataset A data frame of the dataset.
+#' @param error_names A string of the variable names and type of the error in the form of
+#'     'variable 1_variable 2_error type'. The error of variable 2 depends on the error of
+#'     varable 1. The error type can be either: 'missing', 'insert', 'variant', 'typo',
+#'     'pho', 'ocr', 'trans_date' or 'trans_char'.
+#' @param prior_probs A vector of two numerical probablities, where the first one is
+#'     the prior probablity of variable 1 being 0 (no error) and the second one is the prior probablity
+#'     of variable 1 being 1 (having error).
+#' @param cond_probs A vector of four numerical probablities, where the first two probablities
+#'     are the probablities of variable 2 being 0 and 1 given variable 1 being 0, and the last
+#'     two are the probablities of variable 2 being 0 and 1 given variable 1 being 1.
+#' @return A data frame of the \code{dataset} with two additional dependent column of binary
+#'     encoded error.
+#' @examples
+#' adult_with_flag <- add_dependent_error(adult[1:100,], "race_sex_typo")
+#' adult_with_flag <- add_dependent_error(adult[1:100,],
+#'                                    "age_sex_missing",
+#'                                    prior_probs = c(0.99, 0.01),
+#'                                    cond_probs = c(0.95, 0.05, 0.4, 0.6))
+#' @export
+add_dependent_error <- function(dataset, error_names,
+                                prior_probs = c(0.50, 0.50),
+                                cond_probs = c(0.95, 0.05, 0.85, 0.15))
+{
+  namestring <- strsplit(error_names, split = "_")[[1]]
+
+  var1 <- sample(c(0,1), nrow(dataset), prob=prior_probs, replace = TRUE)
+
+  if (length(cond_probs) == 4){
+    cond_probs <- matrix(cond_probs, byrow=TRUE, nrow = 2)
+    # dimnames(cond_probs) = list(c(paste0(namestring[1],"_0"), paste0(namestring[1],"_1")),
+    #                             c(paste0(namestring[2],"_0"), paste0(namestring[2],"_1")))
+    # print(cond_probs)
+    var2 = sample_cpt(var1, cond_probs)
+    tmp = table(var1, var2)
+    dimnames(tmp) = list(c(paste0(namestring[1],"_0"), paste0(namestring[1],"_1")),
+                         c(paste0(namestring[2],"_0"), paste0(namestring[2],"_1")))
+    print("The conditional distribution of the error flags is:" )
+    print(prop.table(tmp, margin = 1))
+  }
+  else {
+    print('please use appropirate cond_probs format')
+  }
+
+  var1 <- as.factor(var1)
+  var2 <- as.factor(var2)
+  dataset <- cbind(dataset, var1, var2)
+  colnames(dataset)[length(dataset)-1] <- paste0(namestring[1], "_flag")
+  colnames(dataset)[length(dataset)] <- paste0(namestring[2], "_flag")
+  return(dataset)
+}
+
+
+
+sample_cpt <- function(prior, cond){
+  il <- mapply(function(x,y){sample(c(0,1), length(x), prob = y, replace = TRUE)},
+               x=split(prior, prior),
+               y=split(cond, seq(nrow(cond))))
+  unsplit(il, prior)
+}
+
+
+
+
 
 
 

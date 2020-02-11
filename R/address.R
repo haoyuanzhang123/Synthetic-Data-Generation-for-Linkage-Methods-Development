@@ -3,6 +3,7 @@
 #' \code{gen_address} randomly return a UK address out of 30,000 UK addresses.
 #' The UK addresses were extracted from \code{\link{extract_address}}.
 #'
+#' @param address_file A data frame of addresses. The default is UK addresses.
 #' @return The output is a data frame with 1 observation of 5 variables:
 #'   \enumerate{
 #'   \item postcode of the UK address,
@@ -15,10 +16,10 @@
 #' gen_address()
 #'
 #' @export
-gen_address <- function()
+gen_address <- function(address_file = sdglinkage::address_uk)
 {
-  tmp <- sample(1:nrow(sdglinkage::address_uk), 1)
-  return(sdglinkage::address_uk[tmp, ])
+  tmp <- sample(1:nrow(address_file), 1)
+  return(address_file[tmp, ])
 }
 
 
