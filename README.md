@@ -26,7 +26,7 @@ These functions can be organised as:
 
 ---
 
-![Workflow of Synthetic Data Generation.](sdg_workflow.png) 
+![Workflow of Synthetic Data Generation.](vignettes/sdg_workflow.png) 
 
 ---
 
