@@ -73,6 +73,7 @@ gen_bn_learn <- function(training_set, structure_learning_algorithm, evidences =
 #' Estimation, MLE) to learn the values of the parameters based on the given
 #' dependencies of the variables and the input data.
 #'
+#' @importFrom stats na.omit
 #' @param training_set A data frame of the training data. The generated data will
 #'     have the same size as the \code{training_set}.
 #' @param bn_structure A string of the relationships between variables from
@@ -131,7 +132,7 @@ gen_bn_elicit <- function(training_set, bn_structure, evidences = NA)
 #' @return The output is a plot of the Bayesian Network structure.
 #' @examples
 #' adult_data <- split_data(adult[1:100,], 70)
-#' bn_learn = gen_bn_learn(data$training_set, 'hc')
+#' bn_learn = gen_bn_learn(adult_data$training_set, 'hc')
 #' plot_bn(bn_learn$structure)
 #'
 #' @export

@@ -49,7 +49,7 @@ get_transformation_ocr <- function(string)
     }
   } else
   {
-    workstr <- paste0(workstr, ",no suitable ocr transformation")
+    workstr <- paste0(workstr, "_lack_of_record, no suitable ocr transformation")
   }
   return(workstr)
 }
@@ -60,20 +60,6 @@ get_transformation_ocr <- function(string)
 
 
 
-#' TBC.
-#'
-#' \code{do_ocr_replacement} randomly assign a Optical Character Recognition (OCR)
-#'     error to a string. This function was converted from the Python code in Febrl (
-#'     developed by Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined OCR error following
-#'    rules extracted in the ocr_rules dataset. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' do_ocr_replacement('how are you?')
-#'
-#' @export
 do_ocr_replacement <- function(s, where, orgpat, newpat)
 {
   tmpstr <- s

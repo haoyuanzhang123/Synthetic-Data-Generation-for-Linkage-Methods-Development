@@ -37,8 +37,8 @@ A data frame of the \code{dataset} with two additional dependent column of binar
 }
 \examples{
 adult_with_flag <- add_dependent_error(adult[1:100,], "race_sex_typo")
-adult_with_flag <- add_dependent_error(adult[1:100,],
-                                   "age_sex_missing",
-                                   prior_probs = c(0.99, 0.01),
-                                   cond_probs = c(0.95, 0.05, 0.4, 0.6))
+adult_with_flag <- add_dependent_error(adult[1:100,], "age_sex_missing",
+                                       prior_probs = c(0.99, 0.01),
+                                       cond_probs = c(0.95, 0.05, 0.4, 0.6))
+
 }

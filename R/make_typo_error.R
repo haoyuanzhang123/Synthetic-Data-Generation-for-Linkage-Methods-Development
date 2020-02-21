@@ -26,20 +26,6 @@ get_transformation_typo <- function(string)
 
 
 
-#' TBC.
-#'
-#' \code{do_typo_replacement} randomly assign a typographic error to a string.
-#'     This function was converted from the Python code in Febrl (developed by
-#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined typographic error following
-#'    rules extracted in the typo_rules. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' do_typo_replacement('how are you?')
-#'
-#' @export
 do_typo_replacement <- function(s)
 {
   tmpstr <- s
@@ -70,7 +56,7 @@ do_typo_replacement <- function(s)
 
     allkeys <- c("abcdefghijklmnopqrstuvwxyz1234567890")
 
-    rand_num <- runif(1)
+    rand_num <- stats::runif(1)
 
     if (rand_num <= single_typo_prob["same_row"])
     {

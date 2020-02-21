@@ -276,9 +276,11 @@ plot_compared_sdg <- function(target_var, training_set, syn_data_names,
     df_con <- df_con[!df_con$Value < 0, ]
 
     df_con$Data <- factor(df_con$Data, levels = c("Real_dataset", syn_data_names))
-
-    ggplot2::ggplot(df_con, ggplot2::aes(x = Value, fill = Data)) +
+    ggplot2::ggplot(df_con, ggplot2::aes_string(x = "Value", fill = "Data")) +
       ggplot2::geom_density(alpha = 0.75) + ggplot2::scale_fill_brewer(palette = "Set3") +
       ggplot2::theme_minimal()
+    # ggplot2::ggplot(df_con, ggplot2::aes(x = Value, fill = Data)) +
+    #   ggplot2::geom_density(alpha = 0.75) + ggplot2::scale_fill_brewer(palette = "Set3") +
+    #   ggplot2::theme_minimal()
   }
 }

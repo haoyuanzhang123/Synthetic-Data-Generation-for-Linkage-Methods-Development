@@ -71,7 +71,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "trans" && tmp[3]=="char")
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
@@ -84,7 +84,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "insert")
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
@@ -96,7 +96,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "trans" && tmp[3] == "date")
     {
       tmp2 <- s[syn_error_occurrence[, i] == 1, tmp[1]]
@@ -109,7 +109,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "typo")
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
@@ -121,7 +121,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
 
     } else if (tmp[2] == "pho")
     {
@@ -134,7 +134,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "ocr")
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
@@ -145,7 +145,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(tmp3[1])
         error_log[syn_error_occurrence[, i] == 1, i][j] <- as.character(tmp3[2])
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     } else if (tmp[2] == "variant")
     {
       tmp2 <- as.vector(s[syn_error_occurrence[, i] == 1, tmp[1]])
@@ -168,7 +168,8 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
 
         if (outputname == tmp2[j])
         {
-          changesstr <- paste0("no recorded variants")
+          outputname = paste0(outputname, '_lack_of_record')
+          changesstr <- paste0(tmp2[j], ">", outputname)
         } else
         {
           changesstr <- paste0(tmp2[j], ">", outputname)
@@ -177,7 +178,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
         s[syn_error_occurrence[, i] == 1, tmp[1]][j] <- as.character(outputname)
         error_log[syn_error_occurrence[, i] == 1, i][j] <- changesstr
       }
-      s[, tmp[1]] <- as.factor(s[, tmp[1]])
+      s[, tmp[1]] <- as.character(s[, tmp[1]])
     }
   }
   return(list(linkage_file = s, error_log = error_log))

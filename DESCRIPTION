@@ -2,26 +2,32 @@ Package: sdglinkage
 Type: Package
 Title: sdglinkage: Synthetic-Data-Generation-for-Linkage-Methods-Development
 Version: 0.1.0
-Author: Haoyuan Zhang <haoyuan.zhang@ucl.ac.uk>, 
+Author: Haoyuan Zhang <howardhyzhang@gmail.com>, 
     Katie Harron <k.harron@ucl.ac.uk>, 
-    Harvey Goldstein <h.goldstein.uk@gmail.com>
+    Harvey Goldstein <h.goldstein.uk@gmail.com>,
+    Andrew Boyd <A.W.Boyd@bristol.ac.uk>,
     Ruth Gilbert <r.gilbert@ucl.ac.uk>
-Maintainer: Haoyuan Zhang <haoyuan.zhang@ucl.ac.uk>
+Maintainer: Haoyuan Zhang <howardhyzhang@gmail.com>
 Description: This package is developed based on our paper 
     "Synthetic-Data-Generation-for-Linkage-Methods-Development".
 URL: https://github.com/haoyuanzhang1990/Synthetic-Data-Generation-for-Linkage-Methods-Development/
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:	
+    R (>= 2.10)
 Imports:
     bnlearn (>= 4.4.1),
     synthpop (>= 1.5.1),
     reshape (>= 0.8.8),
     ggplot2 (>= 3.1.1),
-    visNetwork (>= 2.0.6)
+    visNetwork (>= 2.0.6),
+    arsenal (>= 3.3.0)
 Suggests:
     mlr (>= 2.16.0),
     PostcodesioR (>= 0.1.1),
+    reclin,
+    dplyr,
     knitr,
     rmarkdown,
     testthat

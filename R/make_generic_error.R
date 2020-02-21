@@ -91,13 +91,16 @@ get_transformation_trans_date <- function(date)
   year <- substr(date, 1, 4)
   month <- substr(date, 6, 7)
   day <- substr(date, 9, 10)
-  if (as.numeric(day) <= 12)
-  {
-    newdate <- paste0(year, "-", day, "-", month, ",day>month")
-  } else
-  {
-    newdate <- paste0(date, ",cannot transposte due to day >12")
-  }
+  newdate <- paste0(year, "-", day, "-", month, ",day>month")
+
+  #
+  # if (as.numeric(day) <= 12)
+  # {
+  #   newdate <- paste0(year, "-", day, "-", month, ",day>month")
+  # } else
+  # {
+  #   newdate <- paste0(date, ",cannot transposte due to day >12")
+  # }
   return(newdate)
 }
 
@@ -173,7 +176,7 @@ get_transformation_name_variant <- function(string)
   newstr <- do_name_replacement(tolower(string))
   if (newstr == string)
   {
-    changesstr <- paste0(newstr, ", no recorded variants")
+    changesstr <- paste0(newstr, "_lack_of_record,", string, ">", newstr)
   } else
   {
     changesstr <- paste0(newstr, ",", string, ">", newstr)

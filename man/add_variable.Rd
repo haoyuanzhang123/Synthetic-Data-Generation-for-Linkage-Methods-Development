@@ -10,8 +10,8 @@ add_variable(
   country = "uk",
   start_date = "1900-01-01",
   end_date = "2020-01-01",
-  age_dependency = TRUE,
-  gender_dependency = TRUE,
+  age_dependency = FALSE,
+  gender_dependency = FALSE,
   race_dependency = FALSE
 )
 }
@@ -28,11 +28,11 @@ add_variable(
 
 \item{end_date}{A Date variable with a default of '2020-01-01'.}
 
-\item{age_dependency}{A logical variable with a default of TRUE.}
+\item{age_dependency}{A logical variable with a default of FALSE}
 
-\item{gender_dependency}{A logical variable with a default of TRUE.}
+\item{gender_dependency}{A logical variable with a default of FALSE}
 
-\item{race_dependency}{A logical variable with a default of FALSE}
+\item{race_dependency}{A logical variable with a default of FALSE.}
 }
 \value{
 A data frame of the \code{dataset} with a new generated variable.

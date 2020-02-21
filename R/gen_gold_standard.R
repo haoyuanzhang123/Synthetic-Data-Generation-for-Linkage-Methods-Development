@@ -52,10 +52,10 @@ add_random_error <- function(dataset, error_name, prob = c(0.95, 0.05))
 #'     encoded error.
 #' @examples
 #' adult_with_flag <- add_dependent_error(adult[1:100,], "race_sex_typo")
-#' adult_with_flag <- add_dependent_error(adult[1:100,],
-#'                                    "age_sex_missing",
-#'                                    prior_probs = c(0.99, 0.01),
-#'                                    cond_probs = c(0.95, 0.05, 0.4, 0.6))
+#' adult_with_flag <- add_dependent_error(adult[1:100,], "age_sex_missing",
+#'                                        prior_probs = c(0.99, 0.01),
+#'                                        cond_probs = c(0.95, 0.05, 0.4, 0.6))
+#'
 #' @export
 add_dependent_error <- function(dataset, error_names,
                                 prior_probs = c(0.50, 0.50),
@@ -67,25 +67,21 @@ add_dependent_error <- function(dataset, error_names,
 
   if (length(cond_probs) == 4){
     cond_probs <- matrix(cond_probs, byrow=TRUE, nrow = 2)
-    # dimnames(cond_probs) = list(c(paste0(namestring[1],"_0"), paste0(namestring[1],"_1")),
-    #                             c(paste0(namestring[2],"_0"), paste0(namestring[2],"_1")))
-    # print(cond_probs)
     var2 = sample_cpt(var1, cond_probs)
     tmp = table(var1, var2)
-    dimnames(tmp) = list(c(paste0(namestring[1],"_0"), paste0(namestring[1],"_1")),
-                         c(paste0(namestring[2],"_0"), paste0(namestring[2],"_1")))
-    print("The conditional distribution of the error flags is:" )
-    print(prop.table(tmp, margin = 1))
-  }
-  else {
+    # dimnames(tmp) = list(c(paste0(namestring[1],"_0"), paste0(namestring[1],"_1")),
+    #                      c(paste0(namestring[2],"_0"), paste0(namestring[2],"_1")))
+    # print("The conditional distribution of the error flags is:" )
+    # print(prop.table(tmp, margin = 1))
+
+    var1 <- as.factor(var1)
+    var2 <- as.factor(var2)
+    dataset <- cbind(dataset, var1, var2)
+    colnames(dataset)[length(dataset)-1] <- paste0(namestring[1], "_flag")
+    colnames(dataset)[length(dataset)] <- paste0(namestring[2], "_flag")
+  } else {
     print('please use appropirate cond_probs format')
   }
-
-  var1 <- as.factor(var1)
-  var2 <- as.factor(var2)
-  dataset <- cbind(dataset, var1, var2)
-  colnames(dataset)[length(dataset)-1] <- paste0(namestring[1], "_flag")
-  colnames(dataset)[length(dataset)] <- paste0(namestring[2], "_flag")
   return(dataset)
 }
 
@@ -149,9 +145,9 @@ sample_cpt <- function(prior, cond){
 #'     'uk' or 'us'.
 #' @param start_date A Date variable with a default of '1900-01-01'.
 #' @param end_date A Date variable with a default of '2020-01-01'.
-#' @param age_dependency A logical variable with a default of TRUE.
-#' @param gender_dependency A logical variable with a default of TRUE.
-#' @param race_dependency A logical variable with a default of FALSE
+#' @param age_dependency A logical variable with a default of FALSE
+#' @param gender_dependency A logical variable with a default of FALSE
+#' @param race_dependency A logical variable with a default of FALSE.
 #' @return A data frame of the \code{dataset} with a new generated variable.
 #' @examples
 #' tmp1 <- add_variable(adult[1:100,], "nhsid")
@@ -166,8 +162,8 @@ sample_cpt <- function(prior, cond){
 #'
 #' @export
 add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01",
-                         end_date = "2020-01-01", age_dependency = TRUE,
-                         gender_dependency = TRUE, race_dependency = FALSE)
+                         end_date = "2020-01-01", age_dependency = FALSE,
+                         gender_dependency = FALSE, race_dependency = FALSE)
 {
   if (tolower(type) == "nhsid")
   {
@@ -185,23 +181,25 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
   {
     if (age_dependency)
     {
-      end_date <- as.Date(end_date)
+      end_date <- as.character(as.Date(end_date))
       dataset[type] <- end_date
 
       for (i in 1:nrow(dataset))
       {
         age <- dataset$age[i]
-        dataset[i, type] <- end_date - age * 365
+        dataset[i, type] <- as.character(as.Date(end_date) - age * 365)
       }
     } else
     {
       start_date <- as.Date(start_date)
       end_date <- as.Date(end_date)
-      tmp <- as.Date(sample.int(end_date - start_date, nrow(dataset), replace = TRUE),
-                     origin = start_date)
+      tmp <- as.character(as.Date(sample.int(end_date - start_date, nrow(dataset), replace = TRUE),
+                     origin = start_date))
       dataset <- cbind(dataset, tmp)
       colnames(dataset)[length(dataset)] <- type
     }
+    dataset[, type] <- as.character(dataset[, type])
+
   } else if (tolower(type) == "address")
   {
     address_uk <- sdglinkage::address_uk
@@ -215,9 +213,9 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
     }
 
     # dataset[cols] <- lapply(dataset[cols], factor)
-    dataset[, "postcode"] <- as.factor(dataset[, "postcode"])
-    dataset[, "country"] <- as.factor(dataset[, "country"])
-    dataset[, "primary_care_trust"] <- as.factor(dataset[, "primary_care_trust"])
+    dataset[, "postcode"] <- as.character(dataset[, "postcode"])
+    dataset[, "country"] <- as.character(dataset[, "country"])
+    dataset[, "primary_care_trust"] <- as.character(dataset[, "primary_care_trust"])
     dataset[, "longitude"] <- as.numeric(dataset[, "longitude"])
     dataset[, "latitude"] <- as.numeric(dataset[, "latitude"])
   } else if (tolower(type) == "forename" || tolower(type) == "firstname")
@@ -255,28 +253,35 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
           {
             print("either race or ethnicty will be accepted")
           }
+
+
           for (i in 1:nrow(dataset))
           {
-            if (grepl(substr(dataset[i, race_var_name], 1, 3),
-                      "White (not Hispanic)"))
+            if (grepl(substr(dataset[i, race_var_name], 1, 3), "White (not Hispanic)") ||
+                dataset[i, race_var_name] == 5)
             {
               race_value <- "White (not Hispanic)"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "American Indian or Native Alaskan"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "American Indian or Native Alaskan")
+                       || dataset[i, race_var_name] == 1)
             {
               race_value <- "American Indian or Native Alaskan"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "Black (not Hispanic)"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Black (not Hispanic)")
+                       || dataset[i, race_var_name] == 3)
             {
               race_value <- "Black (not Hispanic)"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "Asian or Pacific Islander"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Asian or Pacific Islander")
+                       || dataset[i, race_var_name] == 2)
             {
               race_value <- "Asian or Pacific Islander"
-            } else
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Middle-Eastern, Arabic")
+                       || dataset[i, race_var_name] == 6)
             {
+              race_value <- "Middle-Eastern, Arabic"
+            } else{
               race_value <- "Hispanic"
             }
+
+
             dataset[i, type] <- as.character(sample(firstname[firstname$sex ==
                                                                     tolower(dataset[i, sex_var_name]) & firstname$race ==
                                                                     race_value, 1], size = 1, replace = TRUE, prob = firstname[firstname$sex ==
@@ -378,26 +383,30 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
           }
           for (i in 1:nrow(dataset))
           {
-            if (grepl(substr(dataset[i, race_var_name], 1, 3),
-                      "White (not Hispanic)"))
+            if (grepl(substr(dataset[i, race_var_name], 1, 3), "White (not Hispanic)") ||
+                dataset[i, race_var_name] == 5)
             {
               race_value <- "White (not Hispanic)"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "American Indian or Native Alaskan"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "American Indian or Native Alaskan")
+                       || dataset[i, race_var_name] == 1)
             {
               race_value <- "American Indian or Native Alaskan"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "Black (not Hispanic)"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Black (not Hispanic)")
+                       || dataset[i, race_var_name] == 3)
             {
               race_value <- "Black (not Hispanic)"
-            } else if (grepl(substr(dataset[i, race_var_name], 1,
-                                    3), "Asian or Pacific Islander"))
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Asian or Pacific Islander")
+                       || dataset[i, race_var_name] == 2)
             {
               race_value <- "Asian or Pacific Islander"
-            } else
+            } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Middle-Eastern, Arabic")
+                       || dataset[i, race_var_name] == 6)
             {
+              race_value <- "Middle-Eastern, Arabic"
+            } else{
               race_value <- "Hispanic"
             }
+
             dataset[i, type] <- as.character(sample(firstname[firstname$race ==
                                                                     race_value, 1], size = 1, replace = TRUE, prob = firstname[firstname$race ==
                                                                                                                                  race_value, 2]))
@@ -472,7 +481,7 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       }
     }
 
-    dataset[, type] <- as.factor(dataset[, type])
+    dataset[, type] <- as.character(dataset[, type])
   } else if (tolower(type) == "surname" || tolower(type) == "lastname")
   {
     if (tolower(country) == "us")
@@ -497,30 +506,33 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
 
         for (i in 1:nrow(dataset))
         {
-          if (grepl(substr(dataset[i, race_var_name], 1, 3), "White (not Hispanic)"))
+          if (grepl(substr(dataset[i, race_var_name], 1, 3), "White (not Hispanic)") ||
+              dataset[i, race_var_name] == 5)
           {
             race_value <- "White (not Hispanic)"
-          } else if (grepl(substr(dataset[i, race_var_name], 1, 3),
-                           "American Indian or Native Alaskan"))
+          } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "American Indian or Native Alaskan")
+                     || dataset[i, race_var_name] == 1)
           {
             race_value <- "American Indian or Native Alaskan"
-          } else if (grepl(substr(dataset[i, race_var_name], 1, 3),
-                           "Black (not Hispanic)"))
+          } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Black (not Hispanic)")
+                     || dataset[i, race_var_name] == 3)
           {
             race_value <- "Black (not Hispanic)"
-          } else if (grepl(substr(dataset[i, race_var_name], 1, 3),
-                           "Asian or Pacific Islander"))
+          } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Asian or Pacific Islander")
+                     || dataset[i, race_var_name] == 2)
           {
             race_value <- "Asian or Pacific Islander"
-          } else
+          } else if (grepl(substr(dataset[i, race_var_name], 1, 3), "Middle-Eastern, Arabic")
+                     || dataset[i, race_var_name] == 6)
           {
+            race_value <- "Middle-Eastern, Arabic"
+          } else{
             race_value <- "Hispanic"
           }
           dataset[i, type] <- as.character(sample(lastname[lastname$race ==
                                                                  race_value, 1], size = 1, replace = TRUE, prob = lastname[lastname$race ==
                                                                                                                              race_value, 2]))
         }
-        dataset[, type] <- as.factor(dataset[, type])
       } else
       {
         tmp <- sample(lastname[, 1], nrow(dataset), replace = TRUE,
@@ -536,6 +548,8 @@ add_variable <- function(dataset, type, country = "uk", start_date = "1900-01-01
       dataset <- cbind(dataset, tmp)
       colnames(dataset)[length(dataset)] <- type
     }
+    dataset[, type] <- as.character(dataset[, type])
+
   }
   return(dataset)
 }

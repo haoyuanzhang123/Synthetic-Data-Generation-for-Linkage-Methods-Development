@@ -2,72 +2,53 @@
 % Please edit documentation in R/acquire_error.R
 \name{compare_two_df}
 \alias{compare_two_df}
-\title{#' TBC
-#'
-#' \code{gen_error_acquisition_test_data} randomly assign a Phonetic error to a string.
-#'     This function was converted from the Python code in Febrl (developed by
-#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined phonetic error following
-#'    rules extracted in the pho_rules dataset. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' get_transformation_pho('how are you?')
-#'
-#' @export
-gen_error_acquisition_test_data <- function(population){
-  df <- data.frame(firstname_variant=character(population),
-                   lastname_variant=character(population))
-  df <- add_variable(df, "nhsid")
-  df <- add_variable(df, "firstname", country = "uk", gender_dependency= FALSE,
-                     age_dependency = FALSE)
-  df <- add_variable(df, "lastname", country = "uk", gender_dependency= FALSE,
-                     age_dependency = FALSE)
-  df$firstname <-as.character(df$firstname)
-  df$lastname <-as.character(df$lastname)
-  for (i in 1:nrow(df)){
-    df$firstname_variant[i] = strsplit(get_transformation_name_variant(df$firstname[i]), ',')[[1]][1]
-    df$lastname_variant[i] = strsplit(get_transformation_name_variant(df$lastname[i]), ',')[[1]][1]
-  }
-  df1 = df[c('nhsid', 'firstname', 'lastname')]
-  df2 = df[c('nhsid', 'firstname_variant', 'lastname_variant')]
-  return(list(goldstandfile = df1, corruptfile = df2))
-}}
+\title{Compare two data frames.}
 \usage{
 compare_two_df(df1, df2, vars, uniqueId)
 }
-\description{
-#' TBC
-#'
-#' \code{gen_error_acquisition_test_data} randomly assign a Phonetic error to a string.
-#'     This function was converted from the Python code in Febrl (developed by
-#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined phonetic error following
-#'    rules extracted in the pho_rules dataset. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' get_transformation_pho('how are you?')
-#'
-#' @export
-gen_error_acquisition_test_data <- function(population){
-  df <- data.frame(firstname_variant=character(population),
-                   lastname_variant=character(population))
-  df <- add_variable(df, "nhsid")
-  df <- add_variable(df, "firstname", country = "uk", gender_dependency= FALSE,
-                     age_dependency = FALSE)
-  df <- add_variable(df, "lastname", country = "uk", gender_dependency= FALSE,
-                     age_dependency = FALSE)
-  df$firstname <-as.character(df$firstname)
-  df$lastname <-as.character(df$lastname)
-  for (i in 1:nrow(df)){
-    df$firstname_variant[i] = strsplit(get_transformation_name_variant(df$firstname[i]), ',')[[1]][1]
-    df$lastname_variant[i] = strsplit(get_transformation_name_variant(df$lastname[i]), ',')[[1]][1]
-  }
-  df1 = df[c('nhsid', 'firstname', 'lastname')]
-  df2 = df[c('nhsid', 'firstname_variant', 'lastname_variant')]
-  return(list(goldstandfile = df1, corruptfile = df2))
+\arguments{
+\item{df1}{Data frame 1.}
+
+\item{df2}{Data frame 2.}
+
+\item{vars}{A list of vector of variables to be compared. In each vector, the first
+variable name belongs to \code{df1}, and the second variable name belongs to
+\code{df2}.}
+
+\item{uniqueId}{A string of unique ID that is used to matched \code{df2} with \code{df1}.}
 }
+\value{
+It returns a data frame of 7 variables:
+    \enumerate{
+    \item {var.x}: the name of the first variable name in each vector of \code{vars};
+    \item {var.y}: the name of the second variable name in each vector of \code{vars};
+    \item {uniqueId}: the unique ID given by \code{uniqueId};
+    \item {values.x}: the value of the first variable name in each vector of \code{vars};
+    \item {values.y}: the value of the second variable name in each vector of \code{vars};
+    \item {row.x}: the row of the \code{values.x} in \code{df1};
+    \item {row.y}: the row of the \code{values.y} in \code{df2};
+    }
+}
+\description{
+\code{compare_two_df} compares the \code{vars} of data frames given an \code{uniqueId}.
+}
+\examples{
+df <- data.frame(firstname_variant=character(100), lastname_variant=character(100))
+df <- add_variable(df, "nhsid")
+df <- add_variable(df, "firstname", country = "uk", gender_dependency= FALSE,
+                   age_dependency = FALSE)
+df <- add_variable(df, "lastname", country = "uk", gender_dependency= FALSE,
+                   age_dependency = FALSE)
+df$firstname_variant <-as.character(df$firstname_variant)
+df$lastname_variant <-as.character(df$lastname_variant)
+for (i in 1:nrow(df)){
+  df$firstname_variant[i] = strsplit(get_transformation_name_variant(df$firstname[i]), ',')[[1]][1]
+  df$lastname_variant[i] = strsplit(get_transformation_name_variant(df$lastname[i]), ',')[[1]][1]
+}
+df1 = df[c('nhsid', 'firstname', 'lastname')]
+df2 = df[c('nhsid', 'firstname_variant', 'lastname_variant')]
+df2[1:3, 'firstname_variant'] = NA
+vars = list(c('firstname', 'firstname_variant'), c('lastname', 'lastname_variant'))
+diffs.table = compare_two_df(df1, df2, vars, 'nhsid')
+
 }

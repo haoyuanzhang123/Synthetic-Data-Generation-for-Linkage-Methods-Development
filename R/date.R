@@ -20,8 +20,7 @@ gen_dob <- function(start = "1900-01-01", end = "2020-01-01")
 {
   start <- as.Date(start)
   end <- as.Date(end)
-  return(as.Date(sample.int(end - start, 1), origin = start))
+  return(as.character(as.Date(sample.int(end - start, 1), origin = start)))
 }
-
 
 

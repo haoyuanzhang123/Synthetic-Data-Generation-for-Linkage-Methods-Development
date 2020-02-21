@@ -45,7 +45,7 @@ get_transformation_pho <- function(string)
     }
   } else
   {
-    workstr <- paste0(workstr, ",no suitable pho transformation")
+    workstr <- paste0(workstr, "_lack_of_record, no suitable pho transformation")
   }
   return(workstr)
 }
@@ -55,25 +55,7 @@ get_transformation_pho <- function(string)
 
 
 
-#' TBC
-#'
-#' \code{do_pho_replacement} randomly assign a Phonetic error to a string.
-#'     This function was converted from the Python code in Febrl (developed by
-#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined phonetic error following
-#'    rules extracted in the pho_rules dataset. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' get_transformation_pho('how are you?')
-#'
-#' @export
-# Function which replaces a pattern in a string - - - - - - - - - - - -
-# - - - - 'where' can be one of: 'ALL','START','END','MIDDLE' -
-# Pre-condition (default 'None') can be 'V' for vowel or 'C' for
-# consonant - Post-condition (default 'None') can be 'V' for vowel or
-# 'C' for consonant
+
 do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
                                existcond, startcond)
 {
@@ -543,25 +525,7 @@ do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
 
 
 
-#' TBC
-#'
-#' \code{slavo_germanic} randomly assign a Phonetic error to a string.
-#'     This function was converted from the Python code in Febrl (developed by
-#'     Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-#'
-#' @param string A string.
-#' @return It returns the \code{string} with a randomly assgined phonetic error following
-#'    rules extracted in the pho_rules dataset. It also comes with the change log of the
-#'    transformation.
-#' @examples
-#' get_transformation_pho('how are you?')
-#'
-#' @export
-# Function which replaces a pattern in a string - - - - - - - - - - - -
-# - - - - 'where' can be one of: 'ALL','START','END','MIDDLE' -
-# Pre-condition (default 'None') can be 'V' for vowel or 'C' for
-# consonant - Post-condition (default 'None') can be 'V' for vowel or
-# 'C' for consonant
+
 slavo_germanic <- function(str)
 {
   if (grepl("w", str) | grepl("k", str) | grepl("cz", str) | grepl("witz",
