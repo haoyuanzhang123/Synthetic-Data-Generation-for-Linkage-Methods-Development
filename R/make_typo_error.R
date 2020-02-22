@@ -26,6 +26,14 @@ get_transformation_typo <- function(string)
 
 
 
+#' Replace a string with its typo error.
+#'
+#' \code{do_ocr_replacement} replace a string with its typo error.
+#'
+#' @param s A string.
+#' @return It returns a new pat.
+#'
+#' @export
 do_typo_replacement <- function(s)
 {
   tmpstr <- s

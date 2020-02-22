@@ -1,6 +1,6 @@
 Package: sdglinkage
 Type: Package
-Title: Sdglinkage: Synthetic Data Generation for Linkage Methods Development
+Title: Synthetic Data Generation for Linkage Methods Development
 Version: 0.1.0
 Author: Haoyuan Zhang <howardhyzhang@gmail.com>, 
     Katie Harron <k.harron@ucl.ac.uk>, 

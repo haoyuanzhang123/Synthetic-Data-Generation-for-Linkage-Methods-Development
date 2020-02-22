@@ -53,9 +53,21 @@ get_transformation_pho <- function(string)
 
 
 
-
-
-
+#' Replace a string with its phonetic error.
+#'
+#' \code{do_pho_replacement} replace a string with its phonetic error.
+#'
+#' @param s A string.
+#' @param where A string. The location of the pat, it can be one of: 'ALL','START','END','MIDDLE'.
+#' @param orgpat A string. The original pat.
+#' @param newpat A string. The new pat.
+#' @param precond A string. Pre-condition (default 'None') can be 'V' for vowel or 'C' for consonant.
+#' @param postcond A string. Post-condition (default 'None') can be 'V' for vowel or 'C' for consonant.
+#' @param existcond A string. Exist-condition (default 'None').
+#' @param startcond A string. Start-condition (default 'ALL').
+#' @return It returns a new pat.
+#'
+#' @export
 do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
                                existcond, startcond)
 {
@@ -399,7 +411,14 @@ do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
       rl <- as.list(strsplit(existcond, ";")[[1]])
       if (rl[[2]] == "slavo")
       {
-        r <- slavo_germanic(s)
+        if (grepl("w", str) | grepl("k", str) | grepl("cz", str) | grepl("witz", str))
+        {
+          r = 1
+        } else
+        {
+          r = 0
+        }
+
         if (rl[[1]] == "n")
         {
           if (r == 0)
@@ -518,22 +537,4 @@ do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
   tmpstr <- paste0(tmpstr, changesstr)
 
   return(tmpstr)
-}
-
-
-
-
-
-
-
-slavo_germanic <- function(str)
-{
-  if (grepl("w", str) | grepl("k", str) | grepl("cz", str) | grepl("witz",
-                                                                   str))
-  {
-    return(1)
-  } else
-  {
-    return(0)
-  }
 }

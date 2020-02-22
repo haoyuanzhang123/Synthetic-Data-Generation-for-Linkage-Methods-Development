@@ -59,7 +59,17 @@ get_transformation_ocr <- function(string)
 
 
 
-
+#' Replace a string with its ocr error.
+#'
+#' \code{do_ocr_replacement} replace a string with its ocr error.
+#'
+#' @param s A string.
+#' @param where A string. The location of the pat, it can be one of: 'ALL','START','END','MIDDLE'.
+#' @param orgpat A string. The original pat.
+#' @param newpat A string. The new pat.
+#' @return It returns a new pat.
+#'
+#' @export
 do_ocr_replacement <- function(s, where, orgpat, newpat)
 {
   tmpstr <- s
