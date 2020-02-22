@@ -34,6 +34,6 @@ These functions can be organised as:
 
 We also provide three vignettes to show how we can use the package: 
 
-* Vignette [Synthetic_Data_Generation_and_Evaluation](doc/Synthetic_Data_Generation_and_Evaluation.html) shows how to generate synthetic data and to evaluate the quality of the synthetic data. 
-* Vignette [Generation_of_Gold_Standard_File_and_Linkage_Files](doc/Generation_of_Gold_Standard_File_and_Linkage_Files.html) shows how to generate synthetic gold standard and linkage files when we have access to non-sensitive predictor variables.
-* Vignette [From_Sensitive_Real_Identifiers_to_Synthetic_Identifiers](doc/From_Sensitive_Real_Identifiers_to_Synthetic_Identifiers.html) shows how to generate synthetic identifiers when we have access to sensitive identifiers.
+* Vignette **Synthetic_Data_Generation_and_Evaluation** shows how to generate synthetic data and to evaluate the quality of the synthetic data. 
+* Vignette **Generation_of_Gold_Standard_File_and_Linkage_Files** shows how to generate synthetic gold standard and linkage files when we have access to non-sensitive predictor variables.
+* Vignette **From_Sensitive_Real_Identifiers_to_Synthetic_Identifiers** shows how to generate synthetic identifiers when we have access to sensitive identifiers.

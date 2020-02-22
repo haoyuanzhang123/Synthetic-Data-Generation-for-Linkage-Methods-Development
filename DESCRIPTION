@@ -10,7 +10,6 @@ Author: Haoyuan Zhang <howardhyzhang@gmail.com>,
 Maintainer: Haoyuan Zhang <howardhyzhang@gmail.com>
 Description: This package is developed based on our paper 
     "Synthetic-Data-Generation-for-Linkage-Methods-Development".
-URL: https://github.com/haoyuanzhang1990/Synthetic-Data-Generation-for-Linkage-Methods-Development/
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
