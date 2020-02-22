@@ -1,6 +1,6 @@
 Package: sdglinkage
 Type: Package
-Title: sdglinkage: Synthetic-Data-Generation-for-Linkage-Methods-Development
+Title: Sdglinkage: Synthetic Data Generation for Linkage Methods Development
 Version: 0.1.0
 Author: Haoyuan Zhang <howardhyzhang@gmail.com>, 
     Katie Harron <k.harron@ucl.ac.uk>, 
@@ -8,8 +8,11 @@ Author: Haoyuan Zhang <howardhyzhang@gmail.com>,
     Andrew Boyd <A.W.Boyd@bristol.ac.uk>,
     Ruth Gilbert <r.gilbert@ucl.ac.uk>
 Maintainer: Haoyuan Zhang <howardhyzhang@gmail.com>
-Description: This package is developed based on our paper 
-    "Synthetic-Data-Generation-for-Linkage-Methods-Development".
+Description: A tool for synthetic data generation that can be used for linkage method 
+    development, with elements of i) gold standard file with complete and accurate 
+    information and ii) linkage files that are corrupted as we often see in raw dataset.
+    This package is developed based on our paper "Synthetic Data Generation for Linkage 
+    Methods Development".
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
