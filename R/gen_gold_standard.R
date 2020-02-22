@@ -61,6 +61,14 @@ add_dependent_error <- function(dataset, error_names,
                                 prior_probs = c(0.50, 0.50),
                                 cond_probs = c(0.95, 0.05, 0.85, 0.15))
 {
+  
+  sample_cpt <- function(prior, cond){
+    il <- mapply(function(x,y){sample(c(0,1), length(x), prob = y, replace = TRUE)},
+                 x=split(prior, prior),
+                 y=split(cond, seq(nrow(cond))))
+    unsplit(il, prior)
+  }
+  
   namestring <- strsplit(error_names, split = "_")[[1]]
 
   var1 <- sample(c(0,1), nrow(dataset), prob=prior_probs, replace = TRUE)
@@ -87,12 +95,7 @@ add_dependent_error <- function(dataset, error_names,
 
 
 
-sample_cpt <- function(prior, cond){
-  il <- mapply(function(x,y){sample(c(0,1), length(x), prob = y, replace = TRUE)},
-               x=split(prior, prior),
-               y=split(cond, seq(nrow(cond))))
-  unsplit(il, prior)
-}
+
 
 
 
