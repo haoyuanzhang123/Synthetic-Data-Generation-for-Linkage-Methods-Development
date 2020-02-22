@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_pho_error.R
 \name{do_pho_replacement}
 \alias{do_pho_replacement}
-\title{TBC}
+\title{Replace a string with its phonetic error.}
 \usage{
 do_pho_replacement(
   s,
@@ -16,19 +16,25 @@ do_pho_replacement(
 )
 }
 \arguments{
-\item{string}{A string.}
+\item{s}{A string.}
+
+\item{where}{A string. The location of the pat, it can be one of: 'ALL','START','END','MIDDLE'.}
+
+\item{orgpat}{A string. The original pat.}
+
+\item{newpat}{A string. The new pat.}
+
+\item{precond}{A string. Pre-condition (default 'None') can be 'V' for vowel or 'C' for consonant.}
+
+\item{postcond}{A string. Post-condition (default 'None') can be 'V' for vowel or 'C' for consonant.}
+
+\item{existcond}{A string. Exist-condition (default 'None').}
+
+\item{startcond}{A string. Start-condition (default 'ALL').}
 }
 \value{
-It returns the \code{string} with a randomly assgined phonetic error following
-   rules extracted in the pho_rules dataset. It also comes with the change log of the
-   transformation.
+It returns a new pat.
 }
 \description{
-\code{do_pho_replacement} randomly assign a Phonetic error to a string.
-    This function was converted from the Python code in Febrl (developed by
-    Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-}
-\examples{
-get_transformation_pho('how are you?')
-
+\code{do_pho_replacement} replace a string with its phonetic error.
 }

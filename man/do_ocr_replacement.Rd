@@ -2,24 +2,22 @@
 % Please edit documentation in R/make_ocr_error.R
 \name{do_ocr_replacement}
 \alias{do_ocr_replacement}
-\title{TBC.}
+\title{Replace a string with its ocr error.}
 \usage{
 do_ocr_replacement(s, where, orgpat, newpat)
 }
 \arguments{
-\item{string}{A string.}
+\item{s}{A string.}
+
+\item{where}{A string. The location of the pat, it can be one of: 'ALL','START','END','MIDDLE'.}
+
+\item{orgpat}{A string. The original pat.}
+
+\item{newpat}{A string. The new pat.}
 }
 \value{
-It returns the \code{string} with a randomly assgined OCR error following
-   rules extracted in the ocr_rules dataset. It also comes with the change log of the
-   transformation.
+It returns a new pat.
 }
 \description{
-\code{do_ocr_replacement} randomly assign a Optical Character Recognition (OCR)
-    error to a string. This function was converted from the Python code in Febrl (
-    developed by Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-}
-\examples{
-do_ocr_replacement('how are you?')
-
+\code{do_ocr_replacement} replace a string with its ocr error.
 }

@@ -3,7 +3,7 @@
 \name{diff_two_strings}
 \alias{diff_two_strings}
 \title{Find all letters in \code{string1} which are not in \code{string2}.
-\code{diff_two_strings} is adopted from \code{\link[vecsets:vsetdiff]{vsetdiff}},
+\code{diff_two_strings} is adopted from package vecsets function vsetdiff,
     it returns all letters in \code{string1} which are not in \code{string2}.}
 \usage{
 diff_two_strings(string1, string2, multiple = TRUE)
@@ -18,6 +18,6 @@ will non-unique letters, otherwise, only unique letters.}
 }
 \description{
 Find all letters in \code{string1} which are not in \code{string2}.
-\code{diff_two_strings} is adopted from \code{\link[vecsets:vsetdiff]{vsetdiff}},
+\code{diff_two_strings} is adopted from package vecsets function vsetdiff,
     it returns all letters in \code{string1} which are not in \code{string2}.
 }

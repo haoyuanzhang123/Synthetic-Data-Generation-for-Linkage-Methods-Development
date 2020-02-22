@@ -2,24 +2,16 @@
 % Please edit documentation in R/make_pho_error.R
 \name{slavo_germanic}
 \alias{slavo_germanic}
-\title{TBC}
+\title{Detect if it has slavo transformation.}
 \usage{
 slavo_germanic(str)
 }
 \arguments{
-\item{string}{A string.}
+\item{str}{A string.}
 }
 \value{
-It returns the \code{string} with a randomly assgined phonetic error following
-   rules extracted in the pho_rules dataset. It also comes with the change log of the
-   transformation.
+It returns 1 or 0.
 }
 \description{
-\code{slavo_germanic} randomly assign a Phonetic error to a string.
-    This function was converted from the Python code in Febrl (developed by
-    Agus Pudjijono in 2008, refers to reference \url{https://link.springer.com/chapter/10.1007/978-3-642-01307-2_47}.
-}
-\examples{
-get_transformation_pho('how are you?')
-
+\code{slavo_germanic} detect if a string has slavo transformation.
 }

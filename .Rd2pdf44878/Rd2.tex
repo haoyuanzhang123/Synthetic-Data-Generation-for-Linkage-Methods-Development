@@ -1,0 +1,50 @@
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `sdglinkage'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Synthetic Data Generation for Linkage Methods Development}
+\item[Version]\AsIs{0.1.0}
+\item[Author]\AsIs{Haoyuan Zhang }\email{howardhyzhang@gmail.com}\AsIs{,
+Katie Harron }\email{k.harron@ucl.ac.uk}\AsIs{,
+Harvey Goldstein }\email{h.goldstein.uk@gmail.com}\AsIs{,
+Andrew Boyd }\email{A.W.Boyd@bristol.ac.uk}\AsIs{,
+Ruth Gilbert }\email{r.gilbert@ucl.ac.uk}\AsIs{}
+\item[Maintainer]\AsIs{Haoyuan Zhang }\email{howardhyzhang@gmail.com}\AsIs{}
+\item[Description]\AsIs{A tool for synthetic data generation that can be used for linkage method
+development, with elements of i) gold standard file with complete and accurate
+information and ii) linkage files that are corrupted as we often see in raw dataset.
+This package is developed based on our paper ``Synthetic Data Generation for Linkage
+Methods Development''.}
+\item[License]\AsIs{MIT + file LICENSE}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[Depends]\AsIs{R (>= 2.10)}
+\item[Imports]\AsIs{bnlearn (>= 4.4.1),
+synthpop (>= 1.5.1),
+reshape (>= 0.8.8),
+ggplot2 (>= 3.1.1),
+visNetwork (>= 2.0.6),
+arsenal (>= 3.3.0)}
+\item[Suggests]\AsIs{mlr (>= 2.16.0),
+PostcodesioR (>= 0.1.1),
+reclin,
+dplyr,
+knitr,
+rmarkdown,
+testthat}
+\item[RoxygenNote]\AsIs{7.0.2}
+\item[VignetteBuilder]\AsIs{knitr}
+\end{description}
+\Rdcontents{\R{} topics documented:}

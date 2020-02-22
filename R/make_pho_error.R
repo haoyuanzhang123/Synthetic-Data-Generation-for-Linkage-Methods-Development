@@ -411,13 +411,7 @@ do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
       rl <- as.list(strsplit(existcond, ";")[[1]])
       if (rl[[2]] == "slavo")
       {
-        if (grepl("w", str) | grepl("k", str) | grepl("cz", str) | grepl("witz", str))
-        {
-          r = 1
-        } else
-        {
-          r = 0
-        }
+        r <- slavo_germanic(s)
 
         if (rl[[1]] == "n")
         {
@@ -537,4 +531,27 @@ do_pho_replacement <- function(s, where, orgpat, newpat, precond, postcond,
   tmpstr <- paste0(tmpstr, changesstr)
 
   return(tmpstr)
+}
+
+
+
+
+#' Detect if it has slavo transformation.
+#'
+#' \code{slavo_germanic} detect if a string has slavo transformation.
+#'
+#' @param str A string.
+#' @return It returns 1 or 0.
+#'
+#' @export
+slavo_germanic <- function(str)
+{
+  if (grepl("w", str) | grepl("k", str) | grepl("cz", str) | grepl("witz",
+                                                                   str))
+  {
+    return(1)
+  } else
+  {
+    return(0)
+  }
 }
