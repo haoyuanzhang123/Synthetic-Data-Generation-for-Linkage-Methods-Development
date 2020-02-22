@@ -1,6 +1,6 @@
 #' Generate an address.
 #'
-#' \code{gen_address} randomly return a UK address out of 30,000 UK addresses.
+#' \code{gen_address} randomly return a UK address out of 10,000 UK addresses.
 #' The UK addresses were extracted from \code{\link{extract_address}}.
 #'
 #' @param address_file A data frame of addresses. The default is UK addresses.

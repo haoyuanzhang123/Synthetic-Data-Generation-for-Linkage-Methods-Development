@@ -59,7 +59,9 @@ and tested by real data with those trained and tested both by real data.
 }
 \examples{
 library(mlr)
-adult_data <- split_data(adult, 70)
+adult_data <- adult[c('age', 'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',
+                      'income')]
+adult_data <- split_data(adult_data[1:100,], 70)
 bn_learn <- gen_bn_learn(adult_data$training_set, "hc")
 lrns <- makeLearners(c("rpart", "logreg"), type = "classif",predict.type = "prob")
 measurements <- list(acc, ber)

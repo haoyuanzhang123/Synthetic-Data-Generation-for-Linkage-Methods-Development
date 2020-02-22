@@ -21,27 +21,16 @@
 #'     as the \code{gold_standard} but some of the variables are damaged; ii) the
 #'     error_log records the damages have made on the linkage file.
 #' @examples
-#' adult_with_flag <- add_random_error(adult[1:500,], prob = c(0.97, 0.03), "age_missing")
+#' adult_with_flag <- add_random_error(adult[1:50,], prob = c(0.97, 0.03), "age_missing")
 #' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "firstname_variant")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.65, 0.35), "lastname_variant")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.72, 0.28), "firstname_typo")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.85, 0.15), "firstname_pho")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.85, 0.15), "firstname_ocr")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "dob_trans_date")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "nhsid_insert")
-#' adult_with_flag <- add_random_error(adult_with_flag, prob = c(0.95, 0.05), "firstname_trans_char")
 #' adult_with_flag <- split_data(adult_with_flag, 70)
 #' bn_evidence <- "age >=18 & capital_gain>=0 & capital_loss >=0 &
 #'                 hours_per_week>=0 & hours_per_week<=100"
 #' bn_learn <- gen_bn_learn(adult_with_flag$training_set, "hc", bn_evidence)
 #' dataset_smaller_version <- bn_learn$gen_data
 #' syn_dependent <- dataset_smaller_version[, !grepl("flag", colnames(dataset_smaller_version))]
-#' gold_standard <- add_variable(syn_dependent, "nhsid")
-#' gold_standard <- add_variable(gold_standard, "dob", end_date = "2015-03-02", age_dependency = TRUE)
-#' gold_standard <- add_variable(gold_standard, "address")
-#' gold_standard <- add_variable(gold_standard, "firstname", country = "uk",
+#' gold_standard <- add_variable(syn_dependent, "firstname", country = "uk",
 #'                               gender_dependency = TRUE, age_dependency = TRUE)
-#' gold_standard <- add_variable(gold_standard, "lastname", country = "uk")
 #' syn_error_occurrence <- bn_flag_inference(dataset_smaller_version, bn_learn$fit_model)
 #' linkage_file <- damage_gold_standard(gold_standard, syn_error_occurrence)
 #'

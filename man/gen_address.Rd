@@ -20,7 +20,7 @@ The output is a data frame with 1 observation of 5 variables:
   }
 }
 \description{
-\code{gen_address} randomly return a UK address out of 30,000 UK addresses.
+\code{gen_address} randomly return a UK address out of 10,000 UK addresses.
 The UK addresses were extracted from \code{\link{extract_address}}.
 }
 \examples{

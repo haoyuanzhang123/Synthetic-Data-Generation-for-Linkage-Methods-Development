@@ -13,16 +13,10 @@
 #' @return A data frame of the \code{dataset} with the firstname column being replaced
 #'     by another firstname database.
 #' @examples
-#' df <- data.frame(sex=sample(c('male', 'female'), 100, replace = TRUE))
-#' df$race <- sample(1:6, 100, replace = TRUE)
+#' df <- data.frame(sex=sample(c('male', 'female'), 30, replace = TRUE))
 #' df <- add_variable(df, "nhsid")
-#' df <- add_variable(df, "dob", age_dependency = FALSE)
-#' df <- add_variable(df, "firstname", country = "uk", gender_dependency= TRUE, age_dependency = TRUE)
-#' df <- add_variable(df, "lastname", country = "uk", gender_dependency= TRUE, age_dependency = TRUE)
-#' df$firstname <-as.character(df$firstname)
-#' df$lastname <-as.character(df$lastname)
-#' replace_firstname(df, country = 'uk', age_dependency = FALSE)
-#' replace_firstname(df, country = 'us', gender_dependency = TRUE, race_dependency =TRUE)
+#' df <- add_variable(df, "firstname", country = "uk", gender_dependency= TRUE, age_dependency = FALSE)
+#' replace_firstname(df, country = 'us', age_dependency = FALSE)
 #'
 #' @export
 replace_firstname <- function(dataset, country = 'uk',

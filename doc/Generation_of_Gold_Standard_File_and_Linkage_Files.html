@@ -1651,12 +1651,12 @@ syn_gsf$longitude &lt;-NULL
 syn_gsf$latitude &lt;-NULL
 head(syn_gsf)</code></pre>
 <pre><code>##        age               race    sex      nhsid postcode
-## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  CT5 4HZ
-## 2 18.04504              White   Male 6749102387  B77 2TU
-## 3 33.22080              White   Male 7543092867  TQ1 3HY
-## 4 32.03759              White   Male 3617948251 SE16 2PN
-## 5 44.81910              White Female 4102587969  WN8 6AU
-## 6 30.49562              White Female 7653401988 EX37 9TY</code></pre>
+## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  M22 5BF
+## 2 18.04504              White   Male 6749102387  NN7 4LT
+## 3 33.22080              White   Male 7543092867 SS13 1PZ
+## 4 32.03759              White   Male 3617948251 AB32 7AT
+## 5 44.81910              White Female 4102587969 EX22 7BG
+## 6 30.49562              White Female 7653401988 CF14 5FT</code></pre>
 </div>
 <div id="add-external-dependent-identifiers-from-similar-real-datasets" class="section level2" number="1.4">
 <h2 number="1.4"><span class="header-section-number">1.4</span> Add External Dependent Identifiers From Similar Real Datasets</h2>
@@ -1665,13 +1665,13 @@ head(syn_gsf)</code></pre>
 <pre class="r"><code>syn_gsf &lt;- add_variable(syn_gsf, &quot;firstname&quot;, country = &quot;uk&quot;, gender_dependency = TRUE, age_dependency = TRUE)
 syn_gsf &lt;- add_variable(syn_gsf, &quot;lastname&quot;, country = &quot;uk&quot;)
 head(syn_gsf)</code></pre>
-<pre><code>##        age               race    sex      nhsid postcode  firstname
-## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  CT5 4HZ       liam
-## 2 18.04504              White   Male 6749102387  B77 2TU     bailey
-## 3 33.22080              White   Male 7543092867  TQ1 3HY     george
-## 4 32.03759              White   Male 3617948251 SE16 2PN     connor
-## 5 44.81910              White Female 4102587969  WN8 6AU sarah-anne
-## 6 30.49562              White Female 7653401988 EX37 9TY      emily
+<pre><code>##        age               race    sex      nhsid postcode firstname
+## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  M22 5BF      tony
+## 2 18.04504              White   Male 6749102387  NN7 4LT    oliver
+## 3 33.22080              White   Male 7543092867 SS13 1PZ    steven
+## 4 32.03759              White   Male 3617948251 AB32 7AT      leon
+## 5 44.81910              White Female 4102587969 EX22 7BG     chloe
+## 6 30.49562              White Female 7653401988 CF14 5FT     chloe
 ##    lastname
 ## 1  barchard
 ## 2      ward
@@ -1763,13 +1763,13 @@ head(syn_error_occurrence2)</code></pre>
 ## [1] &quot;encoding error to:  firstname_ocr_flag&quot;
 ## [1] &quot;encoding error to:  firstname_trans_char_flag&quot;</code></pre>
 <pre class="r"><code>head(syn_lf1$linkage_file)</code></pre>
-<pre><code>##        age               race    sex      nhsid postcode  firstname
-## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  CT5 4HZ       lina
-## 2 18.04504              White   Male 6749102387  B77 2TU      hiali
-## 3       NA              White   &lt;NA&gt; 7543092867  TQ1 3HY    seorrne
-## 4 32.03759               &lt;NA&gt;   Male 3617948251 SE16 2PN    c0nheah
-## 5 44.81910              White Female 4102587969  WN8 6AU sarah-qnne
-## 6 30.49562               &lt;NA&gt;   &lt;NA&gt; 7653401988 EX37 9TY      emi1y
+<pre><code>##        age               race    sex      nhsid postcode firstname
+## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  M22 5BF      t0yn
+## 2 18.04504              White   Male 6749102387  NN7 4LT      lo&#39;l
+## 3       NA              White   &lt;NA&gt; 7543092867 SS13 1PZ  5trephan
+## 4 32.03759               &lt;NA&gt;   Male 3617948251 AB32 7AT   IeInard
+## 5 44.81910              White Female 4102587969 EX22 7BG     chlo0
+## 6 30.49562               &lt;NA&gt;   &lt;NA&gt; 7653401988 CF14 5FT     cbloe
 ##                   lastname
 ## 1                 barchard
 ## 2                     ward
@@ -1787,25 +1787,25 @@ head(syn_error_occurrence2)</code></pre>
 ## 6                0              &lt;NA&gt;             &lt;NA&gt;
 ##   postcode_trans_char_flag firstname_variant_flag
 ## 1                        0                      0
-## 2                        0          bailey&gt;bailee
-## 3                        0          george&gt;jeorje
-## 4                        0          connor&gt;conner
+## 2                        0            oliver&gt;olie
+## 3                        0         steven&gt;stephan
+## 4                        0          leon&gt;leonhard
 ## 5                        0                      0
 ## 6                        0                      0
 ##                lastname_variant_flag firstname_typo_flag
 ## 1                                  0                   0
 ## 2                                  0                   0
-## 3 kirkbride&gt;kirkbride_lack_of_record               j&lt;m&lt;5
-## 4       murden&gt;murden_lack_of_record               n&lt;h&lt;4
-## 5       munroe&gt;munroe_lack_of_record               a&lt;q&lt;7
+## 3 kirkbride&gt;kirkbride_lack_of_record               t&lt;r&lt;2
+## 4       murden&gt;murden_lack_of_record               o&lt;l&lt;3
+## 5       munroe&gt;munroe_lack_of_record               e&lt;0&lt;5
 ## 6         terry&gt;terry_lack_of_record                   0
 ##   firstname_pho_flag firstname_ocr_flag firstname_trans_char_flag
-## 1                  0            m&gt;n&gt;all               an&gt;trans&gt;34
-## 2           ee&gt;i&gt;all            b&gt;h&gt;all               ai&gt;trans&gt;23
-## 3            j&gt;s&gt;all           m&gt;rn&gt;all                         0
-## 4           r&gt;ah&gt;end            o&gt;0&gt;all                         0
+## 1                  0            o&gt;0&gt;all               ny&gt;trans&gt;34
+## 2           ie&gt;i&gt;all           i&gt;&#39;l&gt;all               ol&gt;trans&gt;12
+## 3           s&gt;st&gt;all            s&gt;5&gt;all                         0
+## 4            h&gt;@&gt;all            l&gt;I&gt;all                         0
 ## 5                  0                  0                         0
-## 6                  0            l&gt;1&gt;all                         0</code></pre>
+## 6                  0            h&gt;b&gt;all                         0</code></pre>
 <pre class="r"><code>syn_lf2 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence2)</code></pre>
 <pre><code>## [1] &quot;encoding error to:  age_missing_flag&quot;
 ## [1] &quot;encoding error to:  race_missing_flag&quot;
@@ -1818,13 +1818,13 @@ head(syn_error_occurrence2)</code></pre>
 ## [1] &quot;encoding error to:  firstname_ocr_flag&quot;
 ## [1] &quot;encoding error to:  firstname_trans_char_flag&quot;</code></pre>
 <pre class="r"><code>head(syn_lf2$linkage_file)</code></pre>
-<pre><code>##        age  race    sex      nhsid postcode firstname
-## 1 45.44689  &lt;NA&gt;   &lt;NA&gt; 6531420790  TC5 4HZ      liam
-## 2 18.04504 White   Male 6749102387  B77 2TU    payley
-## 3 33.22080  &lt;NA&gt;   Male 7543092867  TQ1 3HY    ieorid
-## 4       NA White   Male 3617948251 SE16 2PN    ocnnir
-## 5       NA White   &lt;NA&gt; 4102587969  WN8 6AU saiaa-nne
-## 6       NA White Female 7653401988 EX37 9TY    eumlin
+<pre><code>##        age  race    sex      nhsid postcode            firstname
+## 1 45.44689  &lt;NA&gt;   &lt;NA&gt; 6531420790  M225 BF                 tony
+## 2 18.04504 White   Male 6749102387  NN7 4LT                 olli
+## 3 33.22080  &lt;NA&gt;   Male 7543092867 SS13 1PZ              sgepben
+## 4       NA White   Male 3617948251 AB32 7AT                 lemo
+## 5       NA White   &lt;NA&gt; 4102587969 EX22 7BG                nkloe
+## 6       NA White Female 7653401988 CF14 5FT chloe_lack_of_eecotr
 ##                   lastname
 ## 1  barchard_lack_of_record
 ## 2                     ward
@@ -1852,33 +1852,33 @@ linked_data_set &lt;- pair_blocking(syn_lf1$linkage_file, syn_lf2$linkage_file, 
 table(linked_data_set$nhsid.x == linked_data_set$nhsid.y)</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
-##     7  2480</code></pre>
+##     7  2469</code></pre>
 <pre class="r"><code># These are records of missed match
 head(linked_data_set[linked_data_set$nhsid.x != linked_data_set$nhsid.y,],7)</code></pre>
-<pre><code>##         age.x race.x sex.x    nhsid.x postcode.x firstname.x
-## 251        NA   &lt;NA&gt;  Male 1457038692   SA67 8UQ       yaamo
-## 296  56.03953   &lt;NA&gt;  Male  871350942   DN14 5LW          gu
-## 853        NA   &lt;NA&gt;  Male 6918257439   CO15 1NA         atn
-## 1865       NA  White  Male 2091875643   CM16 6HS     kharl0e
-## 1919       NA  White  &lt;NA&gt; 7415063295    NE5 2BU         nna
-## 2110       NA  White  &lt;NA&gt; 6790851437   CM16 6HS  arch&#39;blald
-## 2139 29.21894   &lt;NA&gt;  &lt;NA&gt; 2190384672   SA67 8UQ    nrsdthew
+<pre><code>##         age.x race.x sex.x    nhsid.x postcode.x           firstname.x
+## 28   16.85226   &lt;NA&gt;  Male 2650789344   CO11 2HX prince_|ack_of_record
+## 251        NA   &lt;NA&gt;  Male 1457038692    IG5 0PQ                  2tah
+## 795        NA  White  &lt;NA&gt; 8502693476    EX5 3NE                mrjlje
+## 848        NA   &lt;NA&gt;  Male 6918257439    CT3 1BB findlay_lak_of_rceord
+## 907  18.60372  White  Male 6537890241    SW6 2UZ  finn_lstck_of_record
+## 1656 47.24609  White  Male 6379140581   GU10 4LN                  tlyn
+## 2131 29.21894   &lt;NA&gt;  &lt;NA&gt; 2190384672    IG5 0PQ               musatys
 ##                  lastname.x    age.y race.y sex.y    nhsid.y postcode.y
-## 251                 brattle       NA   &lt;NA&gt;  Male 2190384672   SA67 8UQ
-## 296                robinson 26.45100  White  Male 6394807125   DN14 5LW
-## 853              calderwood 52.64658   &lt;NA&gt;  Male 3425098675   CO15 1NA
-## 1865                   bond       NA  White  Male 6790851437   CM16 6HS
-## 1919  barnes_lack_of_record 42.55936   &lt;NA&gt;  Male  905216438    NE5 2BU
-## 2110 lickman_lack_of_record       NA  White  &lt;NA&gt; 2091875643   CM16 6HS
-## 2139  ashall_lack_of_record 47.91000   &lt;NA&gt;  &lt;NA&gt; 1457038692   SA67 8UQ
-##                 firstname.y             lastname.y
-## 251                  nateus                 ashall
-## 296  mahmoud_lack_of_ercord                   howe
-## 853              zakhae&#39;lah  ogrady_lack_of_record
-## 1865                  axrie lickman_lack_of_record
-## 1919                  toman  cossar_lack_of_record
-## 2110                cahrlre    bond_lack_of_record
-## 2139                   aatS brattle_lack_of_record</code></pre>
+## 28                   morley 29.58909   &lt;NA&gt;  Male 7621054980   CO11 2HX
+## 251                 brattle       NA   &lt;NA&gt;  Male 2190384672    IG5 0PQ
+## 795  keating_lack_of_record 12.36731  White  &lt;NA&gt; 3760598129    EX5 3NE
+## 848              calderwood 52.64658   &lt;NA&gt;  Male 3425098675    CT3 1BB
+## 907  burrows_lack_of_record 29.50669   &lt;NA&gt;  Male 8406925736    SW6 2UZ
+## 1656 traynor_lack_of_record 44.82525  White  Male 0257314989   GU10 4LN
+## 2131  ashall_lack_of_record 47.91000   &lt;NA&gt;  &lt;NA&gt; 1457038692    IG5 0PQ
+##                  firstname.y              lastname.y
+## 28                   atevan0  worsnop_lack_of_record
+## 251  rnustafa_lakk_of_record                  ashall
+## 795      maja_lac_k0f_rec0rd fielding_lack_of_record
+## 848      yake_lack_of_rec:rd   ogrady_lack_of_record
+## 907                    |sfie  askwith_lack_of_record
+## 1656                    yaek shepherd_lack_of_record
+## 2131                 savahrv  brattle_lack_of_record</code></pre>
 </div>
 
 

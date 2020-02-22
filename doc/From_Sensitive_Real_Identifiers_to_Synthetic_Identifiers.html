@@ -1589,12 +1589,12 @@ real_gsf &lt;- add_variable(real_gsf, &quot;firstname&quot;, country = &quot;uk&
 real_gsf &lt;- add_variable(real_gsf, &quot;lastname&quot;, country = &quot;uk&quot;)
 head(real_gsf)</code></pre>
 <pre><code>##        nhsid    sex race        dob firstname lastname
-## 1 0521968372   male    1 1936-11-05      cody    kiely
-## 2 0698713257 female    1 1977-05-09   matilda   veasey
-## 3 1756849021 female    1 1945-11-01    nagina    fibbs
-## 4 5426301786 female    2 1971-03-01 charlotte   platts
-## 5 9586341704 female    4 1995-05-15     amber hayhurst
-## 6 6948320511 female    1 1936-01-15    lauren   conroy</code></pre>
+## 1 0521968372   male    1 1936-11-05 alexander    kiely
+## 2 0698713257 female    1 1977-05-09    nikita   veasey
+## 3 1756849021 female    1 1945-11-01     lydia    fibbs
+## 4 5426301786 female    2 1971-03-01     chloe   platts
+## 5 9586341704 female    4 1995-05-15    louise hayhurst
+## 6 6948320511 female    1 1936-01-15     chloe   conroy</code></pre>
 </div>
 <div id="real_lf" class="section level2" number="1.2">
 <h2 number="1.2"><span class="header-section-number">1.2</span> real_lf</h2>
@@ -1611,13 +1611,13 @@ real_lf &lt;- damage_gold_standard(real_gsf, error_occurrence_flags)$linkage_fil
 ## [1] &quot;encoding error to:  firstname_variant_flag&quot;
 ## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
 <pre class="r"><code>head(real_lf)</code></pre>
-<pre><code>##        nhsid    sex race        dob firstname lastname
-## 1 0521968372   male    1 1936-11-05      cody    kidly
-## 2 0698713257 female    1 1977-05-09   matilda   veasey
-## 3 1756849021 female   NA 1945-01-11    nagina    fibbs
-## 4 5426301786 female    2 1971-03-01  carlotta   platts
-## 5 9586341704 female    4 1995-05-15     amber hayhurst
-## 6 6948320511 female    1 1936-15-01    laurel   conroy</code></pre>
+<pre><code>##        nhsid    sex race        dob            firstname lastname
+## 1 0521968372   male    1 1936-11-05            alexander    kieky
+## 2 0698713257 female    1 1977-05-09               nikita   veasey
+## 3 1756849021 female   NA 1945-01-11                lydia    fibbs
+## 4 5426301786 female    2 1971-03-01 chloe_lack_of_record   platts
+## 5 9586341704 female    4 1995-05-15               louise hayhurst
+## 6 6948320511 female    1 1936-15-01 chloe_lack_of_record   conroy</code></pre>
 </div>
 </div>
 <div id="detect-and-classify-errors-of-real-dataset" class="section level1" number="2">
@@ -1630,105 +1630,103 @@ real_lf &lt;- damage_gold_standard(real_gsf, error_occurrence_flags)$linkage_fil
 <pre class="r"><code>vars = list(c(&#39;race&#39;, &#39;race&#39;), c(&#39;dob&#39;, &#39;dob&#39;), c(&#39;firstname&#39;, &#39;firstname&#39;), c(&#39;lastname&#39;, &#39;lastname&#39;))
 diffs.table = compare_two_df(real_gsf, real_lf, vars, &#39;nhsid&#39;)
 diffs.table</code></pre>
-<pre><code>##        var.x     var.y      nhsid     values.x     values.y row.x row.y
-## 1       race      race 0832751693            3           NA    51    51
-## 2       race      race  174039562            6           NA    41    41
-## 3       race      race 1756849021            1           NA     3     3
-## 4       race      race 1850293465            2           NA    71    71
-## 5       race      race 5120983464            3           NA    36    36
-## 6       race      race 7143680591            4           NA    37    37
-## 7        dob       dob 0923168575   1986-12-17   1986-17-12    59    59
-## 8        dob       dob 1756849021   1945-11-01   1945-01-11     3     3
-## 9        dob       dob 1803529768   1929-06-24   1929-24-06    62    62
-## 10       dob       dob  204189735   1994-01-17   1994-17-01    17    17
-## 11       dob       dob 2053841966   1960-12-15   1960-15-12     8     8
-## 12       dob       dob 2057136485   2005-05-08   2005-08-05    46    46
-## 13       dob       dob  245071698   1960-04-21   1960-21-04    57    57
-## 14       dob       dob 2680473515   1957-07-20   1957-20-07    68    68
-## 15       dob       dob 2846701393   1906-11-06   1906-06-11    56    56
-## 16       dob       dob 3506742817   1932-09-14   1932-14-09    10    10
-## 17       dob       dob 3709241863   1940-02-18   1940-18-02    58    58
-## 18       dob       dob 4267518300   2002-03-12   2002-12-03    73    73
-## 19       dob       dob 4361879206   1914-04-19   1914-19-04    50    50
-## 20       dob       dob 4706352185   1923-03-20   1923-20-03    42    42
-## 21       dob       dob 4836019257   1908-08-01   1908-01-08    81    81
-## 22       dob       dob 4960238178   1931-08-24   1931-24-08    31    31
-## 23       dob       dob 5283174964   2008-05-27   2008-27-05    70    70
-## 24       dob       dob 5346879129   1962-09-19   1962-19-09    85    85
-## 25       dob       dob 5401873697   1936-06-03   1936-03-06    97    97
-## 26       dob       dob 5971084267   1909-05-10   1909-10-05    79    79
-## 27       dob       dob 6047953816   1908-08-12   1908-12-08    39    39
-## 28       dob       dob 6349518020   1976-03-31   1976-31-03    53    53
-## 29       dob       dob 6948320511   1936-01-15   1936-15-01     6     6
-## 30       dob       dob 7431625898   1963-05-16   1963-16-05    83    83
-## 31       dob       dob 7493562083   1966-04-28   1966-28-04    33    33
-## 32       dob       dob 7895412604   1960-10-07   1960-07-10    34    34
-## 33       dob       dob 8349720514   1927-03-10   1927-10-03    14    14
-## 34       dob       dob  853617420   1989-01-12   1989-12-01    20    20
-## 35       dob       dob 8690413251   2014-06-08   2014-08-06    40    40
-## 36       dob       dob  910268537   2016-06-04   2016-04-06    32    32
-## 37       dob       dob 9187263041   2014-11-26   2014-26-11    61    61
-## 38       dob       dob 9271345800   1979-09-16   1979-16-09    77    77
-## 39       dob       dob 9273156088   1915-01-29   1915-29-01    27    27
-## 40       dob       dob 9360481521   1930-01-21   1930-21-01    93    93
-## 41       dob       dob 9467821052   1951-05-17   1951-17-05    21    21
-## 42       dob       dob 9821670350   1910-06-01   1910-01-06   100   100
-## 43 firstname firstname 0571948324        sarah        zarah    90    90
-## 44 firstname firstname 0739814257      william        wilie    87    87
-## 45 firstname firstname  174039562       louisa         lois    41    41
-## 46 firstname firstname  204189735     benjamin        benny    17    17
-## 47 firstname firstname 2548970612     benjamin        benny    64    64
-## 48 firstname firstname 2846701393          amy       amanda    56    56
-## 49 firstname firstname 2846951306        calum          mal     7     7
-## 50 firstname firstname 2874560138       george      giorgio    48    48
-## 51 firstname firstname 2961547032        daryl daryl_la....    44    44
-## 52 firstname firstname 4102376585     rebekkah rebekkah....    60    60
-## 53 firstname firstname 4361879206        poppy poppy_la....    50    50
-## 54 firstname firstname 4836019257         amie amie_lac....    81    81
-## 55 firstname firstname 5014268390          sam        samie    67    67
-## 56 firstname firstname 5283174964       darcey darcey_l....    70    70
-## 57 firstname firstname 5346879129       philip       felipa    85    85
-## 58 firstname firstname 5401873697       thomas       thoman    97    97
-## 59 firstname firstname 5426301786    charlotte     carlotta     4     4
-## 60 firstname firstname 5971084267         evan         ewan    79    79
-## 61 firstname firstname 6321408751       connor       conner    95    95
-## 62 firstname firstname 6327854915     danielle     daniella    80    80
-## 63 firstname firstname 6584017397       warren warren_l....    49    49
-## 64 firstname firstname 6948320511       lauren       laurel     6     6
-## 65 firstname firstname 7109324656     jean-luc jean-luc....    78    78
-## 66 firstname firstname 7159842367        ryley        riley    89    89
-## 67 firstname firstname 7462018594        aidan        aiden    13    13
-## 68 firstname firstname 7493562083    alexander        alick    33    33
-## 69 firstname firstname 8402915736      rebecca        becky    92    92
-## 70 firstname firstname 9187263041 jessie-leigh jessie-l....    61    61
-## 71 firstname firstname 9271345800        danny     daniella    77    77
-## 72 firstname firstname 9340862716       samuel          sam    65    65
-## 73 firstname firstname 9360481521       jordan       jordyn    93    93
-## 74 firstname firstname 9562843017  lauren-rose lauren-r....    66    66
-## 75 firstname firstname  985743021         jade        jayde    29    29
-## 76  lastname  lastname 0382179544       gilson       gilsom    72    72
-## 77  lastname  lastname 0521968372        kiely        kidly     1     1
-## 78  lastname  lastname 0739814257       millar       mil4ar    87    87
-## 79  lastname  lastname 1067825932      sparrow      sparr2w    76    76
-## 80  lastname  lastname 2846951306      thacker      tbacker     7     7
-## 81  lastname  lastname 2961547032       mcbain       jcbain    44    44
-## 82  lastname  lastname 4102376585       gorman       gormam    60    60
-## 83  lastname  lastname 4267518300     mitchell     jitchell    73    73
-## 84  lastname  lastname 5120983464        woods        woocs    36    36
-## 85  lastname  lastname 5283174964      tinkler      tinklee    70    70
-## 86  lastname  lastname 5346879129    mcpherson    mcphersln    85    85
-## 87  lastname  lastname 5904371284     harrison     harryson    74    74
-## 88  lastname  lastname 5971084267     walmsley     walmsleh    79    79
-## 89  lastname  lastname 6210975836         howe         howd    28    28
-## 90  lastname  lastname 6327854915      dempsey      dempzey    80    80
-## 91  lastname  lastname 6804731255         ross         rozs    91    91
-## 92  lastname  lastname 6815243974        moore        noore    43    43
-## 93  lastname  lastname 7042953819      willett      xillett    30    30
-## 94  lastname  lastname 7325960840         bell         bela     9     9
-## 95  lastname  lastname 8402915736          cox          cix    92    92
-## 96  lastname  lastname  853617420        hobbs        hdbbs    20    20
-## 97  lastname  lastname 9340862716   harrington   harrinhton    65    65
-## 98  lastname  lastname 9467821052         goff         gogf    21    21</code></pre>
+<pre><code>##        var.x     var.y      nhsid   values.x     values.y row.x row.y
+## 1       race      race 0832751693          3           NA    51    51
+## 2       race      race  174039562          6           NA    41    41
+## 3       race      race 1756849021          1           NA     3     3
+## 4       race      race 1850293465          2           NA    71    71
+## 5       race      race 5120983464          3           NA    36    36
+## 6       race      race 7143680591          4           NA    37    37
+## 7        dob       dob 0923168575 1986-12-17   1986-17-12    59    59
+## 8        dob       dob 1756849021 1945-11-01   1945-01-11     3     3
+## 9        dob       dob 1803529768 1929-06-24   1929-24-06    62    62
+## 10       dob       dob  204189735 1994-01-17   1994-17-01    17    17
+## 11       dob       dob 2053841966 1960-12-15   1960-15-12     8     8
+## 12       dob       dob 2057136485 2005-05-08   2005-08-05    46    46
+## 13       dob       dob  245071698 1960-04-21   1960-21-04    57    57
+## 14       dob       dob 2680473515 1957-07-20   1957-20-07    68    68
+## 15       dob       dob 2846701393 1906-11-06   1906-06-11    56    56
+## 16       dob       dob 3506742817 1932-09-14   1932-14-09    10    10
+## 17       dob       dob 3709241863 1940-02-18   1940-18-02    58    58
+## 18       dob       dob 4267518300 2002-03-12   2002-12-03    73    73
+## 19       dob       dob 4361879206 1914-04-19   1914-19-04    50    50
+## 20       dob       dob 4706352185 1923-03-20   1923-20-03    42    42
+## 21       dob       dob 4836019257 1908-08-01   1908-01-08    81    81
+## 22       dob       dob 4960238178 1931-08-24   1931-24-08    31    31
+## 23       dob       dob 5283174964 2008-05-27   2008-27-05    70    70
+## 24       dob       dob 5346879129 1962-09-19   1962-19-09    85    85
+## 25       dob       dob 5401873697 1936-06-03   1936-03-06    97    97
+## 26       dob       dob 5971084267 1909-05-10   1909-10-05    79    79
+## 27       dob       dob 6047953816 1908-08-12   1908-12-08    39    39
+## 28       dob       dob 6349518020 1976-03-31   1976-31-03    53    53
+## 29       dob       dob 6948320511 1936-01-15   1936-15-01     6     6
+## 30       dob       dob 7431625898 1963-05-16   1963-16-05    83    83
+## 31       dob       dob 7493562083 1966-04-28   1966-28-04    33    33
+## 32       dob       dob 7895412604 1960-10-07   1960-07-10    34    34
+## 33       dob       dob 8349720514 1927-03-10   1927-10-03    14    14
+## 34       dob       dob  853617420 1989-01-12   1989-12-01    20    20
+## 35       dob       dob 8690413251 2014-06-08   2014-08-06    40    40
+## 36       dob       dob  910268537 2016-06-04   2016-04-06    32    32
+## 37       dob       dob 9187263041 2014-11-26   2014-26-11    61    61
+## 38       dob       dob 9271345800 1979-09-16   1979-16-09    77    77
+## 39       dob       dob 9273156088 1915-01-29   1915-29-01    27    27
+## 40       dob       dob 9360481521 1930-01-21   1930-21-01    93    93
+## 41       dob       dob 9467821052 1951-05-17   1951-17-05    21    21
+## 42       dob       dob 9821670350 1910-06-01   1910-01-06   100   100
+## 43 firstname firstname 0571948324    charlie      charlee    90    90
+## 44 firstname firstname 0739814257     elliot elliot_l....    87    87
+## 45 firstname firstname  174039562    siobhan siobhan_....    41    41
+## 46 firstname firstname  204189735    zachary    zachariah    17    17
+## 47 firstname firstname 2548970612        ben        benji    64    64
+## 48 firstname firstname 2846701393      chloe chloe_la....    56    56
+## 49 firstname firstname 2846951306       jake jake_lac....     7     7
+## 50 firstname firstname 2874560138     steven       stevan    48    48
+## 51 firstname firstname 2961547032   isabella     isobelle    44    44
+## 52 firstname firstname 4102376585  madeleine        magda    60    60
+## 53 firstname firstname 4361879206    heather heather_....    50    50
+## 54 firstname firstname 4836019257    anouska anouska_....    81    81
+## 55 firstname firstname 5014268390       alex       alexys    67    67
+## 56 firstname firstname 5283174964        dia dia_lack....    70    70
+## 57 firstname firstname 5346879129  alexander         lexi    85    85
+## 58 firstname firstname 5401873697       amin amin_lac....    97    97
+## 59 firstname firstname 5426301786      chloe chloe_la....     4     4
+## 60 firstname firstname 5971084267  alexander   aleksandar    79    79
+## 61 firstname firstname 6321408751       leon       lennie    95    95
+## 62 firstname firstname 6327854915    bethany         beth    80    80
+## 63 firstname firstname 6584017397  alexander   aleksander    49    49
+## 64 firstname firstname 6948320511      chloe chloe_la....     6     6
+## 65 firstname firstname 7109324656  alexander    aleksandr    78    78
+## 66 firstname firstname 7159842367        zac         zach    89    89
+## 67 firstname firstname 7462018594       jake jake_lac....    13    13
+## 68 firstname firstname 7493562083        tom       thomas    33    33
+## 69 firstname firstname 8402915736      chloe chloe_la....    92    92
+## 70 firstname firstname 9187263041      megan       meghan    61    61
+## 71 firstname firstname 9271345800       jake jake_lac....    77    77
+## 72 firstname firstname 9340862716      blake       blayke    65    65
+## 73 firstname firstname 9360481521        ian         aian    93    93
+## 74 firstname firstname 9562843017    bethany         beth    66    66
+## 75 firstname firstname  985743021     lauren       laurel    29    29
+## 76  lastname  lastname 0382179544     gilson       giloon    72    72
+## 77  lastname  lastname 0521968372      kiely        kieky     1     1
+## 78  lastname  lastname 0739814257     millar       millvr    87    87
+## 79  lastname  lastname 2846951306    thacker      thafker     7     7
+## 80  lastname  lastname 2961547032     mcbain       mcbaun    44    44
+## 81  lastname  lastname 4102376585     gorman       gprman    60    60
+## 82  lastname  lastname 4267518300   mitchell     mihchell    73    73
+## 83  lastname  lastname 5120983464      woods        eoods    36    36
+## 84  lastname  lastname 5283174964    tinkler      tinkoer    70    70
+## 85  lastname  lastname 5904371284   harrison     harrispn    74    74
+## 86  lastname  lastname 5971084267   walmsley     walms4ey    79    79
+## 87  lastname  lastname 6210975836       howe         yowe    28    28
+## 88  lastname  lastname 6327854915    dempsey      dempsuy    80    80
+## 89  lastname  lastname 6804731255       ross         rosz    91    91
+## 90  lastname  lastname 6815243974      moore        moofe    43    43
+## 91  lastname  lastname 7042953819    willett      willeqt    30    30
+## 92  lastname  lastname 7325960840       bell         bekl     9     9
+## 93  lastname  lastname 8402915736        cox          cos    92    92
+## 94  lastname  lastname  853617420      hobbs        hob9s    20    20
+## 95  lastname  lastname 9340862716 harrington   hajrington    65    65
+## 96  lastname  lastname 9467821052       goff         hoff    21    21</code></pre>
 </div>
 <div id="classfy-errors" class="section level2" number="2.2">
 <h2 number="2.2"><span class="header-section-number">2.2</span> Classfy Errors</h2>
@@ -1772,18 +1770,19 @@ head(acquired_error_flags)</code></pre>
 ## 6                  0</code></pre>
 <p>Let’s compare the acquired_error_flags with error_occurrence_flags: if they are completely identical, then it means that our method has successfully extracted and classified the errors happened in the real_lf into the correct categories.</p>
 <pre class="r"><code>all.equal(acquired_error_flags, error_occurrence_flags)</code></pre>
-<pre><code>## [1] &quot;Component \&quot;dob_trans_date_flag\&quot;: 1 string mismatch&quot;</code></pre>
+<pre><code>## [1] &quot;Component \&quot;dob_trans_date_flag\&quot;: 1 string mismatch&quot; 
+## [2] &quot;Component \&quot;lastname_typo_flag\&quot;: 2 string mismatches&quot;</code></pre>
 <p>There is one mismatch in the dob_trans_date_flag column, which is because the dob was the same after transposed.</p>
 <pre class="r"><code>real_gsf[c(28),]</code></pre>
 <pre><code>##         nhsid    sex race        dob firstname lastname
-## 28 6210975836 female    2 1992-11-11       amy     howe</code></pre>
+## 28 6210975836 female    2 1992-11-11     chloe     howe</code></pre>
 <pre class="r"><code>real_lf[c(28),]</code></pre>
 <pre><code>##         nhsid    sex race        dob firstname lastname
-## 28 6210975836 female    2 1992-11-11       amy     howd</code></pre>
+## 28 6210975836 female    2 1992-11-11     chloe     yowe</code></pre>
 <p>Let’s fix it and we can see they are identifical now.</p>
 <pre class="r"><code>error_occurrence_flags$dob_trans_date_flag[c(28)] = 0
 all.equal(acquired_error_flags, error_occurrence_flags)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] &quot;Component \&quot;lastname_typo_flag\&quot;: 2 string mismatches&quot;</code></pre>
 </div>
 </div>
 <div id="masked-sensitive-variables" class="section level1" number="3">
@@ -1796,21 +1795,21 @@ real_gsf_with_flags_replaced = replace_nhsid(real_gsf_with_flags_replaced)</code
 <p>This is what the original dataset looks like:</p>
 <pre class="r"><code>head(real_gsf_with_flags[colnames(real_gsf)])</code></pre>
 <pre><code>##        nhsid    sex race        dob firstname lastname
-## 1 0521968372   male    1 1936-11-05      cody    kiely
-## 2 0698713257 female    1 1977-05-09   matilda   veasey
-## 3 1756849021 female    1 1945-11-01    nagina    fibbs
-## 4 5426301786 female    2 1971-03-01 charlotte   platts
-## 5 9586341704 female    4 1995-05-15     amber hayhurst
-## 6 6948320511 female    1 1936-01-15    lauren   conroy</code></pre>
+## 1 0521968372   male    1 1936-11-05 alexander    kiely
+## 2 0698713257 female    1 1977-05-09    nikita   veasey
+## 3 1756849021 female    1 1945-11-01     lydia    fibbs
+## 4 5426301786 female    2 1971-03-01     chloe   platts
+## 5 9586341704 female    4 1995-05-15    louise hayhurst
+## 6 6948320511 female    1 1936-01-15     chloe   conroy</code></pre>
 <p>This is what the replaced dataset looks like:</p>
 <pre class="r"><code>head(real_gsf_with_flags_replaced[colnames(real_gsf)])</code></pre>
-<pre><code>##        nhsid    sex race        dob firstname lastname
-## 1 0846397153   male    1 1936-11-05     jacob  herrera
-## 2 7459861308 female    1 1977-05-09    mariah   miller
-## 3 1540736288 female    1 1945-11-01  brittany williams
-## 4 0861274539 female    2 1971-03-01   jessica      lam
-## 5 2867053498 female    4 1995-05-15   jessica gonzalez
-## 6 5143820960 female    1 1936-01-15  samantha    begay</code></pre>
+<pre><code>##        nhsid    sex race        dob   firstname lastname
+## 1 9521047364   male    1 1936-11-05 christopher    watts
+## 2 0938425714 female    1 1977-05-09      olivia    adams
+## 3 8240139655 female    1 1945-11-01    courtney    davis
+## 4 7062843598 female    2 1971-03-01       emily    chung
+## 5 3254169808 female    4 1995-05-15      ashley  salazar
+## 6 1827306947 female    1 1936-01-15    samantha   wilson</code></pre>
 </div>
 <div id="generate-synthetic-identifiers" class="section level1" number="4">
 <h1 number="4"><span class="header-section-number">4</span> Generate Synthetic Identifiers</h1>
@@ -1824,20 +1823,20 @@ bn_learn &lt;- gen_bn_learn(real_gsf_with_flags_replaced, &quot;hc&quot;)
 # syn_gsf is the generated synthetic gold standard file
 syn_gsf = bn_learn$gen_data
 head(syn_gsf)</code></pre>
-<pre><code>##        nhsid    sex race        dob   firstname lastname race_missing_flag
-## 1  974812603 female    5 1936-01-15      aadila    moore                 0
-## 2 2048651976 female    5 1982-03-03 christopher  johnson                 0
-## 3 0861274539 female    5 1936-06-03      andrew      vue                 0
-## 4 2097861350 female    1 1966-05-12        luis williams                 0
-## 5 2359701843 female    4 1919-05-18     jessica   miller                 0
-## 6 1956823743   male    2 1950-10-11     jessica martinez                 1
+<pre><code>##        nhsid    sex race        dob firstname lastname race_missing_flag
+## 1 8192354679 female    5 1936-06-03   kaitlyn   wright                 0
+## 2 3689124751   male    1 1995-05-15   jumaana     wall                 0
+## 3 1827306947 female    6 1979-10-27     emily   flores                 0
+## 4 0759186340 female    3 1942-03-30   jasmine     kang                 0
+## 5  295734601 female    1 1982-03-03     kayla   romero                 0
+## 6 0826359140   male    3 1945-11-01     kevin     reed                 0
 ##   dob_trans_date_flag firstname_variant_flag lastname_typo_flag
-## 1                   0                      0                  0
-## 2                   0                      0                  0
-## 3                   0                      0                  0
-## 4                   0                      1                  1
+## 1                   1                      0                  0
+## 2                   0                      1                  0
+## 3                   0                      0                  1
+## 4                   0                      0                  0
 ## 5                   0                      0                  0
-## 6                   0                      0                  1</code></pre>
+## 6                   1                      1                  0</code></pre>
 <pre class="r"><code># syn_lf1 and syn_lf2 are the synthetic linkage files that were damaged by the inferred error occurrence in the syn_gsf
 syn_error_occurrence_1 &lt;- bn_flag_inference(syn_gsf, bn_learn$fit_model)
 syn_lf1 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_1)</code></pre>
@@ -1846,27 +1845,27 @@ syn_lf1 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_1)</code></pre>
 ## [1] &quot;encoding error to:  firstname_variant_flag&quot;
 ## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
 <pre class="r"><code>head(syn_lf1$linkage_file)</code></pre>
-<pre><code>##        nhsid    sex race        dob           firstname lastname
-## 1  974812603 female    5 1936-15-01              aadila    moore
-## 2 2048651976 female    5 1982-03-03            christos  johnso9
-## 3 0861274539 female    5 1936-06-03              andrew      vue
-## 4 2097861350 female    1 1966-05-12 luis_lack_of_record williams
-## 5 2359701843 female    4 1919-05-18             jessica   milker
-## 6 1956823743   male    2 1950-11-10             jessica martinez
+<pre><code>##        nhsid    sex race        dob              firstname lastname
+## 1 8192354679 female    5 1936-06-03                kaitlyn   wright
+## 2 3689124751   male    1 1995-05-15 jumaana_lack_of_record     wall
+## 3 1827306947 female    6 1979-27-10                  emily   flores
+## 4 0759186340 female    3 1942-03-30                jasmine     kang
+## 5  295734601 female    1 1982-03-03                  koula   romerp
+## 6 0826359140   male    3 1945-01-11                  kevin     reed
 ##   race_missing_flag dob_trans_date_flag firstname_variant_flag
-## 1                 0                   0                      0
-## 2                 0                   0                      0
+## 1                 0                   1                      0
+## 2                 0                   0                      1
 ## 3                 0                   0                      0
-## 4                 0                   0                      1
+## 4                 0                   0                      0
 ## 5                 0                   0                      0
-## 6                 1                   0                      0
+## 6                 0                   1                      1
 ##   lastname_typo_flag
 ## 1                  0
 ## 2                  0
-## 3                  0
-## 4                  1
+## 3                  1
+## 4                  0
 ## 5                  0
-## 6                  1</code></pre>
+## 6                  0</code></pre>
 <pre class="r"><code>syn_error_occurrence_2 &lt;- bn_flag_inference(syn_gsf, bn_learn$fit_model)
 syn_lf2 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_2)</code></pre>
 <pre><code>## [1] &quot;encoding error to:  race_missing_flag&quot;
@@ -1874,27 +1873,27 @@ syn_lf2 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_2)</code></pre>
 ## [1] &quot;encoding error to:  firstname_variant_flag&quot;
 ## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
 <pre class="r"><code>head(syn_lf2$linkage_file)</code></pre>
-<pre><code>##        nhsid    sex race        dob             firstname lastname
-## 1  974812603 female    5 1936-15-01 aadila_lack_of_record    noore
-## 2 2048651976 female    5 1982-03-03           christopher  johnson
-## 3 0861274539 female    5 1936-03-06                andrew      vue
-## 4 2097861350 female    1 1966-12-05                  luis williams
-## 5 2359701843 female    4 1919-18-05               jessica   miller
-## 6 1956823743   male    2 1950-11-10                  jess martinez
+<pre><code>##        nhsid    sex race        dob              firstname lastname
+## 1 8192354679 female    5 1936-06-03                kaitlyn   sright
+## 2 3689124751   male    1 1995-05-15 jumaana_lack_of_record     walk
+## 3 1827306947 female    6 1979-10-27                  emily   flores
+## 4 0759186340 female    3 1942-30-03                 jasmin     kang
+## 5  295734601 female    1 1982-03-03                  kayla   romero
+## 6 0826359140   male    3 1945-01-11                  kevin     reed
 ##   race_missing_flag dob_trans_date_flag firstname_variant_flag
-## 1                 0                   0                      0
-## 2                 0                   0                      0
+## 1                 0                   1                      0
+## 2                 0                   0                      1
 ## 3                 0                   0                      0
-## 4                 0                   0                      1
+## 4                 0                   0                      0
 ## 5                 0                   0                      0
-## 6                 1                   0                      0
+## 6                 0                   1                      1
 ##   lastname_typo_flag
 ## 1                  0
 ## 2                  0
-## 3                  0
-## 4                  1
+## 3                  1
+## 4                  0
 ## 5                  0
-## 6                  1</code></pre>
+## 6                  0</code></pre>
 </div>
 <div id="use-syn_lf1-and-syn_lf2-for-linkage-methods-evaluation" class="section level1" number="5">
 <h1 number="5"><span class="header-section-number">5</span> Use syn_lf1 and syn_lf2 for Linkage Methods Evaluation</h1>
@@ -1913,28 +1912,28 @@ linked_data_set &lt;- pair_blocking(syn_lf1$linkage_file, syn_lf2$linkage_file, 
 <pre class="r"><code>table(linked_data_set$nhsid.x == linked_data_set$nhsid.y)</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
-##     3    56</code></pre>
+##     1    53</code></pre>
 <pre class="r"><code>head(linked_data_set[linked_data_set$nhsid.x != linked_data_set$nhsid.y,],3)</code></pre>
-<pre><code>##       nhsid.x  sex.x race.x      dob.x firstname.x lastname.x
-## 13 0562381945 female   &lt;NA&gt; 1960-15-12   alexander      browf
-## 35 2378961405 female   &lt;NA&gt; 1960-12-15       jacob   gonzqles
-## 57 0834269570   male   &lt;NA&gt; 1919-05-18      austin   al-abbas
-##    race_missing_flag.x dob_trans_date_flag.x firstname_variant_flag.x
-## 13                   0                     1                        0
-## 35                   0                     1                        1
-## 57                   0                     0                        1
-##    lastname_typo_flag.x    nhsid.y  sex.y race.y      dob.y firstname.y
-## 13                    0 2378961405 female      1 1960-15-12       jacob
-## 35                    0 0562381945 female      1 1960-12-15   alexander
-## 57                    0 2439657085 female      1 1919-05-18       jacob
-##    lastname.y race_missing_flag.y dob_trans_date_flag.y
-## 13   gonzales                   0                     1
-## 35      brown                   0                     1
-## 57 al-abdalla                   0                     0
-##    firstname_variant_flag.y lastname_typo_flag.y
-## 13                        1                    0
-## 35                        0                    0
-## 57                        1                    0</code></pre>
+<pre><code>##         nhsid.x  sex.x race.x      dob.x firstname.x lastname.x
+## 22   9521047364 female      5 1936-01-15        alex  el-baccus
+## NA         &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;
+## NA.1       &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;
+##      race_missing_flag.x dob_trans_date_flag.x firstname_variant_flag.x
+## 22                     0                     0                        0
+## NA                  &lt;NA&gt;                  &lt;NA&gt;                     &lt;NA&gt;
+## NA.1                &lt;NA&gt;                  &lt;NA&gt;                     &lt;NA&gt;
+##      lastname_typo_flag.x    nhsid.y sex.y race.y      dob.y firstname.y
+## 22                      0 7241956087  male      5 1936-01-15      steven
+## NA                   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt;
+## NA.1                 &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt;
+##      lastname.y race_missing_flag.y dob_trans_date_flag.y
+## 22        watts                   0                     0
+## NA         &lt;NA&gt;                &lt;NA&gt;                  &lt;NA&gt;
+## NA.1       &lt;NA&gt;                &lt;NA&gt;                  &lt;NA&gt;
+##      firstname_variant_flag.y lastname_typo_flag.y
+## 22                          0                    0
+## NA                       &lt;NA&gt;                 &lt;NA&gt;
+## NA.1                     &lt;NA&gt;                 &lt;NA&gt;</code></pre>
 </div>
 
 

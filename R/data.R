@@ -1,6 +1,6 @@
 #' UK addresses.
 #'
-#' A dataset with 30,000 UK addresses extracted from code{\link{extract_address}}, which
+#' A dataset with 10,000 UK addresses extracted from code{\link{extract_address}}, which
 #' uses an API \code{\link[PostcodesioR:random_postcode]{random_postcode}} to sample a
 #' real UK address from \url{https://api.postcodes.io/random/postcodes}.
 #'
