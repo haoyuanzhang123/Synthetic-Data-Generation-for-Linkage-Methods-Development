@@ -163,7 +163,7 @@ acquire_error_flag <- function(df1, diffs.table, var_name, error_type){
       }
     }
     else {
-      print('only firstname/forename or lastname/surname has variant')
+      warning('only firstname/forename or lastname/surname has variant')
     }
     df1[,new_col_name] = as.factor(df1[,new_col_name])
 

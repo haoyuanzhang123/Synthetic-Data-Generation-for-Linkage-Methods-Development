@@ -11,8 +11,6 @@ Maintainer: Haoyuan Zhang <howardhyzhang@gmail.com>
 Description: A tool for synthetic data generation that can be used for linkage method 
     development, with elements of i) gold standard file with complete and accurate 
     information and ii) linkage files that are corrupted as we often see in raw dataset.
-    This package is developed based on our paper "Synthetic Data Generation for Linkage 
-    Methods Development".
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

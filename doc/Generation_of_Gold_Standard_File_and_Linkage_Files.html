@@ -1752,16 +1752,16 @@ head(syn_error_occurrence2)</code></pre>
 <h2 number="2.2"><span class="header-section-number">2.2</span> Damage Gold Standard File According to The Error Occurrence</h2>
 <p>Here we damage the gold standard file based on the inferred occurrence of the errors.</p>
 <pre class="r"><code>syn_lf1 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence1)</code></pre>
-<pre><code>## [1] &quot;encoding error to:  age_missing_flag&quot;
-## [1] &quot;encoding error to:  race_missing_flag&quot;
-## [1] &quot;encoding error to:  sex_missing_flag&quot;
-## [1] &quot;encoding error to:  postcode_trans_char_flag&quot;
-## [1] &quot;encoding error to:  firstname_variant_flag&quot;
-## [1] &quot;encoding error to:  lastname_variant_flag&quot;
-## [1] &quot;encoding error to:  firstname_typo_flag&quot;
-## [1] &quot;encoding error to:  firstname_pho_flag&quot;
-## [1] &quot;encoding error to:  firstname_ocr_flag&quot;
-## [1] &quot;encoding error to:  firstname_trans_char_flag&quot;</code></pre>
+<pre><code>## encoding error to:  age_missing_flag</code></pre>
+<pre><code>## encoding error to:  race_missing_flag</code></pre>
+<pre><code>## encoding error to:  sex_missing_flag</code></pre>
+<pre><code>## encoding error to:  postcode_trans_char_flag</code></pre>
+<pre><code>## encoding error to:  firstname_variant_flag</code></pre>
+<pre><code>## encoding error to:  lastname_variant_flag</code></pre>
+<pre><code>## encoding error to:  firstname_typo_flag</code></pre>
+<pre><code>## encoding error to:  firstname_pho_flag</code></pre>
+<pre><code>## encoding error to:  firstname_ocr_flag</code></pre>
+<pre><code>## encoding error to:  firstname_trans_char_flag</code></pre>
 <pre class="r"><code>head(syn_lf1$linkage_file)</code></pre>
 <pre><code>##        age               race    sex      nhsid postcode firstname
 ## 1 45.44689 Amer-Indian-Eskimo   Male 6531420790  M22 5BF      t0yn
@@ -1807,16 +1807,16 @@ head(syn_error_occurrence2)</code></pre>
 ## 5                  0                  0                         0
 ## 6                  0            h&gt;b&gt;all                         0</code></pre>
 <pre class="r"><code>syn_lf2 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence2)</code></pre>
-<pre><code>## [1] &quot;encoding error to:  age_missing_flag&quot;
-## [1] &quot;encoding error to:  race_missing_flag&quot;
-## [1] &quot;encoding error to:  sex_missing_flag&quot;
-## [1] &quot;encoding error to:  postcode_trans_char_flag&quot;
-## [1] &quot;encoding error to:  firstname_variant_flag&quot;
-## [1] &quot;encoding error to:  lastname_variant_flag&quot;
-## [1] &quot;encoding error to:  firstname_typo_flag&quot;
-## [1] &quot;encoding error to:  firstname_pho_flag&quot;
-## [1] &quot;encoding error to:  firstname_ocr_flag&quot;
-## [1] &quot;encoding error to:  firstname_trans_char_flag&quot;</code></pre>
+<pre><code>## encoding error to:  age_missing_flag</code></pre>
+<pre><code>## encoding error to:  race_missing_flag</code></pre>
+<pre><code>## encoding error to:  sex_missing_flag</code></pre>
+<pre><code>## encoding error to:  postcode_trans_char_flag</code></pre>
+<pre><code>## encoding error to:  firstname_variant_flag</code></pre>
+<pre><code>## encoding error to:  lastname_variant_flag</code></pre>
+<pre><code>## encoding error to:  firstname_typo_flag</code></pre>
+<pre><code>## encoding error to:  firstname_pho_flag</code></pre>
+<pre><code>## encoding error to:  firstname_ocr_flag</code></pre>
+<pre><code>## encoding error to:  firstname_trans_char_flag</code></pre>
 <pre class="r"><code>head(syn_lf2$linkage_file)</code></pre>
 <pre><code>##        age  race    sex      nhsid postcode            firstname
 ## 1 45.44689  &lt;NA&gt;   &lt;NA&gt; 6531420790  M225 BF                 tony

@@ -35,7 +35,7 @@ replace_firstname <- function(dataset, country = 'uk',
           sex_var_name <- colnames(dataset)[tolower(colnames(dataset)) == "gender"]
         } else
         {
-          print("either sex or gender will be accepted")
+          stop("either sex or gender will be accepted")
         }
 
         if (any(tolower(colnames(dataset)) == "dob"))
@@ -55,7 +55,7 @@ replace_firstname <- function(dataset, country = 'uk',
           }
         } else
         {
-          print("please ensure there is a variable called dob")
+          stop("please ensure there is a variable called dob")
         }
 
         birthyear_cat = unique(dataset['birthyear'])
@@ -107,7 +107,7 @@ replace_firstname <- function(dataset, country = 'uk',
           }
         } else
         {
-          print("please ensure there is a variable called dob")
+          stop("please ensure there is a variable called dob")
         }
 
         birthyear_cat = unique(dataset['birthyear'])
@@ -139,7 +139,7 @@ replace_firstname <- function(dataset, country = 'uk',
         sex_var_name <- colnames(dataset)[tolower(colnames(dataset)) == "gender"]
       } else
       {
-        print("either sex or gender will be accepted")
+        stop("either sex or gender will be accepted")
       }
 
       sex_cat = unique(dataset[sex_var_name])
@@ -186,7 +186,7 @@ replace_firstname <- function(dataset, country = 'uk',
           sex_var_name <- colnames(dataset)[tolower(colnames(dataset)) == "gender"]
         } else
         {
-          print("either sex or gender will be accepted")
+          stop("either sex or gender will be accepted")
         }
 
         if (any(tolower(colnames(dataset)) == "race"))
@@ -199,7 +199,7 @@ replace_firstname <- function(dataset, country = 'uk',
                                           "ethnicty"]
         } else
         {
-          print("either race or ethnicty will be accepted")
+          stop("either race or ethnicty will be accepted")
         }
 
         dataset$race_value = 'White (not Hispanic)'
@@ -268,7 +268,7 @@ replace_firstname <- function(dataset, country = 'uk',
                                           "ethnicty"]
         } else
         {
-          print("either race or ethnicty will be accepted")
+          stop("either race or ethnicty will be accepted")
         }
         dataset$race_value = 'White (not Hispanic)'
 
@@ -324,7 +324,7 @@ replace_firstname <- function(dataset, country = 'uk',
         sex_var_name <- colnames(dataset)[tolower(colnames(dataset)) == "gender"]
       } else
       {
-        print("either sex or gender will be accepted")
+        stop("either sex or gender will be accepted")
       }
 
       sex_cat = unique(dataset[sex_var_name])
@@ -423,7 +423,7 @@ replace_lastname <- function(dataset, country = 'uk',
                                           "ethnicty"]
         } else
         {
-          print("either race or ethnicty will be accepted")
+          stop("either race or ethnicty will be accepted")
         }
 
         dataset$race_value = 'White (not Hispanic)'

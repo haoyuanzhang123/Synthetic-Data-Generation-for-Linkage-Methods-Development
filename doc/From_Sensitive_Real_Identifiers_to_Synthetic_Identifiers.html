@@ -1606,10 +1606,10 @@ error_occurrence_flags &lt;- add_random_error(error_occurrence_flags, prob = c(0
 error_occurrence_flags &lt;- add_random_error(error_occurrence_flags, prob = c(0.75, 0.25), &quot;lastname_typo&quot;)
 error_occurrence_flags$tmp &lt;-NULL
 real_lf &lt;- damage_gold_standard(real_gsf, error_occurrence_flags)$linkage_file</code></pre>
-<pre><code>## [1] &quot;encoding error to:  race_missing_flag&quot;
-## [1] &quot;encoding error to:  dob_trans_date_flag&quot;
-## [1] &quot;encoding error to:  firstname_variant_flag&quot;
-## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
+<pre><code>## encoding error to:  race_missing_flag</code></pre>
+<pre><code>## encoding error to:  dob_trans_date_flag</code></pre>
+<pre><code>## encoding error to:  firstname_variant_flag</code></pre>
+<pre><code>## encoding error to:  lastname_typo_flag</code></pre>
 <pre class="r"><code>head(real_lf)</code></pre>
 <pre><code>##        nhsid    sex race        dob            firstname lastname
 ## 1 0521968372   male    1 1936-11-05            alexander    kieky
@@ -1840,10 +1840,10 @@ head(syn_gsf)</code></pre>
 <pre class="r"><code># syn_lf1 and syn_lf2 are the synthetic linkage files that were damaged by the inferred error occurrence in the syn_gsf
 syn_error_occurrence_1 &lt;- bn_flag_inference(syn_gsf, bn_learn$fit_model)
 syn_lf1 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_1)</code></pre>
-<pre><code>## [1] &quot;encoding error to:  race_missing_flag&quot;
-## [1] &quot;encoding error to:  dob_trans_date_flag&quot;
-## [1] &quot;encoding error to:  firstname_variant_flag&quot;
-## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
+<pre><code>## encoding error to:  race_missing_flag</code></pre>
+<pre><code>## encoding error to:  dob_trans_date_flag</code></pre>
+<pre><code>## encoding error to:  firstname_variant_flag</code></pre>
+<pre><code>## encoding error to:  lastname_typo_flag</code></pre>
 <pre class="r"><code>head(syn_lf1$linkage_file)</code></pre>
 <pre><code>##        nhsid    sex race        dob              firstname lastname
 ## 1 8192354679 female    5 1936-06-03                kaitlyn   wright
@@ -1868,10 +1868,10 @@ syn_lf1 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_1)</code></pre>
 ## 6                  0</code></pre>
 <pre class="r"><code>syn_error_occurrence_2 &lt;- bn_flag_inference(syn_gsf, bn_learn$fit_model)
 syn_lf2 &lt;- damage_gold_standard(syn_gsf, syn_error_occurrence_2)</code></pre>
-<pre><code>## [1] &quot;encoding error to:  race_missing_flag&quot;
-## [1] &quot;encoding error to:  dob_trans_date_flag&quot;
-## [1] &quot;encoding error to:  firstname_variant_flag&quot;
-## [1] &quot;encoding error to:  lastname_typo_flag&quot;</code></pre>
+<pre><code>## encoding error to:  race_missing_flag</code></pre>
+<pre><code>## encoding error to:  dob_trans_date_flag</code></pre>
+<pre><code>## encoding error to:  firstname_variant_flag</code></pre>
+<pre><code>## encoding error to:  lastname_typo_flag</code></pre>
 <pre class="r"><code>head(syn_lf2$linkage_file)</code></pre>
 <pre><code>##        nhsid    sex race        dob              firstname lastname
 ## 1 8192354679 female    5 1936-06-03                kaitlyn   sright

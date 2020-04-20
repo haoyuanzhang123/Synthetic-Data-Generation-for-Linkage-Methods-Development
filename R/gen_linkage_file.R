@@ -42,7 +42,7 @@ damage_gold_standard <- function(gold_standard, syn_error_occurrence)
   for (i in 1:ncol(syn_error_occurrence))
   {
     tmp <- strsplit(colnames(syn_error_occurrence)[i], split = "_")[[1]]
-    print(paste("encoding error to: ", colnames(syn_error_occurrence)[i]))
+    message(paste("encoding error to: ", colnames(syn_error_occurrence)[i]))
     error_log[, i] <- as.character(error_log[, i])
 
     if (tmp[2] == "missing")
