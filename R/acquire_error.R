@@ -81,7 +81,7 @@ compare_two_df<- function(df1, df2, vars, uniqueId){
 #'     }
 #' @return It returns a data frame of \code{df1} with an additional error flag column called \code{var_name}.
 #' @examples
-#' df <- data.frame(firstname_variant=character(100), lastname_variant=character(100))
+#' df <- data.frame(firstname_variant=character(20), lastname_variant=character(20))
 #' df <- add_variable(df, "nhsid")
 #' df <- add_variable(df, "firstname", country = "uk", gender_dependency= FALSE,
 #'                    age_dependency = FALSE)
@@ -100,10 +100,8 @@ compare_two_df<- function(df1, df2, vars, uniqueId){
 #' diffs.table = compare_two_df(df1, df2, vars, 'nhsid')
 #' df1_with_flags = acquire_error_flag(df1, diffs.table, 'firstname', 'missing')
 #' df1_with_flags = acquire_error_flag(df1_with_flags, diffs.table, 'firstname', 'variant')
-#' df1_with_flags = acquire_error_flag(df1_with_flags, diffs.table, 'lastname', 'variant')
 #' df1_with_flags = acquire_error_flag(df1_with_flags, diffs.table, 'firstname', 'pho')
 #' df1_with_flags = acquire_error_flag(df1_with_flags, diffs.table, 'firstname', 'ocr')
-#' df1_with_flags = acquire_error_flag(df1_with_flags, diffs.table, 'firstname', 'typo')
 #'
 #' @export
 acquire_error_flag <- function(df1, diffs.table, var_name, error_type){
