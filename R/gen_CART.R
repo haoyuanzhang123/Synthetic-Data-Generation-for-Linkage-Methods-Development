@@ -32,13 +32,13 @@ gen_cart <- function(training_set, structure = NA)
 {
   if (!is.character(structure))
   {
-    print("generating data using sequence of variables")
+    message("generating data using sequence of variables")
     gen_synth_synthpop <- synthpop::syn(data = training_set, m = 1,
                                         k = nrow(training_set), drop.not.used = FALSE)
     m <- gen_synth_synthpop$predictor.matrix
   } else
   {
-    print("generating data using defined relationships")
+    message("generating data using defined relationships")
     m <- matrix(0, nrow = length(training_set), ncol = length(training_set))
     rownames(m) <- colnames(training_set)
     colnames(m) <- colnames(training_set)
